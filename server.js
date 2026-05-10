@@ -251,6 +251,29 @@ app.post('/api/save', async (req, res) => {
   res.json({ ok: !!file, file });
 });
 
+/* =============================================================
+   /api/verify-cite — verify citations against Crossref
+   POST { refs: "Author 2020; Author Year; ..." }
+   returns { results: [{ raw, status, paper?, note?, score? }, ...] }
+   ============================================================= */
+app.post('/api/verify-cite', async (req, res) => {
+  const refs = (req.body?.refs || '').toString().slice(0, 1500);
+  if (!refs) return res.status(400).json({ error: 'refs required' });
+  try {
+    const { parseRefs, verifyCitation } = await import('./scripts/verify-cite.mjs');
+    const cites = parseRefs(refs);
+    const results = [];
+    for (const c of cites) {
+      const r = await verifyCitation(c);
+      results.push({ raw: c.raw, parsed: c.author && c.year ? `${c.author} (${c.year})` : null, ...r });
+    }
+    res.json({ results });
+  } catch (err) {
+    console.error('[verify-cite]', err?.message || err);
+    res.status(500).json({ error: 'verification failed', detail: err?.message });
+  }
+});
+
 app.get('/api/health', async (_req, res) => {
   let ollamaUp = false;
   try { ollamaUp = (await fetch(`${OLLAMA_URL}/api/tags`)).ok; } catch {}

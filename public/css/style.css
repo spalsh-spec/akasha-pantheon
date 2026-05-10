@@ -532,6 +532,82 @@ main, header { position: relative; z-index: 2; }
   color: #2a4a6c;
 }
 
+/* CITATION VERIFICATION BADGES (academic mode) */
+.cite-verify-status {
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-mute);
+  font-style: italic;
+}
+.cite-verify-list {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cite-verify-item {
+  font-family: var(--display);
+  font-size: 12.5px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border-left: 3px solid var(--mid);
+  background: rgba(255,255,255,0.5);
+  display: grid;
+  grid-template-columns: 16px auto 1fr;
+  gap: 6px 10px;
+  align-items: baseline;
+}
+.cite-verify-item.verified   { border-left-color: #5a7748; background: #eef2e8; }
+.cite-verify-item.partial    { border-left-color: #b08a1f; background: #faf3e0; }
+.cite-verify-item.unverified { border-left-color: #c4564a; background: #fdeeed; }
+.cite-verify-item.unparseable, .cite-verify-item.api-error {
+  border-left-color: var(--text-mute);
+  background: var(--bg-soft);
+}
+.cite-verify-item .cite-icon {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1;
+}
+.cite-verify-item.verified .cite-icon   { color: #5a7748; }
+.cite-verify-item.partial .cite-icon    { color: #b08a1f; }
+.cite-verify-item.unverified .cite-icon { color: #c4564a; }
+.cite-verify-item .cite-raw {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--dark);
+}
+.cite-verify-item .cite-status {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  font-weight: 600;
+  justify-self: end;
+}
+.cite-verify-item .cite-paper {
+  grid-column: 1 / -1;
+  font-family: var(--serif);
+  font-size: 13px;
+  color: var(--text);
+  margin-top: 2px;
+  line-height: 1.5;
+}
+.cite-verify-item .cite-paper a {
+  color: var(--orange);
+  text-decoration: none;
+}
+.cite-verify-item .cite-paper a:hover { text-decoration: underline; }
+.cite-verify-item .cite-note {
+  grid-column: 1 / -1;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
 /* PILLS — Claude-style suggestion chips */
 .pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
 .pill {

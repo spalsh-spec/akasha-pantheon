@@ -113,6 +113,60 @@ window.AKASHA_ORACLE = (function () {
       row.innerHTML = `<span class="label">Raw (model didn't honor format)</span>${escapeHtml(parsed.raw || '(empty)')}`;
       container.appendChild(row);
     }
+
+    // Citation verification — academic voice only
+    if (voice === 'academic' && parsed.refs) {
+      verifyAndAnnotate(parsed.refs, container).catch(() => {});
+    }
+  }
+
+  async function verifyAndAnnotate(refsString, container) {
+    // find the rendered refs row, replace its content with annotated version
+    const refsRow = container.querySelector('.row.refs');
+    if (!refsRow) return;
+    // append a small status line
+    const statusLine = document.createElement('div');
+    statusLine.className = 'cite-verify-status';
+    statusLine.textContent = 'verifying citations against Crossref…';
+    refsRow.appendChild(statusLine);
+
+    let res;
+    try {
+      const r = await fetch('/api/verify-cite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refs: refsString }),
+      });
+      res = await r.json();
+    } catch (e) {
+      statusLine.textContent = 'verification offline';
+      return;
+    }
+    statusLine.remove();
+
+    if (!res.results?.length) return;
+
+    const list = document.createElement('div');
+    list.className = 'cite-verify-list';
+    for (const c of res.results) {
+      const item = document.createElement('div');
+      item.className = 'cite-verify-item ' + c.status;
+      const icon = c.status === 'verified' ? '✓' : c.status === 'partial' ? '⚠' : c.status === 'unverified' ? '✗' : '?';
+      item.innerHTML = `
+        <span class="cite-icon">${icon}</span>
+        <span class="cite-raw">${escapeHtml(c.raw)}</span>
+        <span class="cite-status">${escapeHtml(c.status)}</span>
+        ${c.paper ? `<div class="cite-paper">
+          <em>${escapeHtml(c.paper.title || '')}</em>
+          ${c.paper.authors ? ' · ' + escapeHtml(c.paper.authors) : ''}
+          ${c.paper.year ? ' · ' + c.paper.year : ''}
+          ${c.paper.doi ? ' · <a href="https://doi.org/' + encodeURIComponent(c.paper.doi) + '" target="_blank" rel="noopener">doi:' + escapeHtml(c.paper.doi) + '</a>' : ''}
+        </div>` : ''}
+        ${c.note ? `<div class="cite-note">${escapeHtml(c.note)}</div>` : ''}
+      `;
+      list.appendChild(item);
+    }
+    refsRow.appendChild(list);
   }
 
   function escapeHtml(s) {
