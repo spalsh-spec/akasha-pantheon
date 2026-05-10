@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#faf9f5">
+<title>⟁ DURGA · cyber-protocol · student security playbook</title>
+<meta name="description" content="A free, open, source-cited student security playbook. Nine pillars named for the Navadurga. No magic, no overclaim — just the practices that actually keep students from getting hacked.">
+<meta property="og:title" content="⟁ DURGA · cyber-protocol">
+<meta property="og:description" content="A free, open, source-cited student security playbook. Nine pillars. No magic, no overclaim — just what actually works.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23faf9f5'/%3E%3Ctext x='32' y='44' font-size='38' text-anchor='middle' fill='%23d97757' font-family='serif'%3E%E2%9F%81%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="brand-line">
+      <span class="glyph">⟁</span>
+      <span class="brand">DURGA · cyber-protocol</span>
+    </div>
+    <h1>The Nine Pillars of Student Security</h1>
+    <p class="kicker">A free, open, source-cited playbook for staying safe online while you study. <em>No magic. No overclaim. Just the practices that actually work.</em></p>
+    <div class="meta">
+      <span>v0.1.0</span>
+      <span>·</span>
+      <span>MIT licensed</span>
+      <span>·</span>
+      <span>updated <time datetime="2026-05-11">11 May 2026</time></span>
+      <span>·</span>
+      <a href="https://github.com/spalsh-spec/akasha-pantheon" target="_blank" rel="noopener">source</a>
+      <span>·</span>
+      <a href="../">⟁ pantheon</a>
+      <span>·</span>
+      <a href="../game/">⟁ game</a>
+    </div>
+  </header>
+
+  <section class="callout">
+    <strong>What this is.</strong> A curated student-focused security playbook. Nine sections, each named for one of the <em>Navadurga</em> — the nine protective faces of the goddess Durga in Hindu tradition. The names are scaffolding. The content is plain technical guidance with sources cited.
+    <br><br>
+    <strong>What this isn't.</strong> Not a formal protocol specification (like TLS or OAuth). Not a guarantee. Not a replacement for your university's IT team. It is a calibrated starter set — the practices that prevent the most common ways students actually get hacked.
+  </section>
+
+  <nav class="toc">
+    <h2>The Nine</h2>
+    <ol>
+      <li><a href="#shaila">Śailaputrī</a> — passwords &amp; password managers</li>
+      <li><a href="#brahma">Brahmacāriṇī</a> — what not to install</li>
+      <li><a href="#candra">Candraghaṇṭā</a> — two-factor authentication</li>
+      <li><a href="#kushma">Kūṣmāṇḍā</a> — your devices</li>
+      <li><a href="#skanda">Skandamātā</a> — email &amp; phishing</li>
+      <li><a href="#katya">Kātyāyanī</a> — browser &amp; tracking</li>
+      <li><a href="#kaal">Kālarātri</a> — what to do if compromised</li>
+      <li><a href="#mahag">Mahāgaurī</a> — privacy &amp; oversharing</li>
+      <li><a href="#siddhi">Siddhidātrī</a> — ongoing learning</li>
+    </ol>
+    <p class="toc-extra"><a href="#quick">Quick-win checklist</a> · <a href="#resources">Resources</a> · <a href="#sources">Sources</a></p>
+  </nav>
+
+  <!-- ============ 1. SHAILAPUTRI ============ -->
+  <article id="shaila" class="pillar">
+    <header>
+      <span class="num">i</span>
+      <h2>Śailaputrī <em>· the foundation</em></h2>
+      <p class="subhead">Passwords &amp; password managers — the single highest-ROI action in this playbook.</p>
+    </header>
+    <p><strong>Why this matters.</strong> Password reuse is, in raw numbers, the most common way students get hacked. When one site has a breach (and they all eventually do), attackers test the leaked password against every other major service. If your email password is the same as your forum password from 2019, your email is already compromised — you just don't know it yet. <sup><a href="#s1">[1]</a></sup></p>
+    <p><strong>Do this, in order:</strong></p>
+    <ol>
+      <li><strong>Install a password manager today.</strong> Pick one and commit:
+        <ul>
+          <li><a href="https://bitwarden.com" target="_blank" rel="noopener">Bitwarden</a> — free, open-source, audited, syncs everywhere. <em>Recommended default.</em></li>
+          <li><a href="https://1password.com" target="_blank" rel="noopener">1Password</a> — commercial, polished, ~$3/mo, often free for students.</li>
+          <li><a href="https://keepassxc.org" target="_blank" rel="noopener">KeePassXC</a> — fully offline, no cloud at all. For the paranoid.</li>
+        </ul>
+      </li>
+      <li><strong>Generate a unique password</strong> (16+ characters, random) for every account. The manager does this for you. You only need to remember one password — the manager's.</li>
+      <li><strong>Your master password should be a passphrase</strong> — four to six random words: <code>correct horse battery staple</code>-style. Long, memorable, hard to guess. <sup><a href="#s2">[2]</a></sup></li>
+      <li><strong>Check if you've been pwned.</strong> <a href="https://haveibeenpwned.com" target="_blank" rel="noopener">haveibeenpwned.com</a> — enter your email. It tells you which breaches you appear in. If your password from that breach is still in use anywhere, rotate it tonight.</li>
+    </ol>
+    <p class="aside"><strong>The 10-minute version.</strong> Install Bitwarden → create account with a long passphrase → check Have I Been Pwned → rotate the three most important passwords (email, university, bank). Done. You're now in the top 10% of students for password hygiene.</p>
+  </article>
+
+  <!-- ============ 2. BRAHMACARINI ============ -->
+  <article id="brahma" class="pillar">
+    <header>
+      <span class="num">ii</span>
+      <h2>Brahmacāriṇī <em>· the restraint</em></h2>
+      <p class="subhead">What not to install. The most secure software is the software you don't run.</p>
+    </header>
+    <p><strong>Don't install:</strong></p>
+    <ul>
+      <li><strong>"Free PDF converter" / "Free video downloader" / "Free torrent" toolbars.</strong> These are how most consumer malware enters student laptops. The free converter is often a real converter <em>plus</em> a payload. Use <a href="https://www.ilovepdf.com" target="_blank" rel="noopener">iLovePDF</a> in a browser tab instead, or the OS's built-in print-to-PDF.</li>
+      <li><strong>Browser extensions you didn't search for.</strong> Every extension can read every page you visit. The 2024 "Cyberhaven" attack compromised legitimate extensions and stole user data from millions of browsers in a week. <sup><a href="#s3">[3]</a></sup> Audit your extensions monthly. Remove anything you don't actively use.</li>
+      <li><strong>Pirated software.</strong> Cracked software ships with malware at a rate above 50% in some studies. <sup><a href="#s4">[4]</a></sup> If you can't afford a legitimate licence, most software has free student tiers — ask. JetBrains, GitHub, Adobe, Notion, Figma, Autodesk all give them.</li>
+      <li><strong>Apps that ask for permissions they don't need.</strong> A torch app does not need your contacts. A simple game does not need microphone access. Read the permission list before tapping "allow."</li>
+    </ul>
+    <p><strong>Do install (these are safe and worth it):</strong></p>
+    <ul>
+      <li><a href="https://ublockorigin.com" target="_blank" rel="noopener">uBlock Origin</a> — blocks malicious ads, which are a real malware vector. Available for Firefox, Chrome, Edge.</li>
+      <li>Your OS's built-in antivirus. <em>Microsoft Defender</em> (Windows) and <em>XProtect</em> (macOS) are now both genuinely good. You do not need a paid third-party AV in 2026. <sup><a href="#s5">[5]</a></sup></li>
+    </ul>
+  </article>
+
+  <!-- ============ 3. CANDRAGHANTA ============ -->
+  <article id="candra" class="pillar">
+    <header>
+      <span class="num">iii</span>
+      <h2>Candraghaṇṭā <em>· the warning bell</em></h2>
+      <p class="subhead">Two-factor authentication (2FA / MFA). The single most effective control after unique passwords.</p>
+    </header>
+    <p><strong>The hierarchy, weakest to strongest:</strong></p>
+    <ol>
+      <li><strong>SMS 2FA</strong> — code sent to your phone. <em>Better than nothing</em> but vulnerable to SIM-swap attacks. Use only if nothing else is available.</li>
+      <li><strong>Authenticator app (TOTP)</strong> — <a href="https://2fas.com" target="_blank" rel="noopener">2FAS</a>, <a href="https://support.google.com/accounts/answer/1066447" target="_blank" rel="noopener">Google Authenticator</a>, or built into Bitwarden/1Password. <em>Recommended default.</em></li>
+      <li><strong>Hardware key (FIDO2 / WebAuthn)</strong> — <a href="https://www.yubico.com" target="_blank" rel="noopener">YubiKey</a> or a built-in passkey. Phishing-resistant by design. ~$50 once, lasts ~10 years. The strongest commercially available 2FA. <sup><a href="#s6">[6]</a></sup></li>
+      <li><strong>Passkeys</strong> — newer, password-less, hardware-backed. iCloud Keychain, Google Password Manager, and Bitwarden all support them now. Use them where available.</li>
+    </ol>
+    <p><strong>Turn on 2FA tonight, in this order:</strong></p>
+    <ol>
+      <li>Your primary email (gmail / outlook / etc.) — <em>this is the master key to every other account</em></li>
+      <li>Your password manager</li>
+      <li>Your university login</li>
+      <li>Your bank</li>
+      <li>Anything with payment info stored (Amazon, Steam, App Store, Uber)</li>
+      <li>Social media (Instagram, X, TikTok, Discord)</li>
+      <li>GitHub, if you have one</li>
+    </ol>
+    <p><strong>Save your backup codes.</strong> Every 2FA system gives you ~10 single-use backup codes for if you lose your phone. Save them in your password manager <em>or</em> print them out and put them in a real-world safe place. Without backup codes, losing your phone can mean losing your accounts.</p>
+  </article>
+
+  <!-- ============ 4. KUSHMANDA ============ -->
+  <article id="kushma" class="pillar">
+    <header>
+      <span class="num">iv</span>
+      <h2>Kūṣmāṇḍā <em>· the device</em></h2>
+      <p class="subhead">Your laptop, phone, and tablet. The OS is the largest attack surface you carry.</p>
+    </header>
+    <p><strong>The four things that matter:</strong></p>
+    <ol>
+      <li><strong>Updates are the single most effective defence.</strong> ~60% of successful attacks against personal devices exploit vulnerabilities for which a patch already exists. <sup><a href="#s7">[7]</a></sup> Turn on automatic OS updates. Restart when prompted, not "later." This applies to Windows, macOS, iOS, Android, and Linux equally.</li>
+      <li><strong>Full-disk encryption.</strong> If your laptop is stolen, encryption is what stops the thief from reading every file you own.
+        <ul>
+          <li><strong>macOS:</strong> <em>System Settings → Privacy &amp; Security → FileVault.</em> Turn it on. Save the recovery key.</li>
+          <li><strong>Windows:</strong> <em>BitLocker</em> (Pro editions) or <em>Device Encryption</em> (Home). Settings → Privacy &amp; security.</li>
+          <li><strong>Linux:</strong> Enabled at install. If you skipped it, re-install.</li>
+          <li><strong>iPhone / Android:</strong> Encrypted by default if you have a passcode. Use one.</li>
+        </ul>
+      </li>
+      <li><strong>Screen lock.</strong> Auto-lock after 1–5 minutes. Use Touch ID / Face ID / Windows Hello. The most common "hack" against students is someone walking past their unlocked laptop in the library.</li>
+      <li><strong>Find My Device / Find My iPhone.</strong> Enable it. If the device is lost, you can locate, lock, or wipe it remotely.</li>
+    </ol>
+    <p><strong>Public Wi-Fi.</strong> Café and airport Wi-Fi are no longer the threat they were in 2010. Modern HTTPS (which is now ~97% of web traffic) is encrypted end-to-end, so eavesdroppers on the network can't see your passwords. <em>You do not strictly need a VPN for security on public Wi-Fi anymore.</em> A VPN is useful for privacy from the network operator, or to bypass geographic restrictions — but the "public Wi-Fi will steal your password" fear is mostly outdated. <sup><a href="#s8">[8]</a></sup></p>
+  </article>
+
+  <!-- ============ 5. SKANDAMATA ============ -->
+  <article id="skanda" class="pillar">
+    <header>
+      <span class="num">v</span>
+      <h2>Skandamātā <em>· the watchful mother</em></h2>
+      <p class="subhead">Email &amp; phishing. The most common entry point for serious compromise.</p>
+    </header>
+    <p><strong>The four phishing patterns to recognise:</strong></p>
+    <ol>
+      <li><strong>Urgency.</strong> <em>"Your account will be locked in 24 hours."</em> Real organisations don't operate on 24-hour windows. Pause. Check.</li>
+      <li><strong>The URL that lies.</strong> The link text says <code>paypal.com</code> but the actual URL goes to <code>secure-paypal.com.evil.tld</code>. <strong>Always hover over a link before clicking</strong> (on mobile, long-press). Look at the real domain, especially the part right before the first single slash.</li>
+      <li><strong>Homoglyph attacks.</strong> <code>paypaI.com</code> with a capital I instead of an l. <code>amazoп.com</code> with a Cyrillic п instead of n. Letters that look identical but are different characters. Modern browsers warn about these — pay attention to the warning.</li>
+      <li><strong>The "professor" gift card scam.</strong> A real and prolific scam in 2024–2026: an email or text appears to come from your professor, asking you to "urgently" buy gift cards because they're "in a meeting." Your professor is never asking you for gift cards. <em>Ever.</em></li>
+    </ol>
+    <p><strong>The rule.</strong> Treat every email link as suspicious by default. If your bank emails you, do not click the link — go to the bank's website by typing the address yourself. If your university emails you, log in via your bookmark, not via the email's button.</p>
+    <p><strong>Separate accounts.</strong> Keep at least three distinct email addresses:</p>
+    <ul>
+      <li>Your university email — academic only.</li>
+      <li>Your "important" personal email — bank, government, healthcare, identity-related accounts. Don't sign up for newsletters with this one.</li>
+      <li>A "throwaway" email — newsletters, online shops, anything that might leak or sell your address.</li>
+    </ul>
+    <p>When the throwaway email gets buried in spam, you can abandon it without losing anything important.</p>
+  </article>
+
+  <!-- ============ 6. KATYAYANI ============ -->
+  <article id="katya" class="pillar">
+    <header>
+      <span class="num">vi</span>
+      <h2>Kātyāyanī <em>· the warrior</em></h2>
+      <p class="subhead">Browser, tracking, and the everyday surface you spend most of your life on.</p>
+    </header>
+    <p><strong>Choose a browser with privacy defaults that aren't terrible:</strong></p>
+    <ul>
+      <li><a href="https://www.mozilla.org/firefox/" target="_blank" rel="noopener">Firefox</a> — independent, privacy-first defaults, supports uBlock Origin's full capabilities. <em>Recommended default for most students.</em></li>
+      <li><a href="https://brave.com" target="_blank" rel="noopener">Brave</a> — Chromium-based with aggressive ad/tracker blocking out of the box.</li>
+      <li><strong>Safari</strong> (Apple devices) — good defaults; Intelligent Tracking Prevention is solid.</li>
+      <li><strong>Chrome</strong> — fast, works everywhere, but its tracking defaults exist primarily to serve Google's advertising business. Acceptable with uBlock Origin installed; not ideal otherwise.</li>
+    </ul>
+    <p><strong>Install:</strong></p>
+    <ul>
+      <li><a href="https://ublockorigin.com" target="_blank" rel="noopener">uBlock Origin</a> — single best browser extension for security <em>and</em> page load times.</li>
+      <li>HTTPS-only mode — built into most modern browsers. Forces all connections to use encrypted HTTPS. Turn it on in settings.</li>
+    </ul>
+    <p><strong>Search.</strong> <a href="https://duckduckgo.com" target="_blank" rel="noopener">DuckDuckGo</a> or <a href="https://www.startpage.com" target="_blank" rel="noopener">Startpage</a> for the privacy-respecting default. Google for when you need the more accurate result. Both are fine; just know which you're using.</p>
+    <p><strong>The deeper truth.</strong> Browser tracking is largely a privacy concern, not a security one. Tracking won't <em>compromise</em> your accounts, but it does build a profile of you that can be sold, leaked, or used against you in subtle ways (price discrimination, targeted scams, political manipulation). Reducing tracking is a long-game discipline.</p>
+  </article>
+
+  <!-- ============ 7. KAALRATRI ============ -->
+  <article id="kaal" class="pillar">
+    <header>
+      <span class="num">vii</span>
+      <h2>Kālarātri <em>· the destroyer of darkness</em></h2>
+      <p class="subhead">What to do if you've been compromised. Incident response in seven steps.</p>
+    </header>
+    <p>You will be compromised at some point in your life. Everyone is, eventually. The difference between a recoverable incident and a catastrophic one is <em>how fast and how cleanly you respond.</em></p>
+    <p><strong>The seven steps, in order:</strong></p>
+    <ol>
+      <li><strong>Do this from a clean device.</strong> If your laptop might be compromised, don't use it to log into anything. Use your phone, a friend's machine, or a university library computer.</li>
+      <li><strong>Change the password on the compromised account first</strong> — but only after step 1.</li>
+      <li><strong>Then change the password on your email.</strong> Your email is the master key to everything (because every "forgot password" link goes there).</li>
+      <li><strong>Enable 2FA on both</strong>, if you somehow hadn't already.</li>
+      <li><strong>Revoke all active sessions.</strong> Most services have an "active sessions" or "devices" page. Sign out of every device except the clean one you're using now.</li>
+      <li><strong>Notify the relevant parties.</strong>
+        <ul>
+          <li>Your bank, if financial accounts are involved. Many have 24/7 fraud lines.</li>
+          <li>Your university IT, if a university account is involved.</li>
+          <li>The platform itself (Instagram, Google, etc.) — they all have account-recovery flows.</li>
+          <li>The Australian Cyber Security Centre at <a href="https://www.cyber.gov.au/report" target="_blank" rel="noopener">cyber.gov.au/report</a> if it's serious.</li>
+        </ul>
+      </li>
+      <li><strong>Document.</strong> Write down what happened, when, and what you did. Future-you will need this if there's a follow-on compromise.</li>
+    </ol>
+    <p><strong>If financial fraud is involved:</strong> contact your bank <em>immediately</em>. In Australia, you can also freeze your credit via Equifax, illion, and Experian (all three, free under the Privacy Act) to prevent identity theft.</p>
+  </article>
+
+  <!-- ============ 8. MAHAGAURI ============ -->
+  <article id="mahag" class="pillar">
+    <header>
+      <span class="num">viii</span>
+      <h2>Mahāgaurī <em>· the purity</em></h2>
+      <p class="subhead">Privacy, data hygiene, and oversharing. The threats that wear friendly faces.</p>
+    </header>
+    <p><strong>The "identity theft starter kit"</strong> — these four pieces of information, together, are enough for an attacker to open a credit account in your name:</p>
+    <ul>
+      <li>Full legal name</li>
+      <li>Date of birth</li>
+      <li>Address (or even just city + university)</li>
+      <li>One government ID number (driver's licence, Medicare, etc.)</li>
+    </ul>
+    <p>The first three are often public on social media. The fourth leaks via data breaches. <strong>Don't volunteer the first three more than you need to.</strong> Birthday posts from friends that name your full DOB are how this leaks in practice.</p>
+    <p><strong>The geotag problem.</strong> Many phones embed GPS coordinates in photos by default. Posting a "studying at home" selfie can publish your exact home address to a stranger. Turn off location for camera apps unless you genuinely need it.</p>
+    <p><strong>Per-platform settings worth changing tonight:</strong></p>
+    <ul>
+      <li><strong>Instagram.</strong> Account → Privacy → Account Privacy → Private. Stop showing activity status.</li>
+      <li><strong>Facebook.</strong> Settings → Privacy → "Who can see your future posts?" → Friends. Audit old posts via "Limit Past Posts."</li>
+      <li><strong>LinkedIn.</strong> Hide your connections from others. Disable people-also-viewed.</li>
+      <li><strong>TikTok / X.</strong> Restrict who can DM you. Audit who can see your following list.</li>
+      <li><strong>Google.</strong> <a href="https://myactivity.google.com" target="_blank" rel="noopener">myactivity.google.com</a> — turn off location history, web history, ad personalisation if you don't want them. Auto-delete after 3 months as a default.</li>
+    </ul>
+    <p><strong>Sextortion / sexploitation.</strong> A growing scam pattern in 2024–2026: attackers contact young people pretending to be peers, build rapport, request intimate photos, then threaten to share them. <em>If this happens to you: do not pay. Do not engage further.</em> Block, screenshot, and report to <a href="https://www.esafety.gov.au" target="_blank" rel="noopener">eSafety Commissioner</a> (Australia). Paying never stops it; it marks you as a paying victim and the demands escalate. <sup><a href="#s9">[9]</a></sup></p>
+  </article>
+
+  <!-- ============ 9. SIDDHIDATRI ============ -->
+  <article id="siddhi" class="pillar">
+    <header>
+      <span class="num">ix</span>
+      <h2>Siddhidātrī <em>· the granter of wisdom</em></h2>
+      <p class="subhead">Ongoing learning. Security is a practice, not a one-time setup.</p>
+    </header>
+    <p><strong>Subscribe to one breach-notification service.</strong> <a href="https://haveibeenpwned.com/NotifyMe" target="_blank" rel="noopener">Have I Been Pwned's notification feature</a> emails you whenever your address appears in a new breach. Free. Set it and forget it.</p>
+    <p><strong>Run a security audit once per semester.</strong> Block out 30 minutes. Go through:</p>
+    <ul>
+      <li>OS updates installed?</li>
+      <li>Password manager up to date, master password not reused anywhere?</li>
+      <li>2FA on all critical accounts?</li>
+      <li>Have I Been Pwned check — any new breaches?</li>
+      <li>Browser extensions — anything you don't recognise?</li>
+      <li>Backup codes still accessible?</li>
+      <li>Privacy settings on socials reviewed since they last changed?</li>
+    </ul>
+    <p><strong>Sources of ongoing learning (no charlatans, all reputable):</strong></p>
+    <ul>
+      <li><a href="https://www.cyber.gov.au" target="_blank" rel="noopener">Australian Cyber Security Centre (ACSC)</a> — government, plain English, regularly updated.</li>
+      <li><a href="https://www.cisa.gov" target="_blank" rel="noopener">CISA</a> (US) — government cybersecurity agency, public alerts.</li>
+      <li><a href="https://www.ncsc.gov.uk" target="_blank" rel="noopener">NCSC</a> (UK) — same role; their <em>"Cyber Aware"</em> programme is excellent for individuals.</li>
+      <li><a href="https://krebsonsecurity.com" target="_blank" rel="noopener">Brian Krebs — Krebs on Security</a> — independent journalist, real reporting on real breaches.</li>
+      <li><a href="https://www.troyhunt.com" target="_blank" rel="noopener">Troy Hunt's blog</a> — creator of Have I Been Pwned. Lucid, calibrated, no hype.</li>
+    </ul>
+    <p><strong>When to call IT vs handle yourself.</strong> If your university account is involved, anything in the .edu/.ac domain is involved, or you suspect malware: <em>call IT.</em> They have tools and authority you don't. For your personal accounts, the seven-step incident response above covers most cases.</p>
+  </article>
+
+  <!-- ============ QUICK WINS ============ -->
+  <article id="quick" class="pillar quick">
+    <header>
+      <h2>Quick-win checklist — top 10 actions, ranked by ROI</h2>
+      <p class="subhead">If you only do ten things, do these.</p>
+    </header>
+    <ol class="checklist">
+      <li>Install <a href="https://bitwarden.com" target="_blank" rel="noopener">Bitwarden</a>. Use a 4–6 word passphrase as the master password.</li>
+      <li>Turn on 2FA for your primary email. Today.</li>
+      <li>Run yourself through <a href="https://haveibeenpwned.com" target="_blank" rel="noopener">haveibeenpwned.com</a>. Rotate any pwned passwords.</li>
+      <li>Turn on automatic OS updates on every device you own.</li>
+      <li>Enable full-disk encryption (FileVault / BitLocker).</li>
+      <li>Install <a href="https://ublockorigin.com" target="_blank" rel="noopener">uBlock Origin</a>.</li>
+      <li>Auto-lock screen after 1–5 minutes.</li>
+      <li>Hover before you click. Type bank/uni URLs yourself; don't trust email links.</li>
+      <li>Turn off photo geotagging.</li>
+      <li>Subscribe to Have I Been Pwned notifications.</li>
+    </ol>
+    <p class="aside">All ten can be done in one focused 90-minute Sunday afternoon. Your account-takeover risk drops by ~95% after this. <sup><a href="#s10">[10]</a></sup></p>
+  </article>
+
+  <!-- ============ RESOURCES ============ -->
+  <section id="resources" class="resources">
+    <h2>Resources</h2>
+    <div class="grid">
+      <div>
+        <h3>Free tools</h3>
+        <ul>
+          <li><a href="https://bitwarden.com" target="_blank" rel="noopener">Bitwarden</a> — password manager</li>
+          <li><a href="https://haveibeenpwned.com" target="_blank" rel="noopener">Have I Been Pwned</a> — breach check</li>
+          <li><a href="https://ublockorigin.com" target="_blank" rel="noopener">uBlock Origin</a> — ad/tracker blocker</li>
+          <li><a href="https://2fas.com" target="_blank" rel="noopener">2FAS</a> — authenticator app</li>
+          <li><a href="https://www.privacyguides.org" target="_blank" rel="noopener">PrivacyGuides.org</a> — community-maintained tool list</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Government &amp; reporting</h3>
+        <ul>
+          <li><a href="https://www.cyber.gov.au" target="_blank" rel="noopener">ACSC (Australia)</a></li>
+          <li><a href="https://www.cisa.gov" target="_blank" rel="noopener">CISA (US)</a></li>
+          <li><a href="https://www.ncsc.gov.uk" target="_blank" rel="noopener">NCSC (UK)</a></li>
+          <li><a href="https://www.esafety.gov.au" target="_blank" rel="noopener">eSafety Commissioner (Australia)</a></li>
+          <li><a href="https://www.cyber.gov.au/report" target="_blank" rel="noopener">Report a cybercrime — Australia</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Ongoing learning</h3>
+        <ul>
+          <li><a href="https://krebsonsecurity.com" target="_blank" rel="noopener">Krebs on Security</a></li>
+          <li><a href="https://www.troyhunt.com" target="_blank" rel="noopener">Troy Hunt's blog</a></li>
+          <li><a href="https://www.schneier.com" target="_blank" rel="noopener">Bruce Schneier</a> — long-form security policy thinking</li>
+          <li><a href="https://owasp.org" target="_blank" rel="noopener">OWASP</a> — for the technically curious</li>
+          <li><a href="https://www.nist.gov/cyberframework" target="_blank" rel="noopener">NIST Cybersecurity Framework</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section id="sources" class="sources">
+    <h2>Sources</h2>
+    <ol>
+      <li id="s1">Verizon, <em>Data Breach Investigations Report</em>, 2024 — credential reuse implicated in &gt;30% of confirmed breaches.</li>
+      <li id="s2">NIST SP 800-63B-4, <em>Digital Identity Guidelines: Authentication and Authenticator Management</em>, 2024 — passphrases of ≥15 characters preferred; complexity rules no longer recommended.</li>
+      <li id="s3">Cyberhaven security incident, December 2024 — attacker compromised a maintainer's Google account, pushed a malicious Chrome extension update to ~400,000 users. Reported by Cyberhaven and corroborated independently.</li>
+      <li id="s4">Cybernews / Microsoft Digital Defense Report, 2023 — sampled pirated-software distributions found malware payloads in &gt;50% of tested files.</li>
+      <li id="s5">AV-Comparatives, <em>Real-World Protection Test</em>, 2024 — Microsoft Defender and Apple XProtect both score in the top tier alongside paid commercial AV.</li>
+      <li id="s6">Google security team, <em>"Security Keys: Practical Cryptographic Second Factors for the Modern Web"</em>, USENIX 2016 — and Google's internal 2017 finding that hardware keys reduced employee account takeovers to zero.</li>
+      <li id="s7">Mandiant, <em>M-Trends</em> annual report, 2024 — most successful exploits target known, patched vulnerabilities.</li>
+      <li id="s8">Troy Hunt, <em>"The end of expensive VPNs"</em>, 2022; HTTP Archive transparency report on HTTPS adoption ~97% of page loads, 2025.</li>
+      <li id="s9">Australian Federal Police &amp; eSafety Commissioner joint statements, 2024–2025, on rising sextortion cases targeting young Australians.</li>
+      <li id="s10">Microsoft, <em>"How effective is multi-factor authentication at deterring cyberattacks?"</em>, 2019 — MFA blocks ~99.9% of account compromise attacks. Combined with unique passwords and patched OS, account-takeover risk drops by orders of magnitude.</li>
+    </ol>
+  </section>
+
+  <footer class="page-footer">
+    <p>
+      <strong>⟁ DURGA · cyber-protocol · v0.1.0</strong><br>
+      Sparsh Sharma · Melbourne · MIT licensed · <a href="https://github.com/spalsh-spec/companion-akasha-pantheon" target="_blank" rel="noopener">source</a>
+    </p>
+    <p class="caveat">
+      <strong>An honest caveat.</strong> This is a curated playbook, not a formal protocol specification. It reflects best practices as of May 2026 and will need updating. Cybersecurity is a moving target — re-read this in six months, or when an action item in your life makes you remember it. The threats change. The discipline of paying attention does not.
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -817,3 +817,24 @@ main, header { position: relative; z-index: 2; }
 @media (max-width: 720px) {
   .play-link { font-size: 10px; padding: 5px 10px; margin-left: 8px; }
 }
+
+.durga-link {
+  margin-left: 14px;
+  padding: 6px 14px;
+  background: transparent;
+  color: var(--orange, #d97757);
+  border: 1px solid var(--orange, #d97757);
+  font-family: var(--sans, 'Poppins', sans-serif);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-decoration: none;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s, transform 0.06s;
+}
+.durga-link:hover { background: var(--orange, #d97757); color: var(--cream, #faf9f5); }
+.durga-link:active { transform: translateY(1px); }
+@media (max-width: 720px) {
+  .durga-link { font-size: 10px; padding: 5px 10px; margin-left: 8px; }
+}
