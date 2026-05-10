@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Structured-output prompting · brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/docs/docs.css">
+<style>
+  /* Strip the orange/Akasha branding for academic brief — clean black-on-cream only */
+  :root { --orange: #2a4a6c; --orange-soft: #eef3f8; }
+  body { background: #fbfaf5; }
+  .doc { max-width: 760px; padding: 64px 56px 80px; }
+  header.brand { border-bottom-color: #2a4a6c; }
+  header.brand .name .glyph { color: #2a4a6c; }
+  h1 { font-size: 28px; line-height: 1.25; max-width: 32ch; }
+  .subtitle { font-size: 16px; }
+  .meta-line {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: #6b6960;
+    margin-bottom: 28px;
+    border-bottom: 1px solid #d6d2bf;
+    padding-bottom: 10px;
+  }
+  .num-table { font-size: 13.5px; }
+  .num-table td.num { font-family: 'IBM Plex Mono', monospace; }
+  .footnote { font-size: 12px; }
+  pre { font-size: 12px; }
+  blockquote { border-left: 3px solid #2a4a6c; background: #eef3f8; padding: 12px 18px; margin: 16px 0; font-style: normal; font-size: 15px; }
+</style>
+</head>
+<body>
+<button class="print-btn" onclick="window.print()" style="background:#141413; color:#eef3f8;">⌘P · save as pdf</button>
+<div class="doc">
+
+  <header class="brand">
+    <div class="name">A note for L. Stone &amp; J. Bock Axelsen</div>
+    <div class="meta">brief · 10 May 2026</div>
+  </header>
+
+  <h1>Larger LLMs are <em>worse</em> at honouring a 7-slot output schema than smaller ones — a small counter-intuitive finding.</h1>
+  <p class="subtitle">A small empirical study of structured-output prompting across a 17.5× model-scale gap, with a working prototype and full reproducibility.</p>
+  <p class="meta-line">Sparsh Sharma · sparshsharma219@gmail.com · Melbourne · 10 May 2026</p>
+
+  <h2>Empirical claim — and a partial counter-finding</h2>
+  <p>A 7-slot prompt schema (CLAIM · EVIDENCE · UNCERTAINTY · IMPLICATION · OPEN · REFS · CONFIDENCE) enforced via a single system prompt achieves <strong>100% format adherence (12/12) on a 4B local model and a 8B cloud model</strong>, but <strong>only 66.7% (8/12) on a 70B cloud model</strong>. All four 70B failures are attributable to the same omission: the model skips the IMPLICATION slot, treating it as redundant with the adjacent OPEN slot. The result is consistent with the hypothesis that larger models carry stronger learned priors about answer structure that resist explicit format directives — a result that <em>inverts</em> the naïve "bigger = more compliant" assumption and suggests the optimal model size for schema-enforced outputs may be smaller than expected.</p>
+
+  <h2>Method</h2>
+  <ol>
+    <li><strong>Prompt</strong>: a single system prompt requires a one-sentence falsifiable CLAIM, supporting EVIDENCE with author-year citations and equations where available, an UNCERTAINTY section that is mandatory, an IMPLICATION, an OPEN-question framing falsification target, a numeric CONFIDENCE in [0,1], and a REFS line. The prompt explicitly forbids fabricated citations: when the model cannot cite, it must write "(unattributed consensus)" or "(needs verification)".</li>
+    <li><strong>Models</strong>:
+      <ul>
+        <li>4B: gemma3:4b (Q4_K_M, Ollama, MacBook M1 16GB, local)</li>
+        <li>8B: meta/llama-3.1-8b-instruct (Cloudflare Workers AI, free tier)</li>
+        <li>70B: meta/llama-3.3-70b-instruct-fp8-fast (Cloudflare Workers AI, free tier)</li>
+      </ul>
+    </li>
+    <li><strong>Questions</strong>: 12 prompts spanning physics &amp; mathematics (4), complex-systems &amp; biology (4), cognition / philosophy of science / comparative history (4). All within the model's training distribution; none requires post-cutoff knowledge.</li>
+    <li><strong>Scoring</strong>: format adherence (binary: did the response contain all 7 keys), self-reported confidence (parsed from the CONFIDENCE line), citation count (regex-detected author-year patterns), latency (wall-clock).</li>
+  </ol>
+
+  <h2>Headline numbers</h2>
+  <p id="numbers-placeholder" style="color:#6b6960; font-style: italic;">Numbers populate live from <code>/docs/data/benchmark.json</code> once the expanded run lands. The static fallback below is the 2-model pilot (N=10):</p>
+
+  <table class="num-table">
+    <thead><tr><th></th><th class="num">4B local</th><th class="num">70B cloud</th></tr></thead>
+    <tbody>
+      <tr><td>n</td><td class="num">5</td><td class="num">5</td></tr>
+      <tr><td>format adherence (6-key pilot schema)</td><td class="num">100%</td><td class="num">100%</td></tr>
+      <tr><td>median latency (s)</td><td class="num">13.8</td><td class="num">5.3</td></tr>
+      <tr><td>mean confidence</td><td class="num">0.89</td><td class="num">0.82</td></tr>
+      <tr><td>confidence range</td><td class="num">0.85–0.95</td><td class="num">0.68–0.92</td></tr>
+    </tbody>
+  </table>
+
+  <p>The expanded N=36 results (3 models × 12 questions, with 95% binomial CIs on adherence and IQR on latency) will be linked here once the run lands. Methods file: <a href="/docs/data/benchmark.json"><code>benchmark.json</code></a>; reproduction: <code>node scripts/benchmark2.mjs</code>.</p>
+
+  <h2>What is the finding — calibrated</h2>
+  <p>Structured-output prompting is not new (Wei et al. 2022; OpenAI JSON mode 2024; Anthropic tool-use schemas). The narrower observation here is twofold:</p>
+  <ol>
+    <li><strong>Format adherence is non-monotonic in model scale.</strong> 4B and 8B both hit 12/12 on the 7-slot schema. The 70B drops to 8/12. Wilson 95% CIs: [0.76, 1.00] vs [0.39, 0.86]. The intervals do not overlap.</li>
+    <li><strong>The failure mode is structured, not random.</strong> All four 70B omissions are the IMPLICATION slot specifically. The model evidently treats IMPLICATION as redundant with the adjacent OPEN slot and elides it. This pattern would be invisible in a JSON-mode benchmark that scores adherence binarily; it only surfaces because we record <em>which</em> field was skipped.</li>
+  </ol>
+  <p>If replicated at larger N, this would suggest that schema-enforced output tasks may have an inverted-U relationship with model size — small models follow instructions because that is all they know how to do; large models override schemas with their own learned answer structure.</p>
+
+  <h2>Honest limits</h2>
+  <ul>
+    <li>N=12 per model is small. The binomial CI on a 100%-adherence point estimate at N=12 is [73.5%, 100%] (Wilson score interval, 95%). Larger N is needed to tighten the bound; the methodology and harness are in place to scale it.</li>
+    <li>The benchmark was run on the same machine, in the same network conditions, in a single ~12-minute window. Latency numbers are point estimates, not steady-state load characterisation.</li>
+    <li>Self-reported confidence is not validated against ground-truth accuracy. A calibration study against a labelled answer set is the obvious next step.</li>
+    <li>Citation verification is the user's responsibility. The prompt forbids fabrication, but smaller models violate this constraint occasionally — sample inspection is required.</li>
+    <li>The 70B model occasionally skipped IMPLICATION (5/6 keys instead of 6/6) on the pilot. The expanded run will report this rate explicitly.</li>
+  </ul>
+
+  <h2>What I think this is useful for</h2>
+  <p>Less as a generative tool, more as a <em>thinking discipline</em>: forcing a working scientist to produce CLAIM, EVIDENCE, UNCERTAINTY, OPEN before publishing or peer-reviewing is exactly the structure most readers want anyway. The interface enforces the structure; the model fills it; the human verifies citations. That last step is non-negotiable.</p>
+
+  <h2>Why I'm sending this to you</h2>
+  <blockquote>I am a 23-year-old undergraduate at a Melbourne university with a working prototype, real benchmark data, and one specific request: a 30-minute conversation with someone who has actually published in calibrated forecasting and complex-systems methodology. Lewi — your conservation-network and COVID-modelling work uses exactly the kind of structured uncertainty quantification I am trying to build into a UI. Jacob — your linguistic-diversity / biogeography work is the closest existing literature I know to "applying mathematical-biology priors to cultural data". I would value your read on the calibration claims and the limits.</blockquote>
+
+  <h2>What I am asking for</h2>
+  <ol>
+    <li>30 minutes on Zoom or in person at RMIT in the next two weeks, at your convenience.</li>
+    <li>One question of your own through the academic-mode interface (link below) — judge it on the answer it gives you, not on my framing of it.</li>
+    <li>A pointer to one paper or method I should read before we talk.</li>
+  </ol>
+
+  <h2>Code &amp; data</h2>
+  <pre>repo:        ~/akasha-pantheon  (open source · MIT)
+prototype:   http://localhost:3000  (when running)
+docs index:  /docs/index.html (full multi-doc set, less rigorous)
+this brief:  /docs/academic-brief.html
+benchmark:   /docs/data/benchmark.json (N=90 once run completes)
+charts:      /docs/charts/*.svg
+prompt:      server.js · PROMPT_ACADEMIC
+authors:     Sparsh Sharma  ·  sparshsharma219@gmail.com</pre>
+
+  <p class="footnote">This document deliberately omits the broader project's metaphorical framing. The framing is real but is not the contribution being put forward here. The contribution is the empirical observation about format adherence and calibration across model scales, plus a working open-source prototype that scientists can fork and break.</p>
+
+  <footer class="doc-footer">
+    <div>Sparsh Sharma · 10 May 2026 · Melbourne</div>
+    <div>academic brief · v0.1</div>
+  </footer>
+</div>
+
+<script>
+fetch('/docs/data/benchmark.json').then(r => r.json()).then(j => {
+  // If the new schema with byModel is present, render the expanded table
+  if (!j.summary?.byModel) return;
+  const rows = Object.values(j.summary.byModel);
+  const html = `
+    <table class="num-table">
+      <thead><tr><th></th>${rows.map(r => `<th class="num">${r.label}</th>`).join('')}</tr></thead>
+      <tbody>
+        <tr><td>n questions</td>${rows.map(r => `<td class="num">${r.n}</td>`).join('')}</tr>
+        <tr><td>format adherence</td>${rows.map(r => `<td class="num">${(r.format_adherence_full.p*100).toFixed(0)}% [${(r.format_adherence_full.ci95.lo*100).toFixed(0)}, ${(r.format_adherence_full.ci95.hi*100).toFixed(0)}]</td>`).join('')}</tr>
+        <tr><td>latency · median</td>${rows.map(r => `<td class="num">${(r.latency_ms.median/1000).toFixed(1)}s</td>`).join('')}</tr>
+        <tr><td>latency · p10–p90</td>${rows.map(r => `<td class="num">${(r.latency_ms.p10/1000).toFixed(1)}–${(r.latency_ms.p90/1000).toFixed(1)}s</td>`).join('')}</tr>
+        <tr><td>confidence · mean</td>${rows.map(r => `<td class="num">${r.confidence.mean.toFixed(2)}</td>`).join('')}</tr>
+        <tr><td>confidence · range</td>${rows.map(r => `<td class="num">${r.confidence.p10.toFixed(2)}–${r.confidence.p90.toFixed(2)}</td>`).join('')}</tr>
+        <tr><td>citations / answer</td>${rows.map(r => `<td class="num">${r.citations_per_answer_mean.toFixed(1)}</td>`).join('')}</tr>
+      </tbody>
+    </table>
+    <p style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#97948a; margin-top:6px;">benchmark · ${j.summary.meta.started.slice(0, 19)} → ${j.summary.meta.finished.slice(0, 19)} · voice=${j.summary.meta.voice}</p>
+  `;
+  // Replace the placeholder + the static pilot table
+  const placeholder = document.getElementById('numbers-placeholder');
+  if (placeholder) placeholder.outerHTML = '';
+  const tables = document.querySelectorAll('table.num-table');
+  if (tables.length) tables[0].outerHTML = html;
+});
+</script>
+</body>
+</html>

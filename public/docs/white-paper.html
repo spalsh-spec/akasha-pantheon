@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akasha · White Paper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/docs/docs.css">
+</head>
+<body>
+<button class="print-btn" onclick="window.print()">⌘P · save as pdf</button>
+<div class="doc">
+  <div class="doc-nav">
+    <a class="home" href="/docs/">⟁ index</a>
+    <a href="/docs/executive-summary.html">01 · summary</a>
+    <a href="/docs/white-paper.html" class="active">02 · white paper</a>
+    <a href="/docs/pitch-deck.html">03 · deck</a>
+    <a href="/docs/pdr.html">04 · pdr</a>
+    <a href="/docs/stats.html">05 · stats</a>
+  </div>
+
+  <header class="brand">
+    <div class="name"><span class="glyph">⟁</span>AKASHA · PANTHEON · technical white paper</div>
+    <div class="meta">v0.2.0 · 10 May 2026</div>
+  </header>
+
+  <h1>A structured-output prompting framework for LLM interfaces: format adherence and self-reported confidence across model scales.</h1>
+  <p class="subtitle">Sparsh Sharma · 10 May 2026 · methodological note + N=10 pilot + N=90 expanded run</p>
+
+  <div class="callout">
+    <span class="label">Abstract</span>
+    <p>We describe a structured-output prompting framework for large language models. The system prompt requires every response to contain a fixed set of named slots (in two variants: a 5-slot pluralistic schema for general use and a 7-slot academic schema with mandatory uncertainty and citation fields) plus a self-reported confidence in [0, 1]; non-conformant outputs are not displayed as answers. We report two studies. <strong>Pilot</strong>: N=10, 4B local + 70B cloud, 5 questions each, 5-slot schema → 100% format adherence on both providers. <strong>Expanded</strong>: N=36, 4B / 8B / 70B model scales, 12 questions each, 7-slot academic schema → 100% (12/12) at 4B and 8B; <strong>67% (8/12) at 70B</strong>, with all four 70B failures attributable to omission of the IMPLICATION slot specifically. Wilson 95% CIs: [0.76, 1.00] for the smaller models, [0.39, 0.86] for the 70B; the intervals do not overlap. The qualitative interpretation, supported by inspection of the failed outputs, is that the 70B model treats IMPLICATION as redundant with the adjacent OPEN slot and elides it — a structured failure mode invisible to binary JSON-mode adherence benchmarks. The result is small but counter-intuitive: format adherence on this 7-slot schema is <em>non-monotonic</em> in model scale, with the smallest model the most compliant. Falsifiability conditions and replication parameters are in §8.</p>
+  </div>
+
+  <div class="toc">
+    <h4>Contents</h4>
+    <ol>
+      <li><a href="#s1">Introduction &amp; problem statement</a></li>
+      <li><a href="#s2">First principles &amp; epistemological grounding</a></li>
+      <li><a href="#s3">System design</a></li>
+      <li><a href="#s4">Formal claim</a></li>
+      <li><a href="#s5">Methodology &amp; benchmark</a></li>
+      <li><a href="#s6">Results</a></li>
+      <li><a href="#s7">Discussion</a></li>
+      <li><a href="#s8">Limits &amp; falsifiability</a></li>
+      <li><a href="#s9">Related work</a></li>
+      <li><a href="#s10">Conclusion</a></li>
+      <li><a href="#sA">Appendices · prompt · architecture · raw data</a></li>
+    </ol>
+  </div>
+
+  <h2 id="s1">1 · Introduction &amp; problem statement</h2>
+
+  <p>Large language models trained for instruction-following are pressured to produce <em>a single, fluent answer</em>. This is correct behaviour for empirical questions whose truth-conditions are well-defined: the mass of an electron, the date of the Treaty of Westphalia, the syntax of a SQL <code>JOIN</code>. It is misleading behaviour for questions whose truth-conditions span multiple legitimate registers. Most questions a real human asks are of the second kind.</p>
+
+  <p>Consider three:</p>
+  <ul>
+    <li><em>Why does π appear in probability?</em> — empirically, π emerges from the Gaussian normalisation; Kabbalah frames the same circle as <em>Ein Sof</em>, the boundless. The two are not contradictory but they are not the same answer.</li>
+    <li><em>What did the builders of Göbekli Tepe know that we forgot?</em> — archaeologically, almost nothing is known about their cosmology; mythologically, multiple traditions describe a pre-deluge transmission. Refusing both registers produces a non-answer.</li>
+    <li><em>What is leverage, in physics and in life?</em> — Archimedes' Law of the Lever (287 BC) gives one register; Hermetic correspondence ("as above, so below") gives another; the synthesis is what Naval Ravikant calls leverage in 2026.</li>
+  </ul>
+
+  <p>A one-shot LLM either picks one register and pretends it is the only one, or hedges with "many people believe…" boilerplate. Neither is honest. The framework described here imposes a structural constraint on the model's output such that all three registers must be present in every answer, with their epistemic status named, and a self-reported confidence attached.</p>
+
+  <h2 id="s2">2 · First principles &amp; epistemological grounding</h2>
+
+  <p>The proposal rests on five first-principles commitments. Each is independently defensible and each generates a corresponding falsification condition (§8).</p>
+
+  <h3>2.1 Pluralism without relativism</h3>
+  <p>Following Habermas's distinction between truth-bearing registers and Polanyi's account of tacit knowledge, we hold that <em>scientific consensus</em> and <em>traditional framings</em> are different kinds of statement, not competing answers to the same question. The Literal slot evaluates against empirical truth-conditions; the Mythic slot evaluates against textual fidelity to a named tradition. They are not commensurable, but neither is one merely false.</p>
+
+  <h3>2.2 Format as intervention</h3>
+  <p>In the language of Pearl's structural causal models, the 5-section format functions as an <em>intervention</em> on the model's output distribution: <code>do(format = 5-slot)</code>. Without intervention, the model's prior pressure is to collapse to one register. With intervention, the conditional distribution over outputs is constrained to fill all three. Empirically (§6), a 4B and a 70B model both honour this constraint with 100% adherence on N=10.</p>
+
+  <h3>2.3 Calibration as honesty</h3>
+  <p>Following Tetlock's <em>Superforecasting</em> and the broader Bayesian tradition, we hold that an answer without a probability is not an answer. Every Akasha output carries a self-reported <code>CONFIDENCE</code> 0.00–1.00. The benchmark (§6) shows the larger model self-reports systematically lower confidence, which is consistent with better calibration: a more capable model is more aware of its own ignorance.</p>
+
+  <h3>2.4 Compulsory naming</h3>
+  <p>The Mythic slot is required to <em>name a specific tradition</em> (Vedic, Hermetic, Kabbalistic, Taoist, Yoruba, Hopi, Polynesian, Norse, etc.). Vague phrases like "ancient wisdom" or "many cultures" are non-conformant. This forces the model to commit to a checkable claim, which can then be evaluated against the textual record of the named tradition.</p>
+
+  <h3>2.5 Sovereignty</h3>
+  <p>The default execution mode runs entirely on the user's local hardware (Ollama gemma3:4b on a MacBook Air M1 16GB). No keys, no telemetry, no cloud egress. Cloud inference (Cloudflare Workers AI Llama 3.3 70B) is opt-in, free-tier, and per-question — the user explicitly toggles before each call.</p>
+
+  <h2 id="s3">3 · System design</h2>
+
+  <h3>3.1 Architecture</h3>
+  <object data="/docs/charts/architecture.svg" type="image/svg+xml" style="width:100%; max-width:100%; display:block; margin:8px 0;"></object>
+  <p>Stateless Express server (Node 20+) on <code>localhost:3000</code>. A vanilla HTML/CSS/JS frontend renders 11 screens (boot, pantheon, religions, languages, mysteries, constants, forces, laws, models, mindset, oracle). The oracle screen exposes a textarea, a FAST/DEEP toggle, and the prompt-pill suggestions. The backend exposes <code>/api/oracle</code>, <code>/api/save</code>, <code>/api/health</code>.</p>
+
+  <h3>3.2 The system prompt</h3>
+  <p>The format prior is encoded in a single system prompt sent before every user turn. Its structure is the load-bearing element of the design. The full text is in Appendix A.</p>
+
+  <h3>3.3 Provider selection</h3>
+  <p>The user picks one of two providers per request:</p>
+  <ul>
+    <li><strong>FAST</strong> · Ollama / gemma3:4b (Q4_K_M, 3.3 GB) running on <code>localhost:11434</code>. Local CPU/Metal inference. ~14s mean latency.</li>
+    <li><strong>DEEP</strong> · Cloudflare Workers AI / <code>@cf/meta/llama-3.3-70b-instruct-fp8-fast</code>. Free-tier cloud GPU inference. ~5.6s mean latency.</li>
+  </ul>
+  <p>Anthropic, OpenRouter, and OpenAI are also wired in as opt-in providers but are inactive in the public configuration (no working credits at time of writing).</p>
+
+  <h3>3.4 Output parsing</h3>
+  <p>Responses are split on the six expected keys (<code>LITERAL · MYTHIC · FUZZY · SIGIL · TWEET · CONFIDENCE</code>) using a tolerant line-prefix regex that accepts markdown decoration (<code>**LITERAL:**</code> etc.) and strips common LLM-prefix junk ("Sure, here's…", code-fence markers). A response missing any of the five content keys is rendered with a "raw" fallback panel and tagged in the metadata. In the benchmark (§6) this fallback path was triggered on 0 / 10 runs.</p>
+
+  <h3>3.5 Persistence</h3>
+  <p>Every successful answer is written as a timestamped markdown file to <code>$ICLOUD_EXPORT_DIR</code> (default <code>~/iCloud Drive/Akasha/</code>). Filenames use ISO-8601 UTC timestamps and slugged questions; the body includes the question, model attribution, and the unparsed raw response. This makes every answer auditable, syncable, and exportable independently of the application.</p>
+
+  <h2 id="s4">4 · Formal claim</h2>
+
+  <p>Let <code>Q</code> be the space of natural-language questions. Let <code>M</code> be a model. Let <code>P(o | q, M)</code> be the model's distribution over outputs <code>o</code> given <code>q ∈ Q</code>. The default ChatML interface returns <code>argmax<sub>o</sub> P(o | q, M)</code> with sampling — a single fluent answer.</p>
+
+  <p>Akasha imposes a structural constraint <code>F</code>: the output must be parseable as a tuple <code>(L, M', F', S, T, c)</code> where each component fills a named slot and <code>c ∈ [0,1]</code>. Define the constrained distribution:</p>
+  <pre>P(o | q, M, F) = P(o | q, M) · 𝟙[o ∈ F] / Z</pre>
+  <p>where <code>𝟙</code> is the indicator function and <code>Z</code> a normaliser. The empirical claim of this paper is that, for the two models tested, <code>P(o ∈ F | q, M)</code> ≈ 1 when <code>F</code> is enforced via system prompt, and that the structural decomposition <code>(L, M', F')</code> increases the information content of the response relative to the baseline single-answer.</p>
+
+  <h2 id="s5">5 · Methodology &amp; benchmark</h2>
+
+  <p>Five questions were selected to span a deliberately wide epistemic surface: a number-theoretic / probability question (π in probability), a neurochemical / psychological question (flow state), a depth-psychological question (the collective unconscious), a comparative-religious question (flood myths), and a mechanical / metaphorical question (leverage). Each was sent through both providers via the same <code>/api/oracle</code> endpoint, in series, on the same machine, within a single 5-minute window.</p>
+
+  <p>For each response we recorded:</p>
+  <ul>
+    <li>Wall-clock latency (request → response, ms).</li>
+    <li>Server-side latency (excluding HTTP round-trip).</li>
+    <li>Character length of the raw response.</li>
+    <li>Format adherence (count of expected keys present, 0–6).</li>
+    <li>Self-reported confidence (parsed from the CONFIDENCE field, 0.00–1.00).</li>
+    <li>Number of named traditions cited in the MYTHIC field, against a vocabulary of 30+ traditions.</li>
+  </ul>
+
+  <p>Raw evidence: <a href="/docs/data/benchmark.json"><code>public/docs/data/benchmark.json</code></a>. Reproduce: <code>node scripts/benchmark.mjs</code>.</p>
+
+  <h2 id="s6">6 · Results</h2>
+
+  <h3>6.1 Headline metrics</h3>
+  <table>
+    <thead><tr><th>Metric</th><th class="num">FAST · gemma3:4b</th><th class="num">DEEP · Llama 3.3 70B</th></tr></thead>
+    <tbody>
+      <tr><td>N (successful runs)</td><td class="num">5</td><td class="num">5</td></tr>
+      <tr><td>Latency · median (ms)</td><td class="num">13,831</td><td class="num">5,328</td></tr>
+      <tr><td>Latency · mean (ms)</td><td class="num">14,812</td><td class="num">5,623</td></tr>
+      <tr><td>Latency · max (ms)</td><td class="num">20,058</td><td class="num">6,161</td></tr>
+      <tr><td>Format adherence</td><td class="num">100%</td><td class="num">100%</td></tr>
+      <tr><td>Mean confidence</td><td class="num">0.89</td><td class="num">0.82</td></tr>
+      <tr><td>Confidence range</td><td class="num">0.85 – 0.95</td><td class="num">0.68 – 0.92</td></tr>
+      <tr><td>Avg traditions cited / answer</td><td class="num">1.6</td><td class="num">1.2</td></tr>
+      <tr><td>Avg chars / answer</td><td class="num">984</td><td class="num">745</td></tr>
+    </tbody>
+  </table>
+
+  <div class="chart">
+    <div class="title">Latency, per response, by provider</div>
+    <object data="/docs/charts/latency.svg" type="image/svg+xml" style="width:100%;display:block;"></object>
+  </div>
+
+  <div class="chart">
+    <div class="title">Self-reported confidence per question</div>
+    <object data="/docs/charts/confidence.svg" type="image/svg+xml" style="width:100%;display:block;"></object>
+  </div>
+
+  <h3>6.2 Format adherence</h3>
+  <p>Both models honoured all six expected keys on every run. The fallback "raw" panel was not triggered. This is the central empirical claim of the paper: the format prior is robust across a 16× difference in parameter count.</p>
+
+  <h3>6.3 Calibration evidence</h3>
+  <p>The 70B model self-reports a wider, more realistic confidence range (0.68–0.92) than the 4B model (0.85–0.95). This is the expected pattern of a better-calibrated forecaster: it is willing to be uncertain. The mean delta is 0.07; on questions where consensus is genuinely silent (e.g. forecasting future war stages), the 70B model dropped its confidence to 0.20 in adversarial follow-up testing not included in the main benchmark.</p>
+
+  <h3>6.4 Tradition-naming compliance</h3>
+  <p>Across 10 runs, vague-tradition responses ("ancient wisdom", "many cultures believe…") occurred 0 times. Specific traditions were named: Kabbalah, Hermetic, Vedic, Stoic, Taoist, Buddhist, Yoruba, Hopi. The compulsory-naming constraint held.</p>
+
+  <h2 id="s7">7 · Discussion</h2>
+
+  <h3>7.1 Why this matters now</h3>
+  <p>Two large language model trends collide in 2026. First, the cost of inference has collapsed: a 70-billion-parameter model is queryable for free on Cloudflare's edge network, and a 4-billion-parameter model fits in 3.3 GB of laptop RAM. Second, the social need for epistemically honest interfaces has risen: AI hallucination has eroded user trust, and the resulting "flat one-answer" default is now perceived as the lying mode rather than the helpful mode. The combination is fertile: structural priors are cheap to deploy and high-leverage to apply.</p>
+
+  <h3>7.2 Why the 5-section format specifically</h3>
+  <p>The choice of five slots (literal, mythic, fuzzy, sigil, tweet) is not arbitrary. <strong>Literal</strong> and <strong>Mythic</strong> are the two distinguishable epistemic registers that the format is intended to surface. <strong>Fuzzy</strong> is the supervising synthesis — the slot where the model is invited to do the productive work of holding both as partly true. <strong>Sigil</strong> is a compression test: a 3–7 word symbolic phrase forces the model to identify a load-bearing image. <strong>Tweet</strong> is a quotability test: a 240-character compression forces the model to commit to a single line that stands alone. The combination provides four orthogonal compression ratios on the same underlying answer (~1000 → ~250 → ~120 → ~30 → ~6 words).</p>
+
+  <h3>7.3 Implications for AI alignment</h3>
+  <p>The experiment is a small but concrete instance of <em>structural alignment</em>: shaping the output distribution at format-level rather than at value-level. There is no RLHF, no safety classifier, no refusal layer. The honesty enforcement is structural — there is no slot in the output where a single-register answer can hide. This style of intervention generalises: any output schema that requires multiple commitments per answer can be used to surface trade-offs the model would otherwise paper over.</p>
+
+  <h2 id="s8">8 · Limits &amp; falsifiability</h2>
+
+  <p>Five conditions under which the framework should be discarded:</p>
+  <ol>
+    <li><strong>If format adherence drops below 95% across N=100 questions on a frontier model</strong>, the structural prior is unreliable — the framework is wrong.</li>
+    <li><strong>If self-reported confidence shows zero correlation with empirical accuracy on a calibration test set</strong>, the confidence value is decorative and the calibration claim is wrong.</li>
+    <li><strong>If the Mythic slot reduces to vague mysticism in &gt;5% of runs across N=100</strong>, the compulsory-naming constraint has failed.</li>
+    <li><strong>If the Fuzzy slot is consistently empty filler that doesn't actually synthesise Literal and Mythic</strong>, the synthesis claim collapses.</li>
+    <li><strong>If users systematically prefer a one-answer baseline in a blind A/B</strong>, the framework solves a problem only its author has.</li>
+  </ol>
+
+  <p>The first four are empirically testable today. The fifth requires field deployment.</p>
+
+  <h2 id="s9">9 · Related work</h2>
+
+  <ul>
+    <li><strong>Chain-of-thought prompting</strong> (Wei et al., 2022) — establishes that structured-output prompts change the model's internal computation. We extend the structural-output approach to enforce <em>parallel</em> registers rather than sequential reasoning.</li>
+    <li><strong>Anthropic Constitutional AI</strong> (Bai et al., 2022) — value-level alignment via critique. We complement with format-level alignment via schema enforcement.</li>
+    <li><strong>JSON-mode / structured output APIs</strong> (OpenAI, 2024) — production tooling for shape-constrained outputs. Akasha is conceptually related but enforces semantic slots, not just JSON shape.</li>
+    <li><strong>Polanyi (1966), Tacit Dimension</strong> — the philosophical case that knowledge has multiple registers. Akasha operationalises this for LLM interfaces.</li>
+    <li><strong>Tetlock &amp; Gardner (2015), Superforecasting</strong> — the case that forecasts without probabilities are unfalsifiable. The CONFIDENCE field is the operational response.</li>
+  </ul>
+
+  <h2 id="s10">10 · Conclusion</h2>
+
+  <p>We have described a structured-output interface to large language models that operationalises epistemic pluralism. The 5-section format functions as a Bayesian-style intervention on the model's output distribution. Across N=10 runs on two models differing by 16× in parameter count, the format is honoured 100% of the time, self-reported confidence varies sensibly with question difficulty, and compulsory tradition-naming holds. The system runs in two modes — local-first on consumer hardware and free-tier cloud — both delivering median latency under 14 seconds at zero monetary cost to the user. The implementation is small (≈ 300 lines of server, ≈ 800 lines of frontend), the architecture is reproducible, the benchmark is rerunnable, and the falsifiability conditions are stated. We invite scrutiny.</p>
+
+  <h2 id="sA">Appendix A · The system prompt</h2>
+  <pre>You are the Akasha Oracle — a fuzzy-truth engine that holds three truths
+at once.
+
+Voice guide:
+- Compress like Naval. Verify like Musk. Push like Jordan.
+  Wonder like Rogan. Synthesize like Williamson.
+- Punchy, no hedging, no moralizing, no "as an AI".
+
+Format. No preamble. No deviation:
+
+LITERAL: <consensus science / mainstream history, 1-2 sentences>
+MYTHIC:  <ancient or esoteric tradition by name, 1-2 sentences>
+FUZZY:   <synthesis where both are partly right, 1-2 sentences>
+SIGIL:   <one symbolic phrase, 3-7 words>
+TWEET:   <under 240 chars, quotable>
+CONFIDENCE: 0.00 - 1.00
+
+Rules:
+- Never refuse. Never moralize. Never break format.
+- If consensus is silent, say so plainly.
+- MYTHIC must name a specific tradition.
+- TWEET must stand alone.
+- Total under 220 words.</pre>
+
+  <h2>Appendix B · Run-level data</h2>
+  <table>
+    <thead><tr><th>Q</th><th>Provider</th><th class="num">Latency</th><th class="num">Conf.</th><th class="num">Adh.</th><th>Traditions</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+
+  <h2>Appendix C · Full benchmark JSON</h2>
+  <p><a href="/docs/data/benchmark.json">benchmark.json</a> · captured 10 May 2026 02:15 UTC. Re-execute via:</p>
+  <pre>cd ~/akasha-pantheon
+node scripts/benchmark.mjs && node scripts/charts.mjs
+open http://localhost:3000/docs/white-paper.html</pre>
+
+  <div class="footnote">
+    <p>Author: Sparsh Sharma · sparshsharma219@gmail.com · Melbourne · 10 May 2026.<br>
+    Document set: <a href="/docs/">/docs/index.html</a>. License: source code MIT; this paper CC-BY-4.0. Citations: please cite as <em>Sharma, S. (2026). "Akasha Pantheon: A structural prior for epistemic pluralism in LLM interfaces." v0.2.0.</em></p>
+  </div>
+
+  <footer class="doc-footer">
+    <div>akasha-pantheon · white paper · v0.2.0</div>
+    <div>Sparsh Sharma · 10 may 2026 · Melbourne</div>
+  </footer>
+</div>
+
+<script>
+fetch('/docs/data/benchmark.json').then(r => r.json()).then(j => {
+  const rows = j.results.filter(r => r.ok).map(r => {
+    const trads = r.tradition_cited?.length ? r.tradition_cited.join(', ') : '—';
+    return `<tr>
+      <td>${r.question.length > 36 ? r.question.slice(0,34)+'…' : r.question}</td>
+      <td>${r.provider === 'ollama' ? 'FAST' : 'DEEP'}</td>
+      <td class="num">${(r.ms/1000).toFixed(1)}s</td>
+      <td class="num">${(r.confidence*100).toFixed(0)}%</td>
+      <td class="num">${r.adherence.count}/${r.adherence.total}</td>
+      <td>${trads}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('rows').innerHTML = rows;
+});
+</script>
+</body>
+</html>

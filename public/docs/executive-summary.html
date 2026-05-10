@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akasha · Executive Summary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/docs/docs.css">
+</head>
+<body>
+<button class="print-btn" onclick="window.print()">⌘P · save as pdf</button>
+<div class="doc">
+  <div class="doc-nav">
+    <a class="home" href="/docs/">⟁ index</a>
+    <a href="/docs/executive-summary.html" class="active">01 · summary</a>
+    <a href="/docs/white-paper.html">02 · white paper</a>
+    <a href="/docs/pitch-deck.html">03 · deck</a>
+    <a href="/docs/pdr.html">04 · pdr</a>
+    <a href="/docs/stats.html">05 · stats</a>
+  </div>
+
+  <header class="brand">
+    <div class="name"><span class="glyph">⟁</span>AKASHA · PANTHEON · executive summary</div>
+    <div class="meta">10 May 2026 · v0.2.0</div>
+  </header>
+
+  <h1>A fuzzy-truth oracle that holds three truths at once.</h1>
+  <p class="subtitle">Local-first, free, calibrated, and structurally pluralist by design.</p>
+
+  <p class="lede"><strong>The problem.</strong> The current generation of AI assistants is trained to give one answer. When the answer is empirical, that's right. When the question lives between empirical, mythic, and synthetic registers — most questions a real person actually asks — collapsing it to one answer is dishonest. The model either picks an authority and pretends, or hedges into uselessness.</p>
+
+  <p><strong>The system.</strong> Akasha Pantheon is a structured-output interface to large language models. It forces every answer into five parallel slots:</p>
+  <ul>
+    <li><strong>Literal</strong> — what consensus science / mainstream history says, with a citation if available.</li>
+    <li><strong>Mythic</strong> — how a specific named tradition (Vedic, Hermetic, Taoist, Yoruba, Hopi…) framed it.</li>
+    <li><strong>Fuzzy</strong> — what synthesis is available when both are taken seriously.</li>
+    <li><strong>Sigil</strong> — one symbolic phrase, 3–7 words.</li>
+    <li><strong>Tweet</strong> — a 240-character compression you can stand behind.</li>
+  </ul>
+  <p>Plus a self-reported <strong>confidence</strong> from 0.00 to 1.00, present on every answer. The 5-section format is enforced by the system prompt and verified at parse time; non-conformant outputs are not displayed as answers.</p>
+
+  <div class="callout">
+    <span class="label">Why this matters</span>
+    <p>This is the first interface that <em>operationalizes epistemic pluralism</em> — the recognition that there are multiple legitimate registers of knowledge — without descending into relativism. The Literal slot still cites a constant, a date, a law. The Mythic slot still names a specific tradition. The Fuzzy slot earns its place by holding both as partly right.</p>
+  </div>
+
+  <h2>The numbers (measured, 10 May 2026)</h2>
+  <div class="kpi-grid">
+    <div class="kpi accent"><div class="label">Format adherence</div><div class="value">100%</div><div class="sub">N=10 runs, both providers</div></div>
+    <div class="kpi"><div class="label">DEEP latency</div><div class="value">5.3s</div><div class="sub">median · Llama 3.3 70B</div></div>
+    <div class="kpi"><div class="label">FAST latency</div><div class="value">13.8s</div><div class="sub">median · gemma3:4b on M1</div></div>
+    <div class="kpi"><div class="label">Cost / answer</div><div class="value">$0</div><div class="sub">both modes free for the user</div></div>
+  </div>
+
+  <h2>What you get in 30 seconds</h2>
+  <p>Type a question, hit ⌘+Enter. Get a 5-section answer with a confidence score. Click <strong>PRESENT</strong> for a one-page printable PDF. Click <strong>COPY MD</strong> for clipboard. Every answer auto-saves to <code>~/iCloud Drive/Akasha/</code> as a timestamped markdown file. Optional: toggle <strong>FAST</strong> (local, private, no internet) versus <strong>DEEP</strong> (cloud, 70B parameters, free).</p>
+
+  <h2>The ask</h2>
+  <p>This document set exists to invite scrutiny. The white paper lays out the epistemological argument; the PDR documents the architecture; the stats report exposes the raw benchmark JSON for re-execution. If you find a hole, write to the maintainer. If the framework is sound, the request is two minutes of your attention to validate it on a question of your own.</p>
+
+  <p style="margin-top: 36px;"><strong>Try it once.</strong> The interface is at <code>http://localhost:3000</code> while the server runs on the host laptop. Ask: <em>"What did the builders of Göbekli Tepe know that we forgot?"</em> The answer arrives in under 6 seconds, in five layered registers, with a confidence the model is willing to put a number on.</p>
+
+  <footer class="doc-footer">
+    <div>Sparsh Sharma · sparshsharma219@gmail.com</div>
+    <div>akasha-pantheon · 10 may 2026</div>
+  </footer>
+</div>
+</body>
+</html>

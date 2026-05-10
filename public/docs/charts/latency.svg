@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" width="100%" height="auto" font-family="'IBM Plex Mono', ui-monospace, monospace" style="display:block;">
+    
+      <line x1="110" x2="690" y1="260" y2="260" stroke="#d6d2bf" stroke-dasharray="2 4" />
+      <text x="102" y="264" text-anchor="end" fill="#6b6960" font-size="11">0s</text>
+    
+      <line x1="110" x2="690" y1="198.58745860609415" y2="198.58745860609415" stroke="#d6d2bf" stroke-dasharray="2 4" />
+      <text x="102" y="202.58745860609415" text-anchor="end" fill="#6b6960" font-size="11">20s</text>
+    
+      <line x1="110" x2="690" y1="137.1749172121883" y2="137.1749172121883" stroke="#d6d2bf" stroke-dasharray="2 4" />
+      <text x="102" y="141.1749172121883" text-anchor="end" fill="#6b6960" font-size="11">40s</text>
+    
+      <line x1="110" x2="690" y1="75.76237581828244" y2="75.76237581828244" stroke="#d6d2bf" stroke-dasharray="2 4" />
+      <text x="102" y="79.76237581828244" text-anchor="end" fill="#6b6960" font-size="11">60s</text>
+    
+    
+    
+        <line x1="206.66666666666669" x2="206.66666666666669" y1="98.53721679421241" y2="49.09090909090909" stroke="#6a9bcc" stroke-width="2" />
+        <line x1="181.66666666666669" x2="231.66666666666669" y1="98.53721679421241" y2="98.53721679421241" stroke="#6a9bcc" stroke-width="2" />
+        <line x1="181.66666666666669" x2="231.66666666666669" y1="49.09090909090909" y2="49.09090909090909" stroke="#6a9bcc" stroke-width="2" />
+        <rect x="181.66666666666669" y="75.17282071508555" width="50" height="12" fill="#6a9bcc" />
+        <text x="206.66666666666669" y="69.17282071508555" text-anchor="middle" fill="#6a9bcc" font-size="11" font-weight="600">58.2s</text>
+        <text x="206.66666666666669" y="276" text-anchor="middle" fill="#3d3a32" font-size="11" font-weight="500">4B · gemma3:4b · local</text>
+        <text x="206.66666666666669" y="292" text-anchor="middle" fill="#6b6960" font-size="9">n=12 · p10–p90 52.6–68.7s</text>
+      
+        <line x1="400" x2="400" y1="251.7830019614954" y2="235.72976364112841" stroke="#788c5d" stroke-width="2" />
+        <line x1="375" x2="425" y1="251.7830019614954" y2="251.7830019614954" stroke="#788c5d" stroke-width="2" />
+        <line x1="375" x2="425" y1="235.72976364112841" y2="235.72976364112841" stroke="#788c5d" stroke-width="2" />
+        <rect x="375" y="243.2466640019271" width="50" height="12" fill="#788c5d" />
+        <text x="400" y="237.2466640019271" text-anchor="middle" fill="#788c5d" font-size="11" font-weight="600">3.5s</text>
+        <text x="400" y="276" text-anchor="middle" fill="#3d3a32" font-size="11" font-weight="500">8B · llama-3.1-8b · CF</text>
+        <text x="400" y="292" text-anchor="middle" fill="#6b6960" font-size="9">n=12 · p10–p90 2.7–7.9s</text>
+      
+        <line x1="593.3333333333333" x2="593.3333333333333" y1="243.79323032614823" y2="234.92218872179853" stroke="#d97757" stroke-width="2" />
+        <line x1="568.3333333333333" x2="618.3333333333333" y1="243.79323032614823" y2="243.79323032614823" stroke="#d97757" stroke-width="2" />
+        <line x1="568.3333333333333" x2="618.3333333333333" y1="234.92218872179853" y2="234.92218872179853" stroke="#d97757" stroke-width="2" />
+        <rect x="568.3333333333333" y="230.82290687793994" width="50" height="12" fill="#d97757" />
+        <text x="593.3333333333333" y="224.82290687793994" text-anchor="middle" fill="#d97757" font-size="11" font-weight="600">7.5s</text>
+        <text x="593.3333333333333" y="276" text-anchor="middle" fill="#3d3a32" font-size="11" font-weight="500">70B · llama-3.3-70b-fp8 · CF</text>
+        <text x="593.3333333333333" y="292" text-anchor="middle" fill="#6b6960" font-size="9">n=12 · p10–p90 5.3–8.2s</text>
+      
+    <line x1="110" x2="110" y1="28" y2="260" stroke="#141413" />
+    <line x1="110" x2="690" y1="260" y2="260" stroke="#141413" />
+    <text x="50" y="144" fill="#6b6960" font-size="11" transform="rotate(-90 50 144)" text-anchor="middle">latency · ms</text>
+  </svg>

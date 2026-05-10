@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" width="100%" height="auto" font-family="'IBM Plex Mono', ui-monospace, monospace" style="display:block;">
+    
+      <line x1="110" x2="690" y1="230" y2="230" stroke="#d6d2bf" stroke-dasharray="2 4" />
+      <text x="102" y="234" text-anchor="end" fill="#6b6960" font-size="11">0%</text>
+    
+      <line x1="110" x2="690" y1="180" y2="180" stroke="#d6d2bf" stroke-dasharray="2 4" />
+      <text x="102" y="184" text-anchor="end" fill="#6b6960" font-size="11">25%</text>
+    
+      <line x1="110" x2="690" y1="130" y2="130" stroke="#d6d2bf" stroke-dasharray="2 4" />
+      <text x="102" y="134" text-anchor="end" fill="#6b6960" font-size="11">50%</text>
+    
+      <line x1="110" x2="690" y1="80" y2="80" stroke="#d6d2bf" stroke-dasharray="2 4" />
+      <text x="102" y="84" text-anchor="end" fill="#6b6960" font-size="11">75%</text>
+    
+      <line x1="110" x2="690" y1="30" y2="30" stroke="#d6d2bf" stroke-dasharray="2 4" />
+      <text x="102" y="34" text-anchor="end" fill="#6b6960" font-size="11">100%</text>
+    
+    
+        <rect x="174.66666666666669" y="30" width="64" height="200" fill="#6a9bcc" opacity="0.85" />
+        <line x1="206.66666666666669" x2="206.66666666666669" y1="78.6" y2="30" stroke="#141413" stroke-width="2" />
+        <line x1="196.66666666666669" x2="216.66666666666669" y1="78.6" y2="78.6" stroke="#141413" stroke-width="2" />
+        <line x1="196.66666666666669" x2="216.66666666666669" y1="30" y2="30" stroke="#141413" stroke-width="2" />
+        <text x="206.66666666666669" y="22" text-anchor="middle" fill="#141413" font-size="12" font-weight="600">100%</text>
+        <text x="206.66666666666669" y="246" text-anchor="middle" fill="#3d3a32" font-size="11" font-weight="500">4B · gemma3:4b · local</text>
+        <text x="206.66666666666669" y="260" text-anchor="middle" fill="#6b6960" font-size="9">k=12/n=12 · 95% CI [76, 100]</text>
+      
+        <rect x="368" y="30" width="64" height="200" fill="#788c5d" opacity="0.85" />
+        <line x1="400" x2="400" y1="78.6" y2="30" stroke="#141413" stroke-width="2" />
+        <line x1="390" x2="410" y1="78.6" y2="78.6" stroke="#141413" stroke-width="2" />
+        <line x1="390" x2="410" y1="30" y2="30" stroke="#141413" stroke-width="2" />
+        <text x="400" y="22" text-anchor="middle" fill="#141413" font-size="12" font-weight="600">100%</text>
+        <text x="400" y="246" text-anchor="middle" fill="#3d3a32" font-size="11" font-weight="500">8B · llama-3.1-8b · CF</text>
+        <text x="400" y="260" text-anchor="middle" fill="#6b6960" font-size="9">k=12/n=12 · 95% CI [76, 100]</text>
+      
+        <rect x="561.3333333333333" y="96.6" width="64" height="133.4" fill="#d97757" opacity="0.85" />
+        <line x1="593.3333333333333" x2="593.3333333333333" y1="151.8" y2="57.599999999999994" stroke="#141413" stroke-width="2" />
+        <line x1="583.3333333333333" x2="603.3333333333333" y1="151.8" y2="151.8" stroke="#141413" stroke-width="2" />
+        <line x1="583.3333333333333" x2="603.3333333333333" y1="57.599999999999994" y2="57.599999999999994" stroke="#141413" stroke-width="2" />
+        <text x="593.3333333333333" y="88.6" text-anchor="middle" fill="#141413" font-size="12" font-weight="600">67%</text>
+        <text x="593.3333333333333" y="246" text-anchor="middle" fill="#3d3a32" font-size="11" font-weight="500">70B · llama-3.3-70b-fp8 · CF</text>
+        <text x="593.3333333333333" y="260" text-anchor="middle" fill="#6b6960" font-size="9">k=8/n=12 · 95% CI [39, 86]</text>
+      
+    <line x1="110" x2="110" y1="30" y2="230" stroke="#141413" />
+    <line x1="110" x2="690" y1="230" y2="230" stroke="#141413" />
+    <text x="50" y="130" fill="#6b6960" font-size="11" transform="rotate(-90 50 130)" text-anchor="middle">format adherence (full)</text>
+  </svg>

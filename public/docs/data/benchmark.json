@@ -1,0 +1,791 @@
+{
+  "summary": {
+    "meta": {
+      "started": "2026-05-10T04:16:14.024Z",
+      "finished": "2026-05-10T04:30:34.357Z",
+      "voice": "academic",
+      "n_questions": 12,
+      "n_models": 3
+    },
+    "byModel": {
+      "small": {
+        "label": "4B · gemma3:4b · local",
+        "model": "gemma3:4b",
+        "n": 12,
+        "latency_ms": {
+          "p10": 52583,
+          "median": 58238,
+          "p90": 68686,
+          "mean": 60263
+        },
+        "confidence": {
+          "mean": 0.775,
+          "p10": 0.75,
+          "median": 0.75,
+          "p90": 0.85
+        },
+        "format_adherence_full": {
+          "k": 12,
+          "n": 12,
+          "p": 1,
+          "ci95": {
+            "lo": 0.757,
+            "hi": 1
+          }
+        },
+        "citations_per_answer_mean": 1.33,
+        "chars_mean": 1758
+      },
+      "medium": {
+        "label": "8B · llama-3.1-8b · CF",
+        "model": "@cf/meta/llama-3.1-8b-instruct",
+        "n": 12,
+        "latency_ms": {
+          "p10": 2676,
+          "median": 3502,
+          "p90": 7904,
+          "mean": 4406
+        },
+        "confidence": {
+          "mean": 0.817,
+          "p10": 0.8,
+          "median": 0.8,
+          "p90": 0.9
+        },
+        "format_adherence_full": {
+          "k": 12,
+          "n": 12,
+          "p": 1,
+          "ci95": {
+            "lo": 0.757,
+            "hi": 1
+          }
+        },
+        "citations_per_answer_mean": 1.58,
+        "chars_mean": 1565
+      },
+      "large": {
+        "label": "70B · llama-3.3-70b-fp8 · CF",
+        "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+        "n": 12,
+        "latency_ms": {
+          "p10": 5278,
+          "median": 7548,
+          "p90": 8167,
+          "mean": 7023
+        },
+        "confidence": {
+          "mean": 0.863,
+          "p10": 0.8,
+          "median": 0.8,
+          "p90": 0.95
+        },
+        "format_adherence_full": {
+          "k": 8,
+          "n": 12,
+          "p": 0.667,
+          "ci95": {
+            "lo": 0.391,
+            "hi": 0.862
+          }
+        },
+        "citations_per_answer_mean": 1.75,
+        "chars_mean": 985
+      }
+    }
+  },
+  "results": [
+    {
+      "question": "Why does π appear in the Gaussian normalisation constant?",
+      "model_tag": "small",
+      "model_label": "gemma3:4b",
+      "voice": "academic",
+      "ok": true,
+      "ms": 59372,
+      "chars": 1399,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.85,
+      "citations": 0,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The Gaussian normalisation constant incorporates π due to the integral of a two-dimensional radial probability density function, reflecting the inherent uncertainty in position within a plane.\nEVIDENCE: The Gaussian probability density function is defined as  *σ<sup>2</sup> exp(-((x-μ)<sup>2</sup>)/2σ<sup>2</sup>)*.  Normalising this function to integrate to 1 requires a constant *A* such that ∫∫ *f(x,y)* d*x*d*y* = 1.  This integral involves a 2D radial distribution, leading to the expression *A* = (1/(2πσ<sup>2</sup>))<sup>1/2</sup>, which directly contains π. This arises from the integral of the radial part of the Gaussian, which is equivalent to integrating the area of a circle with radius σ.  The integral of the area of a circle is πσ<sup>2</sup>.\nUNCERTAINTY: The precise value of *σ* often represents an unknown variance, and its relationship to the underlying data distribution remains a subject of statistical inference. (unattributed consensus)\nIMPLICATION: This connection highlights the fundamental role of geometry and area calculations in probability distributions, suggesting a deeper link between continuous probability and spatial dimensions.\nOPEN: Determine the optimal value of *σ* in a system exhibiting random walks, comparing the predicted probability density with experimental data to assess the influence of π.\nCONFIDENCE: 0.85\nREFS: (unattributed consensus)"
+    },
+    {
+      "question": "What is the physical meaning of the fine-structure constant α ≈ 1/137?",
+      "model_tag": "small",
+      "model_label": "gemma3:4b",
+      "voice": "academic",
+      "ok": true,
+      "ms": 55376,
+      "chars": 1597,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.75,
+      "citations": 2,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The fine-structure constant, α, reflects a fundamental scaling of electromagnetic interaction strength with energy density, specifically, ⟨E⟩<sup>2</sup>/⟨ρ⟩, where ⟨E⟩ is the average electromagnetic field energy density and ⟨ρ⟩ is the average energy density of the vacuum.\n\nEVIDENCE: α = e<sup>2</sup>/(4π ε<sub>0</sub>ħc) ≈ 1/137.  This constant arises from the relationship between the electric charge (e), permittivity of free space (ε<sub>0</sub>), Planck’s constant (ħ), and the speed of light (c).  Scaling laws in quantum electrodynamics (QED) suggest that the interaction strength scales with the square of the field energy density (⟨E⟩<sup>2</sup>) and is inversely proportional to the vacuum energy density (⟨ρ⟩).  A simplified representation of this scaling is  α ≈ 1/⟨ρ⟩, implying a direct proportionality between α and the vacuum’s energy density (⟨ρ⟩).  The precise value of α is determined by these fundamental constants.\n\nUNCERTAINTY: The precise value of the vacuum energy density (⟨ρ⟩) remains a significant unresolved problem in theoretical physics, particularly concerning the cosmological constant problem.  The theoretical derivation of α from vacuum energy is highly sensitive to assumptions about the vacuum’s properties.\n\nIMPLICATION:  A precise understanding of α could provide insights into the nature of dark energy and the cosmological constant.\n\nOPEN:  A measurement of the vacuum energy density, coupled with a precise determination of α, would test the validity of theoretical models linking the two.\n\nCONFIDENCE: 0.75\n\nREFS: (Dirac, 1937); (Weinberg, 1996)"
+    },
+    {
+      "question": "Why does the central limit theorem hold so universally?",
+      "model_tag": "small",
+      "model_label": "gemma3:4b",
+      "voice": "academic",
+      "ok": true,
+      "ms": 68686,
+      "chars": 2014,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.85,
+      "citations": 3,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The central limit theorem’s universality stems from the inherent scaling of random walk variance with step size, leading to a Gaussian distribution regardless of the underlying process’s complexity.\nEVIDENCE:  The CLT’s validity hinges on the fact that the sum of independent, identically distributed (i.i.d.) random variables, when sufficiently large in number, approaches a normal distribution.  Specifically, if *X<sub>1</sub>, X<sub>2</sub>, ..., X<sub>n</sub>* are i.i.d. with mean *μ* and variance *σ<sup>2</sup>*, then the sample mean *X̄ = (1/n) ∑<sub>i=1</sub><sup>n</sup> X<sub>i</sub>* approaches a normal distribution with mean *μ* and variance *σ<sup>2</sup>/n* as *n* → ∞.  This can be expressed formally as:  *E[X̄] = μ* and *Var[X̄] = σ<sup>2</sup>/n*.  This scaling law applies across diverse systems, including financial markets (Brown, 1978), neuronal spiking (Zillio & Fellmy, 2008), and even population genetics (Fisher, 1937), demonstrating a fundamental property of large-number statistics.\nUNCERTAINTY: While the CLT holds remarkably well, its strict validity relies on the i.i.d. assumption, which is frequently violated in real-world scenarios.  The degree of deviation from normality decreases with increasing sample size, but non-i.i.d. data can still yield approximate normality under certain conditions.\nIMPLICATION:  The CLT provides a powerful framework for modeling complex systems, allowing for statistical inference even when the underlying mechanisms are unknown.\nOPEN:  A controlled experiment testing the distribution of the sample mean of a system exhibiting non-i.i.d. behavior, with a sufficiently large sample size, to determine if a Gaussian distribution emerges.\nCONFIDENCE: 0.85\nREFS: Brown, A. (1978). *Time series analysis: Stochastic models for observation data*. Academic Press. ; Zillio, J. M., & Fellmy, R. (2008).  The central limit theorem in neuroscience. *PLoS One*, *3*(3), e17435. ; Fisher, R. A. (1937). *The design of experiments*. Oliver and Boyd."
+    },
+    {
+      "question": "What is the relationship between entropy and information?",
+      "model_tag": "small",
+      "model_label": "gemma3:4b",
+      "voice": "academic",
+      "ok": true,
+      "ms": 57208,
+      "chars": 1774,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.85,
+      "citations": 1,
+      "traditions_cited": 0,
+      "raw": "CLAIM: Increased Shannon entropy within a system’s state space correlates inversely with the probability of observing any specific microstate, quantified by the Boltzmann distribution.\nEVIDENCE: Shannon’s information entropy, *H*, is defined as –∑<sub>i</sub> p<sub>i</sub> log(p<sub>i</sub>), where *p<sub>i</sub>* represents the probability of microstate *i* (Schultz & Brunswik, 1968).  This directly reflects the uncertainty associated with a system’s state; higher entropy implies a more uniform probability distribution across states, and thus greater uncertainty.  The Boltzmann distribution, *P(E) = C exp(-E/kT)*, demonstrates this inverse relationship: higher energy states (higher *E*) have lower probability, leading to increased entropy (where *k* is Boltzmann’s constant and *T* is temperature).  A system with a highly peaked Boltzmann distribution has low entropy.\nUNCERTAINTY: While the statistical link is well-established, the precise relationship between information and entropy at the quantum level remains debated, particularly concerning the role of quantum entanglement and non-classical correlations (Everett, 1957).\nIMPLICATION: This suggests a fundamental connection between thermodynamic entropy and the limits of predictability in complex systems, potentially informing information theory and statistical mechanics.\nOPEN:  A controlled experiment measuring the information content (Shannon entropy) of a system’s state space as a function of its energy and temperature, comparing this to the predicted Boltzmann distribution.\nCONFIDENCE: 0.85\nREFS: Schultz, D. O., & Brunswik, E. (1968). *Cognitive psychology* (2nd ed.). New York: Wiley. Everett, H. (1957). *Relative state formulation of quantum mechanics*. Physical Review, 120(4), 1082-1093."
+    },
+    {
+      "question": "How do power laws emerge in self-organised criticality?",
+      "model_tag": "small",
+      "model_label": "gemma3:4b",
+      "voice": "academic",
+      "ok": true,
+      "ms": 56946,
+      "chars": 1788,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.75,
+      "citations": 1,
+      "traditions_cited": 0,
+      "raw": "CLAIM: Fractal scaling exponents in self-organized criticality systems arise from the invariant measure of a diffusion process on the system’s evolving state space.\nEVIDENCE: In dissipative systems like sandpiles, the distribution of avalanches follows a power law, often described by ⟨N⟩ ~ N<sup>-α</sup>, where ⟨N⟩ is the average avalanche size and *α* is the scaling exponent. This arises because the system’s state space, representing potential configurations of the pile, evolves according to a diffusion equation, ∂N/∂t = ∇ ⋅ ⟨∂E/∂N⟩, where *E* represents the energy landscape (unattributed consensus).  The invariant measure, *μ(N)*, of this diffusion process is proportional to *N<sup>-α</sup>*, ensuring that the distribution maintains its shape across scales (e.g., Bak, 1986).  This can be formally expressed as ∫<sub>0</sub><sup>∞</sup> N<sup>-α</sup> dμ(N) = constant.\nUNCERTAINTY: The precise functional form of the energy landscape *E* and the associated diffusion equation remain largely unexplored for complex, heterogeneous systems.  The assumption of a simple diffusion process may not fully capture the intricate dynamics of interactions within the system.\nIMPLICATION: Understanding invariant measures in complex systems offers a framework for predicting emergent behavior across diverse domains, from financial markets to biological networks.\nOPEN:  A computational simulation of a 3D sandpile with stochastic, heterogeneous interactions, coupled with a rigorous analysis of the resulting state-space diffusion, would quantify the invariant measure and its relationship to the observed scaling exponent.\nCONFIDENCE: 0.75\nREFS: Bak, P. R. (1986). On the characterization of particle interactions in dissipative systems. *Studies in Critical Phenomena*, *23*, 133-148."
+    },
+    {
+      "question": "What is the role of network topology in epidemic spreading?",
+      "model_tag": "small",
+      "model_label": "gemma3:4b",
+      "voice": "academic",
+      "ok": true,
+      "ms": 58238,
+      "chars": 1756,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.75,
+      "citations": 1,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The efficiency of epidemic spread is fundamentally governed by the smallest eigenvalue (λ<sub>min</sub>) of the adjacency matrix representing the network topology.\nEVIDENCE:  Network models, such as the SIR model extended to networks (Pastor et al., 2000), demonstrate that λ<sub>min</sub> dictates the speed of epidemic propagation. Specifically, the average number of contacts *per infected individual* scales as λ<sub>min</sub> (∂S/∂t) ≈ λ<sub>min</sub> * (β/γ), where β is the transmission rate and γ is the recovery rate.  A lower λ<sub>min</sub> indicates a more tightly connected, “bottleneck” structure, accelerating spread.  For scale-free networks, this relationship holds approximately, with λ<sub>min</sub> converging to the inverse of the largest path length (Watts & Barbour, 2003).  Mathematically, for a network with *N* nodes and *k* edges per node, the adjacency matrix *A* defines the connections; λ<sub>min</sub> is the smallest eigenvalue of *A*.\nUNCERTAINTY: The precise scaling relationship between λ<sub>min</sub> and epidemic spread may vary depending on network heterogeneity (e.g., varying degrees of connectivity) and the specific transmission dynamics.\nIMPLICATION:  Network design – intentionally creating bottlenecks – could be a strategy for controlling epidemic outbreaks.\nOPEN:  A controlled experiment manipulating the degree distribution of a simulated network to systematically vary λ<sub>min</sub> and measure the resulting epidemic spread rate.\nCONFIDENCE: 0.75\nREFS: Pastor, M. A., Bassler, C., & Hills, M. (2000).  SIR models for infectious diseases in networks. *Proc. Natl. Acad. of Sci. USA*, *97*(14), 3118–3123; Watts, D. J., & Barbour, J. L. (2003). Collective dynamics. *Nature*, *423*(6939), 434–441."
+    },
+    {
+      "question": "Why does the Lotka-Volterra model produce limit cycles?",
+      "model_tag": "small",
+      "model_label": "gemma3:4b",
+      "voice": "academic",
+      "ok": true,
+      "ms": 52583,
+      "chars": 1610,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.85,
+      "citations": 2,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The inherent nonlinearity of the Lotka-Volterra equations, specifically the term ∂x/∂t * ∂y/∂x, generates limit cycles due to the amplification of small perturbations around a stable equilibrium.\nEVIDENCE: The Lotka-Volterra equations are: ∂x/∂t = rxy - ax, ∂y/∂t = by - dx.  The limit cycle arises when the Jacobian matrix evaluated at the equilibrium point (x*, y*) has eigenvalues with non-zero imaginary parts. This leads to a phase space trajectory that circles the equilibrium point indefinitely.  The characteristic equation for this behavior is λ² - rλ + ax = 0, where λ represents the eigenvalues. For a limit cycle, the discriminant (r² - 4ax) must be positive, implying λ = ±√(r² - 4ax)/2.  This translates to a stable spiral with a non-zero frequency, represented by ω = √(r² - 4ax)/2.\nUNCERTAINTY: While the mathematical derivation is well-established, the specific values of *r* and *d* determine the frequency and amplitude of the limit cycle, and these parameters are often assumed to represent biological processes without rigorous justification.\nIMPLICATION: This suggests that complex population dynamics, even in relatively simple models, can emerge from nonlinear interactions, offering a framework for studying oscillating behaviors in ecological and potentially other complex systems.\nOPEN: A controlled experiment varying *r* and *d* systematically, while maintaining constant *a* and *b*, to determine if the resulting phase space trajectories consistently produce limit cycles with predictable frequencies.\nCONFIDENCE: 0.85\nREFS: (Maynard Smith, 1988); (Gilmore & Gilpin, 1979)"
+    },
+    {
+      "question": "Why do allometric scaling laws hold across orders of magnitude?",
+      "model_tag": "small",
+      "model_label": "gemma3:4b",
+      "voice": "academic",
+      "ok": true,
+      "ms": 56888,
+      "chars": 1710,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.75,
+      "citations": 2,
+      "traditions_cited": 0,
+      "raw": "CLAIM: Body size scaling exponents in biological systems exhibit a persistent, non-random distribution reflecting a fundamental constraint on information transfer across scales.\nEVIDENCE: Allometric scaling, observed across diverse taxa (e.g., animal size, plant height), frequently reveals exponents near -3 to -4 (e.g., Peters & Legendre, 2003). This suggests a power-law relationship: *s = a * (size)^b*, where *s* is the scaled property, *size* is the linear dimension, and *b* is the allometric exponent. The persistence of these exponents, despite varying biological contexts, implies a common underlying mechanism – likely related to optimal energy expenditure and metabolic constraints (e.g., McNamara & Rushton, 1990).  A theoretical bound derived from metabolic rate scaling suggests *b* ≈ -3/4, reflecting the efficiency of energy conversion (unattributed consensus).\nUNCERTAINTY: While the observed exponents are statistically significant, the precise value of *b* remains debated, and the underlying mechanisms driving these relationships are not fully elucidated.\nIMPLICATION: This suggests a universal optimization strategy in biological systems, potentially informing engineering design and systems modeling.\nOPEN: A controlled experiment comparing allometric scaling in multiple, evolutionarily distant species, measuring both size and a relevant physiological parameter (e.g., metabolic rate), would test for a consistent scaling relationship.\nCONFIDENCE: 0.75\nREFS: Peters, R.A., Legendre, P. (2003). Allometric scaling of animal size. *Functional Ecology*, *18*(4), 623-634; McNamara, J.M., Rushton, A.J. (1990). Scaling of metabolic rate in animals. *American Zoologist*, *36*(4), 679-691."
+    },
+    {
+      "question": "What is the neural basis of flow state?",
+      "model_tag": "small",
+      "model_label": "gemma3:4b",
+      "voice": "academic",
+      "ok": true,
+      "ms": 80679,
+      "chars": 2072,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.75,
+      "citations": 0,
+      "traditions_cited": 0,
+      "raw": "CLAIM: Increased alpha band (4-8 Hz) power in the frontal cortex correlates positively with self-reported flow state intensity.\nEVIDENCE: Studies utilizing EEG show a significant elevation of alpha power in the frontal regions during peak flow experiences (Zettler et al., 2012). This aligns with the concept of reduced cognitive control, where the default mode network (DMN) exhibits decreased activity (Raichle et al., 2001). A simplified model reflecting this relationship might be:  *Δα = k * FlowIntensity*, where *Δα* represents the change in alpha power (μV), *k* is a proportionality constant (estimated empirically, ~0.5 μV/unit), and *FlowIntensity* is a subjective rating scale (1-10).  The DMN’s reduced activity suggests a decoupling from self-referential thought, a key component of flow.\nUNCERTAINTY: The precise relationship between alpha power and flow intensity remains poorly quantified, with varying results across individuals and tasks (Grossman et al., 2008). The DMN’s role is debated, with some researchers suggesting it’s not simply *reduced* but modulated differently (Beversdorf & Gainsburg, 2010).\nIMPLICATION: Targeting alpha band activity through neurofeedback or transcranial alternating current stimulation (tACS) could potentially induce or enhance flow states.\nOPEN: A controlled experiment manipulating task difficulty and simultaneously monitoring alpha band power and subjective flow ratings in a large cohort of participants.\nCONFIDENCE: 0.75\nREFS: Beversdorf, J. S., & Gainsburg, A. P. (2010). The default mode network and flow: A review. *Consciousness and Cognition*, *19*(3), 1245-1254; Grossman, D. I., Reber, E. R., & Brown, P. J. (2008). Flow: The psychology of optimal experience. *American Psychologist*, *63*(4), 325-334; Raichle, M. E., Tang, Y.-J., Heuer, L., & Friston, K. J. (2001). Default mode network and discovery in meditation. *Proceedings of the National Academy of Sciences*, *98*(2), 831-836; Zettler, I., et al. (2012). EEG correlates of flow state during a challenging video game. *PLoS One*, *7*(11), e23768."
+    },
+    {
+      "question": "What is the predictive coding theory of perception?",
+      "model_tag": "small",
+      "model_label": "gemma3:4b",
+      "voice": "academic",
+      "ok": true,
+      "ms": 62644,
+      "chars": 1713,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.75,
+      "citations": 0,
+      "traditions_cited": 0,
+      "raw": "CLAIM: Predictive coding posits that perceptual experience arises from minimizing prediction error across hierarchical Bayesian networks.\nEVIDENCE: The core equation for Bayesian inference is ⟨O⟩ = ⟨P(O|E)⟩ + ⟨E⟩, where *O* represents observed data, *E* represents prediction error (difference between prediction and observation), and ⟨⟩ denotes the expected value.  This framework suggests that the brain constantly generates predictions about sensory input, comparing these to incoming data to minimize the error signal (⟨E⟩).  Scaling laws observed in cortical processing – specifically, the 1/f power law describing signal propagation – can be interpreted as reflecting this error-minimization process, where higher frequencies represent dominant prediction errors needing correction (Chirp et al., 2004).\nUNCERTAINTY: While the Bayesian framework is widely accepted, the precise architecture and dynamics of these hierarchical networks remain largely unexplored, and the specific mechanisms driving prediction error minimization are debated (Van Den Berg & Lamb, 2016).\nIMPLICATION: This has implications for understanding consciousness, potentially linking subjective experience to the ongoing process of error correction.\nOPEN: A controlled experiment manipulating the precision of internal predictions within a simulated cortical network to directly measure the resulting changes in perceived variance.\nCONFIDENCE: 0.75\nREFS: Chirp, J. E., Van Zweden, E., & Boersma, E. (2004). Cortical processing and the 1/f power law. *Current Opinion in Neurobiology*, *14*(6), 633-639; Van Den Berg, D. W., & Lamb, M. P. (2016). Predictive coding and the brain. *Dialogues in Clinical Neuroscience*, *16*(3), 331-345."
+    },
+    {
+      "question": "What is the demarcation problem in philosophy of science?",
+      "model_tag": "small",
+      "model_label": "gemma3:4b",
+      "voice": "academic",
+      "ok": true,
+      "ms": 51518,
+      "chars": 1674,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.75,
+      "citations": 1,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The demarcation problem posits that a fundamental, universally applicable criterion for distinguishing science from non-science remains elusive, primarily due to the inherent ambiguity in defining “explanation.”\nEVIDENCE: Karl Popper (1934) initially proposed falsifiability as the demarcation criterion – a statement must be capable of being proven false through observation or experiment. However, this has been repeatedly challenged.  The problem arises because many scientific theories are constructed to avoid falsification (e.g., invoking ad hoc explanations or invoking multiverse scenarios).  Furthermore, even seemingly falsified theories can be resurrected through new data or revised interpretations.  A simplified representation of this challenge is:  *F* = { *x* | ¬*x* } , where *F* represents falsifiable statements, *x* represents any statement, and ¬*x* represents its negation.  This equation demonstrates the difficulty in creating a rigid boundary.\nUNCERTAINTY: The precise nature of an “explanation” remains contested, with debates centering on whether it requires predictive power, causal mechanisms, or simply coherence within a theoretical framework. (unattributed consensus)\nIMPLICATION: This ambiguity impacts the validation of scientific models and the assessment of scientific claims, potentially blurring the lines between science and pseudoscience.\nOPEN: A controlled experiment comparing the predictive accuracy of a model based on a falsifiable mechanism with a model based on a mechanism that can be easily invoked to explain any observed data.\nCONFIDENCE: 0.75\nREFS: Popper, K. (1934). *The Logic of Scientific Discovery*. Routledge."
+    },
+    {
+      "question": "Why do flood myths appear across geographically isolated cultures?",
+      "model_tag": "small",
+      "model_label": "gemma3:4b",
+      "voice": "academic",
+      "ok": true,
+      "ms": 63016,
+      "chars": 1994,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.65,
+      "citations": 3,
+      "traditions_cited": 0,
+      "raw": "CLAIM: Recurring narratives of great floods, disproportionately involving divine punishment and subsequent societal rebuilding, correlate with periods of significant glacial melt and subsequent river system formation, suggesting a cognitive mapping of environmental catastrophe.\nEVIDENCE: The Mesopotamian Epic of Gilgamesh describes a deluge following a defiant act against the gods (McNamer, 2004). Similarly, the Biblical Noah’s Ark narrative mirrors this pattern (Kuhner, 1995).  Paleoclimatic data reveals a period of accelerated glacial retreat, roughly 11,700 years ago, coinciding with the emergence and spread of these flood narratives (Miller, 2009). A simplified model relating flood scale (Δ*A*) to glacial melt volume (*V*) and river channel formation rate (*R*) might be expressed as: Δ*A* ≈ *λ* *V* *R*, where *λ* represents a scaling factor influenced by sediment transport capacity and channel geometry – a parameter currently unknown but potentially linked to cognitive biases regarding catastrophic events.\nUNCERTAINTY: The precise correlation between narrative emergence and glacial melt remains debated; alternative explanations involving population migrations and cultural diffusion are plausible (Smith, 2012).\nIMPLICATION: This suggests a shared cognitive architecture for processing and encoding large-scale environmental disruptions, potentially linked to the development of complex social structures and storytelling.\nOPEN: A comparative analysis of flood narratives across diverse cultures, coupled with high-resolution paleogeographic and climatic data, could quantify the relationship between flood narratives and specific glacial melt events.\nCONFIDENCE: 0.65\nREFS: McNamer, D. (2004). *The Epic of Gilgamesh*. Oxford University Press. Kuhner, J. (1995). *The Flood Myths of Genesis*. Oxford University Press. Miller, K. (2009). *The Archaeology of the Israelite Settlement*. Eisenbrauns. Smith, A. (2012). *Cultural Diffusion and the Spread of Myths*. Routledge."
+    },
+    {
+      "question": "Why does π appear in the Gaussian normalisation constant?",
+      "model_tag": "medium",
+      "model_label": "@cf/meta/llama-3.1-8b-instruct",
+      "voice": "academic",
+      "ok": true,
+      "ms": 2859,
+      "chars": 1128,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.9,
+      "citations": 2,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The Gaussian normalisation constant, σ√(2π), arises from the Fourier transform of the Gaussian distribution.\nEVIDENCE: The Fourier transform of the Gaussian distribution, ∫∞ -∞ e^(-x^2/2σ^2) e^(iωx) dx, evaluates to σ√(2π) e^(-ω^2σ^2/2) (Kendall & Stuart, 1963, p. 120). This result follows from the Gaussian integral, ∫∞ -∞ e^(-x^2) dx = √π (Gradshteyn & Ryzhik, 2000, p. 3.471).\nUNCERTAINTY: The derivation of the Gaussian normalisation constant relies on the assumption of a symmetric, unimodal distribution. Deviations from this assumption may affect the result.\nIMPLICATION: The appearance of π in the Gaussian normalisation constant has implications for the study of random processes and signal processing, where the Gaussian distribution is often used as a model for noise.\nOPEN: A formal proof that the Gaussian normalisation constant is unique to the Gaussian distribution, or a counterexample to this claim.\nCONFIDENCE: 0.9\nREFS: Kendall, M. G., & Stuart, A. (1963). The advanced theory of statistics. Griffin; Gradshteyn, I. S., & Ryzhik, I. M. (2000). Table of integrals, series, and products. Academic Press."
+    },
+    {
+      "question": "What is the physical meaning of the fine-structure constant α ≈ 1/137?",
+      "model_tag": "medium",
+      "model_label": "@cf/meta/llama-3.1-8b-instruct",
+      "voice": "academic",
+      "ok": true,
+      "ms": 2796,
+      "chars": 1619,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.9,
+      "citations": 1,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The fine-structure constant α ≈ 1/137 is proportional to the square of the ratio of the electron's Compton wavelength to the Bohr radius, λ_e / a_B.\n\nEVIDENCE: This relationship can be derived from the Dirac equation, which describes the behavior of electrons in atoms (Dirac, 1928). The fine-structure constant α is related to the electron's Compton wavelength λ_e and the Bohr radius a_B by the equation α ≈ (λ_e / a_B)^2. This equation has been experimentally verified to high precision (Beyer et al., 2017).\n\nUNCERTAINTY: The value of α has been measured to high precision, but the underlying physical mechanisms that give rise to its value are still not fully understood. The relationship between α and the electron's Compton wavelength and Bohr radius is well established, but the deeper reasons for this relationship are still a topic of ongoing research.\n\nIMPLICATION: The fine-structure constant α plays a crucial role in the behavior of atoms and molecules, and its value has important implications for our understanding of the behavior of matter at the atomic and subatomic level.\n\nOPEN: A precise calculation of the fine-structure constant α from first principles, without relying on experimental input, would provide a deeper understanding of the underlying physical mechanisms that give rise to its value.\n\nCONFIDENCE: 0.9\n\nREFS: Dirac, P. A. M. (1928). The quantum theory of the electron. Proceedings of the Royal Society of London A, 117(778), 610-624; Beyer, A., et al. (2017). Measurement of the fine-structure constant as a test of the Standard Model. Physical Review Letters, 119(10), 101801."
+    },
+    {
+      "question": "Why does the central limit theorem hold so universally?",
+      "model_tag": "medium",
+      "model_label": "@cf/meta/llama-3.1-8b-instruct",
+      "voice": "academic",
+      "ok": true,
+      "ms": 7904,
+      "chars": 1536,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.9,
+      "citations": 2,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The central limit theorem (CLT) holds universally due to the asymptotic convergence of the distribution of the sample mean to a normal distribution, with a rate of convergence of O(1/√n), where n is the sample size.\n\nEVIDENCE: This is a direct consequence of the Lindeberg-Feller CLT (Lindeberg, 1922; Feller, 1935), which states that the distribution of the sample mean converges to a normal distribution if the sum of the squared standardized variables has a finite variance. The load-bearing equation is:\n\n∫[0,1] (X(t) - μ)^2 dt = σ^2,\n\nwhere X(t) is a stochastic process, μ is the mean, and σ^2 is the variance.\n\nUNCERTAINTY: The CLT assumes that the variables are independent and identically distributed (i.i.d.), which may not always be the case in practice. Additionally, the rate of convergence O(1/√n) may be too slow for small sample sizes.\n\nIMPLICATION: The CLT has far-reaching implications in statistics, probability theory, and many fields of science, including finance, engineering, and medicine. It provides a fundamental tool for making inferences about population parameters from sample data.\n\nOPEN: A formal proof of the CLT for non-i.i.d. variables, or a study of the rate of convergence for small sample sizes.\n\nCONFIDENCE: 0.9\n\nREFS: Lindeberg, F. (1922). Eine neue Herleitung des Exponentialgesetzes in der Wahrscheinlichkeitsrechnung. Mathematische Zeitschrift, 15(1), 211-225; Feller, W. (1935). Über den zentralen Grenzwertsatz der Wahrscheinlichkeitsrechnung. Mathematische Zeitschrift, 40(1), 143-161."
+    },
+    {
+      "question": "What is the relationship between entropy and information?",
+      "model_tag": "medium",
+      "model_label": "@cf/meta/llama-3.1-8b-instruct",
+      "voice": "academic",
+      "ok": true,
+      "ms": 2902,
+      "chars": 1130,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.9,
+      "citations": 1,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The mutual information between two random variables X and Y is bounded by the conditional entropy of X given Y, I(X;Y) ≤ H(X|Y), with equality when X and Y are independent.\n\nEVIDENCE: This result is a direct consequence of the data processing inequality in information theory (Cover & Thomas, 1991, p. 32). The load-bearing equation is I(X;Y) = H(X) + H(Y) - H(X,Y), where H(X) and H(Y) are the marginal entropies of X and Y, and H(X,Y) is the joint entropy of X and Y.\n\nUNCERTAINTY: The relationship between entropy and information is well-established in information theory, but the specific bound I(X;Y) ≤ H(X|Y) is less commonly discussed in the context of complex systems and networks.\n\nIMPLICATION: This result has implications for understanding the relationship between information and entropy in complex systems, particularly in the context of information processing and transmission.\n\nOPEN: A specific experiment or formal proof that explores the conditions under which equality holds in the bound I(X;Y) ≤ H(X|Y).\n\nCONFIDENCE: 0.9\n\nREFS: Cover, T. M., & Thomas, J. A. (1991). Elements of information theory. Wiley."
+    },
+    {
+      "question": "How do power laws emerge in self-organised criticality?",
+      "model_tag": "medium",
+      "model_label": "@cf/meta/llama-3.1-8b-instruct",
+      "voice": "academic",
+      "ok": true,
+      "ms": 2519,
+      "chars": 1346,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.8,
+      "citations": 3,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The power-law exponent of the distribution of avalanche sizes in self-organized criticality (SOC) systems is typically in the range 1.5 ≤ α ≤ 2.5, with a mean value around α ≈ 2.\n\nEVIDENCE: The Bak-Sneppen model, a paradigmatic example of SOC, exhibits a power-law distribution of avalanche sizes with an exponent α ≈ 2 (Bak & Sneppen, 1993). This result has been confirmed in various other SOC models, including the sandpile model (Dhar, 1990) and the forest-fire model (Drossel & Schwabl, 1992). The load-bearing equation for the avalanche size distribution is:\n\nP(s) ∝ s^(-α)\n\nwhere P(s) is the probability of an avalanche of size s.\n\nUNCERTAINTY: The value of the power-law exponent α can vary depending on the specific SOC model and parameters. Some models may exhibit a broader range of exponents, and the mean value of α may not be well-defined.\n\nIMPLICATION: The emergence of power laws in SOC systems has implications for understanding complex phenomena in physics, biology, and social sciences, such as earthquakes, forest fires, and financial crashes.\n\nOPEN: A systematic study of the power-law exponent α in different SOC models and its dependence on parameters would provide further insight into the universality of SOC.\n\nCONFIDENCE: 0.8\n\nREFS: Bak, P., & Sneppen, K. (1993); Dhar, D. (1990); Drossel, B., & Schwabl, F. (1992)"
+    },
+    {
+      "question": "What is the role of network topology in epidemic spreading?",
+      "model_tag": "medium",
+      "model_label": "@cf/meta/llama-3.1-8b-instruct",
+      "voice": "academic",
+      "ok": true,
+      "ms": 4609,
+      "chars": 2099,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.8,
+      "citations": 2,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The basic reproduction number (R0) of an epidemic is inversely proportional to the average shortest path length (ASPL) of the contact network, R0 ∝ 1/ASPL.\n\nEVIDENCE: Studies have shown that the structure of the contact network plays a crucial role in determining the spread of infectious diseases (Pastor-Satorras & Vespignani, 2001). The average shortest path length (ASPL) is a key topological feature that affects the spread of information and disease on networks. A shorter ASPL allows for faster information and disease transmission, while a longer ASPL slows down the spread (Newman, 2002). The relationship between R0 and ASPL can be formalized as R0 ∝ 1/ASPL, where the proportionality constant depends on the specific disease and network characteristics.\n\nUNCERTAINTY: The relationship between R0 and ASPL is still an area of active research, and different studies have reported varying results. For example, some studies have found that the relationship between R0 and ASPL is non-monotonic, with R0 increasing at first and then decreasing as ASPL increases (Bansal et al., 2007).\n\nIMPLICATION: Understanding the role of network topology in epidemic spreading has important implications for public health policy and disease control. By identifying key network features that contribute to the spread of disease, policymakers can target interventions to reduce the spread of disease and prevent outbreaks.\n\nOPEN: A specific experiment that would falsify or extend this claim is a controlled study of epidemic spreading on networks with varying ASPL, where the R0 is measured and compared across different network topologies.\n\nCONFIDENCE: 0.8\n\nREFS: Pastor-Satorras, R., & Vespignani, A. (2001). Epidemic spreading in scale-free networks. Physical Review Letters, 86(14), 3200-3203. Newman, M. E. J. (2002). Spread of epidemic disease on networks. Physical Review E, 66(1), 016128. Bansal, S., Grenfell, B. T., & Meyers, L. A. (2007). When individual behaviour matters: homogeneous and heterogeneous disease models in coherent populations. Epidemiology and Infection, 135(4), 613-623."
+    },
+    {
+      "question": "Why does the Lotka-Volterra model produce limit cycles?",
+      "model_tag": "medium",
+      "model_label": "@cf/meta/llama-3.1-8b-instruct",
+      "voice": "academic",
+      "ok": true,
+      "ms": 3502,
+      "chars": 1528,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.8,
+      "citations": 0,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The Lotka-Volterra model exhibits limit cycles due to the presence of a Hopf bifurcation at the equilibrium point, caused by the interplay between the predator and prey populations' growth rates and the predation rate.\n\nEVIDENCE: The Lotka-Volterra model's dynamics can be described by the following system of ordinary differential equations:\n\ndN/dt = rN - aNP\ndP/dt = eNP - mP\n\nwhere N is the prey population, P is the predator population, r is the prey growth rate, a is the predation rate, e is the conversion efficiency, and m is the predator mortality rate. The Hopf bifurcation occurs when the characteristic equation of the linearized system has a pair of purely imaginary eigenvalues, which happens when the predation rate a equals the prey growth rate r (Lotka, 1925).\n\nUNCERTAINTY: The Lotka-Volterra model is a simplification of real-world ecosystems and does not account for factors such as spatial structure, age structure, and environmental variability, which can affect the model's predictions (May, 1973).\n\nIMPLICATION: The presence of limit cycles in the Lotka-Volterra model has implications for understanding the stability and oscillatory behavior of predator-prey systems in ecology and epidemiology.\n\nOPEN: A numerical study or analytical proof that explores the effects of adding spatial structure to the Lotka-Volterra model on the emergence of limit cycles.\n\nCONFIDENCE: 0.8\n\nREFS: Lotka, A. J. (1925). Elements of Physical Biology; May, R. M. (1973). Stability and Complexity in Model Ecosystems."
+    },
+    {
+      "question": "Why do allometric scaling laws hold across orders of magnitude?",
+      "model_tag": "medium",
+      "model_label": "@cf/meta/llama-3.1-8b-instruct",
+      "voice": "academic",
+      "ok": true,
+      "ms": 4307,
+      "chars": 1257,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.8,
+      "citations": 3,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The allometric scaling exponent for metabolic rate (MR) is approximately 3/4, i.e., MR ∝ M^(3/4), where M is body mass, across a wide range of species and taxonomic groups.\nEVIDENCE: This scaling exponent has been consistently observed in various studies, including those on mammals (Kleiber, 1932), birds (Schmidt-Nielsen, 1984), and fish (Brett, 1965). The load-bearing equation is MR = kM^(3/4), where k is a constant that depends on the specific taxonomic group and environmental conditions.\nUNCERTAINTY: The allometric scaling exponent for MR has been reported to vary slightly across different studies, with some studies suggesting a value closer to 2/3 (White & Seymour, 2003). Additionally, the scaling exponent may not hold for very small or very large body masses.\nIMPLICATION: The universal scaling exponent for MR suggests that there is a fundamental constraint on the evolution of body size and metabolic rate across different species.\nOPEN: A formal proof or empirical study that investigates the scaling exponent for MR in a wide range of species, including those with very small or very large body masses.\nCONFIDENCE: 0.8\nREFS: Kleiber, M. (1932); Schmidt-Nielsen, K. (1984); Brett, J. R. (1965); White, C. R., & Seymour, R. S. (2003)"
+    },
+    {
+      "question": "What is the neural basis of flow state?",
+      "model_tag": "medium",
+      "model_label": "@cf/meta/llama-3.1-8b-instruct",
+      "voice": "academic",
+      "ok": true,
+      "ms": 10957,
+      "chars": 2413,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.8,
+      "citations": 1,
+      "traditions_cited": 0,
+      "raw": "CLAIM: Neural activity in the default mode network (DMN) and the salience network (SN) exhibits a phase transition from a high-entropy, low-coherence state to a low-entropy, high-coherence state during flow state, characterized by a decrease in global signal fluctuations (GSF) and an increase in functional connectivity (FC) between the DMN and SN.\n\nEVIDENCE: Studies using functional magnetic resonance imaging (fMRI) have shown that flow state is associated with decreased GSF and increased FC between the DMN and SN (Buckner et al., 2013; Kühn et al., 2014). The load-bearing equation for this phase transition is likely related to the balance between the excitatory and inhibitory interactions within the DMN and SN, which can be modeled using the Wilson-Cowan equations (Wilson & Cowan, 1972):\n\n∂u/∂t = -u + I(u, v)\n\n∂v/∂t = -v + J(u, v)\n\nwhere u and v represent the activity levels of the DMN and SN, respectively, and I and J are the excitatory and inhibitory interaction functions.\n\nUNCERTAINTY: The neural basis of flow state is still not fully understood, and the role of the DMN and SN in this state is a topic of ongoing research and debate. Additionally, the Wilson-Cowan equations are a simplification of the underlying neural dynamics and may not capture the full complexity of the neural activity during flow state.\n\nIMPLICATION: If the claim holds, it would suggest that flow state is a critical phenomenon that arises from the interplay between the DMN and SN, and that the decrease in GSF and increase in FC between these networks are key features of this state. This could have implications for our understanding of cognitive processing and the development of interventions for improving cognitive performance.\n\nOPEN: A specific experiment that would falsify or extend this claim is a study using electroencephalography (EEG) to investigate the neural activity in the DMN and SN during flow state, with a focus on the phase transition from a high-entropy to a low-entropy state.\n\nCONFIDENCE: 0.8\n\nREFS: Buckner, R. L., Andrews-Hanna, J. R., & Schacter, D. L. (2013). The neural correlates of social and nonsocial attention. NeuroImage, 80, 278-288; Kühn, S., & Gallinat, J. (2014). The neural basis of flow state. NeuroImage, 97, 177-184; Wilson, H. R., & Cowan, J. D. (1972). Excitatory and inhibitory interactions in localized populations of model neurons. Biophysical Journal, 12(1), 1-24."
+    },
+    {
+      "question": "What is the predictive coding theory of perception?",
+      "model_tag": "medium",
+      "model_label": "@cf/meta/llama-3.1-8b-instruct",
+      "voice": "academic",
+      "ok": true,
+      "ms": 2676,
+      "chars": 1555,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.8,
+      "citations": 0,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The predictive coding theory of perception posits that the brain's sensory cortices are organized in a hierarchical, generative model that constantly updates its internal model of the world by minimizing the difference between predicted and actual sensory input (i.e., error).\n\nEVIDENCE: The predictive coding theory is supported by the work of Friston et al. (2012), who showed that the brain's sensory cortices can be modeled as a hierarchical generative model that minimizes the free-energy (F) of the system, where F = E + K, and E is the expected error and K is the precision of the prior distribution. The load-bearing equation is the free-energy principle: F = E + K.\n\nUNCERTAINTY: While the predictive coding theory has been influential in understanding perception, its application to other cognitive processes, such as attention and memory, is still an active area of research. Additionally, the precise neural mechanisms underlying the free-energy principle are still not fully understood.\n\nIMPLICATION: If the predictive coding theory holds, it would imply that perception is an active, generative process that is highly dependent on prior expectations and attention.\n\nOPEN: A specific experiment that would falsify or extend the claim is a study that manipulates the precision of prior expectations in a sensory task and measures the resulting changes in brain activity and behavior.\n\nCONFIDENCE: 0.8\n\nREFS: Friston, K. J., et al. (2012). \"The free-energy principle for contingent learning.\" Nature Reviews Neuroscience, 13(2), 141-152."
+    },
+    {
+      "question": "What is the demarcation problem in philosophy of science?",
+      "model_tag": "medium",
+      "model_label": "@cf/meta/llama-3.1-8b-instruct",
+      "voice": "academic",
+      "ok": true,
+      "ms": 3063,
+      "chars": 1787,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.6,
+      "citations": 2,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The demarcation problem in philosophy of science is the challenge of distinguishing between scientific and non-scientific (or pseudoscientific) knowledge claims, particularly in cases where the latter mimic the former in terms of methodology and empirical evidence.\n\nEVIDENCE: Karl Popper's falsification criterion (Popper, 1934) is a prominent attempt to address the demarcation problem, arguing that scientific theories must be falsifiable to be considered scientific. However, this criterion has been criticized for being too narrow (Feyerabend, 1975). Lakatos' (1970) concept of a research program provides a more nuanced approach, emphasizing the importance of a theory's ability to generate novel predictions and explain anomalies.\n\nUNCERTAINTY: The demarcation problem remains contested, with some arguing that it is impossible to draw a clear line between science and pseudoscience (Feyerabend, 1975). Others propose that the problem is not a matter of demarcation, but rather of understanding the social and cultural contexts in which scientific knowledge is produced (Kuhn, 1962).\n\nIMPLICATION: Resolving the demarcation problem has significant implications for the evaluation of scientific knowledge claims, the development of scientific methodology, and the regulation of scientific inquiry.\n\nOPEN: A formal proof or empirical study that demonstrates a clear and consistent method for distinguishing between scientific and non-scientific knowledge claims would help to resolve the demarcation problem.\n\nCONFIDENCE: 0.6\n\nREFS: Popper, K. (1934). The Logic of Scientific Discovery; Feyerabend, P. (1975). Against Method; Lakatos, I. (1970). Falsification and the Methodology of Scientific Research Programmes; Kuhn, T. S. (1962). The Structure of Scientific Revolutions."
+    },
+    {
+      "question": "Why do flood myths appear across geographically isolated cultures?",
+      "model_tag": "medium",
+      "model_label": "@cf/meta/llama-3.1-8b-instruct",
+      "voice": "academic",
+      "ok": true,
+      "ms": 4776,
+      "chars": 1387,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.8,
+      "citations": 2,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The frequency of flood myths across cultures is correlated with the likelihood of past megaflood events in the corresponding regions (p < 0.01).\nEVIDENCE: Studies of flood myths and megaflood events suggest a positive correlation between the two (Krupp, 1997). The 1927 Yellow River flood in China, for example, displaced 1.5 million people and caused widespread devastation, which may have inspired local flood myths. The load-bearing equation for this correlation is difficult to quantify, but a rough estimate can be made using the frequency of megaflood events and the number of cultures affected.\nUNCERTAINTY: The relationship between flood myths and megaflood events is not universally accepted, and some researchers argue that flood myths may be more closely related to cultural and psychological factors (e.g., the need for a unifying narrative) than to actual historical events.\nIMPLICATION: If the claim holds, it would suggest that flood myths may be a form of collective memory, with the frequency and severity of megaflood events influencing the development of cultural narratives.\nOPEN: A systematic analysis of flood myths and megaflood events across the world, using a quantitative approach to test the correlation.\nCONFIDENCE: 0.8\nREFS: Krupp, E. C. (1997). Beyond the Blue Horizon: Myths and Legends of the Sun, Moon, Stars, and Planets. Oxford University Press."
+    },
+    {
+      "question": "Why does π appear in the Gaussian normalisation constant?",
+      "model_tag": "large",
+      "model_label": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "voice": "academic",
+      "ok": true,
+      "ms": 6272,
+      "chars": 940,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.95,
+      "citations": 2,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The Gaussian normalisation constant contains π due to the rotational symmetry of the Gaussian distribution in n-dimensional space.\nEVIDENCE: The normalisation constant is derived from the integral ∫∞ -∞ e^(-x^2) dx = √π, which can be generalised to n dimensions as ∫∫...∫ e^(-||x||^2) dx = (√π)^n (Feller, 1971; Stein, 1979).\nUNCERTAINTY: The connection between π and rotational symmetry is well-established, but the underlying geometric intuition is not always explicitly stated in standard references.\nIMPLICATION: This appearance of π is an example of a deeper connection between geometric invariants and functional equations, reflecting the intrinsic structure of the Gaussian distribution.\nOPEN: A formal proof that π cannot appear in the normalisation constant of any other rotationally symmetric distribution would falsify the claim that π's appearance is unique to the Gaussian.\nCONFIDENCE: 0.95\nREFS: Feller-1971; Stein-1979"
+    },
+    {
+      "question": "What is the physical meaning of the fine-structure constant α ≈ 1/137?",
+      "model_tag": "large",
+      "model_label": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "voice": "academic",
+      "ok": true,
+      "ms": 7548,
+      "chars": 863,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.95,
+      "citations": 2,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The fine-structure constant α ≈ 1/137 represents the ratio of the electron's velocity in a hydrogen atom to the speed of light, governing the strength of electromagnetic interactions.\nEVIDENCE: The constant α appears in the Dirac equation, ∂ψ/∂t = -iℏ(cα⋅∇ + βmc^2)ψ, and is related to the Coulomb force, F = (1/4πε₀)(q₁q₂/r²), with α = e²/(4πε₀ℏc) ≈ 1/137 (Sommerfeld, 1916; Dirac, 1928).\nUNCERTAINTY: The origin of α's value remains unclear, with various theories attempting to derive it from more fundamental principles, but none widely accepted.\nIMPLICATION: α's value influences the spectroscopy of atoms and molecules, and its smallness explains the stability of matter.\nOPEN: A precise measurement of α to test deviations from the standard model, such as those predicted by grand unified theories.\nCONFIDENCE: 0.95\nREFS: Sommerfeld-1916; Dirac-1928."
+    },
+    {
+      "question": "Why does the central limit theorem hold so universally?",
+      "model_tag": "large",
+      "model_label": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "voice": "academic",
+      "ok": true,
+      "ms": 8107,
+      "chars": 916,
+      "adherence": {
+        "count": 6,
+        "total": 7,
+        "ratio": 0.8571428571428571,
+        "missing": [
+          "IMPLICATION:"
+        ]
+      },
+      "confidence": 0.95,
+      "citations": 3,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The central limit theorem (CLT) holds for a wide range of distributions with finite variance, with the rate of convergence to the normal distribution bounded by the Berry-Esseen theorem: ‖F_n - Φ‖ ≤ 0.7975 σ^3 / σ_0^3 √n.\nEVIDENCE: The CLT is supported by the work of Lévy (1925) and Lindeberg (1922), who showed that the theorem holds under certain regularity conditions, with the Berry-Esseen theorem providing a bound on the rate of convergence (Berry, 1941; Esseen, 1942).\nUNCERTAINTY: The CLT may not hold for distributions with infinite variance or for certain types of dependent data, and the rate of convergence can be slow for some distributions.\nOPEN: A formal proof of the CLT for a specific class of non-iid data, such as those with long-range dependence, would provide further insight into the universality of the theorem.\nCONFIDENCE: 0.95\nREFS: Lévy-1925; Lindeberg-1922; Berry-1941; Esseen-1942"
+    },
+    {
+      "question": "What is the relationship between entropy and information?",
+      "model_tag": "large",
+      "model_label": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "voice": "academic",
+      "ok": true,
+      "ms": 5626,
+      "chars": 1071,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.95,
+      "citations": 0,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The entropy of a probability distribution is inversely related to the information content of a message, as quantified by the equation H(X) = -∑p(x)log₂p(x), where H(X) is the Shannon entropy.\nEVIDENCE: This relationship is established in Shannon's seminal work (Shannon-1948), where the entropy function is derived as a measure of uncertainty or information content. The equation H(X) = -∑p(x)log₂p(x) provides a quantitative link between entropy and information.\nUNCERTAINTY: The application of this equation to non-discrete or non-stationary systems is still an open question, with some researchers arguing for alternative entropy measures (e.g., Rényi entropy).\nIMPLICATION: If this claim holds, then entropy can be used as a proxy for information content in a wide range of systems, from communication networks to biological systems.\nOPEN: A direct experimental test of the relationship between entropy and information content in a non-equilibrium system would provide strong evidence for or against this claim.\nCONFIDENCE: 0.95\nREFS: Shannon-1948; Jaynes-1957"
+    },
+    {
+      "question": "How do power laws emerge in self-organised criticality?",
+      "model_tag": "large",
+      "model_label": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "voice": "academic",
+      "ok": true,
+      "ms": 5708,
+      "chars": 974,
+      "adherence": {
+        "count": 6,
+        "total": 7,
+        "ratio": 0.8571428571428571,
+        "missing": [
+          "IMPLICATION:"
+        ]
+      },
+      "confidence": 0.8,
+      "citations": 2,
+      "traditions_cited": 0,
+      "raw": "CLAIM: Self-organised criticality (SOC) exhibits power-law distributions with exponents that can be derived from the scaling behavior of the system's dynamics, typically ∝ 1/σ^α, where σ is a control parameter and α is a critical exponent.\nEVIDENCE: The work of Bak et al. (1987) and Jensen (1998) demonstrates that SOC systems, such as sandpiles and forest fires, exhibit power-law distributions, with the probability distribution of avalanche sizes following P(s) ∝ s^(-τ), where τ is a critical exponent related to the system's dimensionality.\nUNCERTAINTY: The universality of SOC and the precise values of critical exponents across different systems remain uncertain, with some studies suggesting that the exponents may depend on specific system details.\nOPEN: A systematic study of the scaling behavior of SOC systems with varying control parameters and dimensionalities could help to falsify or refine the claim.\nCONFIDENCE: 0.80\nREFS: Bak et al. (1987); Jensen (1998)"
+    },
+    {
+      "question": "What is the role of network topology in epidemic spreading?",
+      "model_tag": "large",
+      "model_label": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "voice": "academic",
+      "ok": true,
+      "ms": 7503,
+      "chars": 821,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.8,
+      "citations": 2,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The epidemic threshold is inversely proportional to the largest eigenvalue of the network's adjacency matrix, λ₁.\nEVIDENCE: The SIS model on a network can be described by the equation d⟨I⟩/dt = βλ₁⟨I⟩ - γ⟨I⟩, where β is the infection rate and γ is the recovery rate (Pastor-Satorras & Vespignani, 2001). \nUNCERTAINTY: The result relies on a mean-field approximation, which may not hold for all network topologies, particularly those with strong clustering or community structure.\nIMPLICATION: Networks with larger λ₁ are more prone to epidemic outbreaks, which has implications for disease control and network design.\nOPEN: A simulation study on a wide range of network topologies, including real-world networks, could test the universality of this claim.\nCONFIDENCE: 0.80\nREFS: Pastor-Satorras & Vespignani, 2001."
+    },
+    {
+      "question": "Why does the Lotka-Volterra model produce limit cycles?",
+      "model_tag": "large",
+      "model_label": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "voice": "academic",
+      "ok": true,
+      "ms": 5187,
+      "chars": 898,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.95,
+      "citations": 0,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The Lotka-Volterra model exhibits limit cycles due to the balance between predator and prey growth rates, governed by the equation ∂x/∂t = αx - βxy and ∂y/∂t = δxy - γy.\nEVIDENCE: The model's dynamics are characterized by the Jacobian matrix, which has a pair of purely imaginary eigenvalues, λ = ±i√(αγ - βδ), indicating oscillatory behavior (Lotka-1925; Volterra-1926).\nUNCERTAINTY: The existence of limit cycles relies on the specific parameter values and initial conditions, and the model's simplicity may not capture real-world complexities.\nIMPLICATION: The presence of limit cycles implies that predator-prey systems can exhibit periodic fluctuations, influencing ecosystem stability and resilience.\nOPEN: A numerical study of the model's behavior with varying parameter values and noise levels could falsify the claim of limit cycles.\nCONFIDENCE: 0.95\nREFS: Lotka-1925; Volterra-1926"
+    },
+    {
+      "question": "Why do allometric scaling laws hold across orders of magnitude?",
+      "model_tag": "large",
+      "model_label": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "voice": "academic",
+      "ok": true,
+      "ms": 5278,
+      "chars": 852,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.8,
+      "citations": 1,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The allometric scaling exponent β for metabolic rate versus body mass is approximately 3/4, across a wide range of species and sizes.\nEVIDENCE: This is supported by empirical studies (Kleiber, 1947; West et al., 1997), with the scaling law given by B(m) = B₀m^β, where B(m) is metabolic rate and m is body mass, with β ≈ 3/4.\nUNCERTAINTY: The theoretical basis for this exponent is still debated, with some arguing for a fractal-based explanation (West et al., 1997) and others proposing alternative mechanisms.\nIMPLICATION: This scaling law has implications for understanding the evolution of body size and the distribution of species in ecosystems.\nOPEN: A rigorous test of the scaling law across a wide range of taxa and environmental conditions would help to falsify or refine the claim.\nCONFIDENCE: 0.80\nREFS: Kleiber-1947; West et al.-1997"
+    },
+    {
+      "question": "What is the neural basis of flow state?",
+      "model_tag": "large",
+      "model_label": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "voice": "academic",
+      "ok": true,
+      "ms": 8167,
+      "chars": 1052,
+      "adherence": {
+        "count": 6,
+        "total": 7,
+        "ratio": 0.8571428571428571,
+        "missing": [
+          "IMPLICATION:"
+        ]
+      },
+      "confidence": 0.8,
+      "citations": 1,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The neural basis of flow state is characterized by a decrease in cortical activity in the prefrontal cortex (PFC) and an increase in activity in the basal ganglia, with a corresponding decrease in the default mode network (DMN) activity by ≈ 30% (M = 0.30, σ = 0.15).\nEVIDENCE: Studies using fMRI and EEG have shown that flow state is associated with decreased activity in the PFC and increased activity in the basal ganglia, with a decrease in DMN activity, as described by the equation: ΔDMN ≈ -0.30 × ΔPFC (Dietrich, 2004; Kühn, 2013).\nUNCERTAINTY: The neural mechanisms underlying flow state are not yet fully understood, and the relationship between flow state and DMN activity is still a topic of debate, with some studies suggesting a more complex interaction (Buckner, 2013).\nOPEN: A longitudinal fMRI study examining the neural correlates of flow state in expert performers, with a focus on the DMN and PFC, could provide further insight into the neural basis of flow state.\nCONFIDENCE: 0.80\nREFS: Dietrich-2004; Kühn-2013; Buckner-2013"
+    },
+    {
+      "question": "What is the predictive coding theory of perception?",
+      "model_tag": "large",
+      "model_label": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "voice": "academic",
+      "ok": true,
+      "ms": 7655,
+      "chars": 1175,
+      "adherence": {
+        "count": 6,
+        "total": 7,
+        "ratio": 0.8571428571428571,
+        "missing": [
+          "IMPLICATION:"
+        ]
+      },
+      "confidence": 0.8,
+      "citations": 1,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The brain's perceptual process can be described by the free-energy principle, which posits that the brain is an inference machine that minimizes the difference between its predictions and sensory input, with the difference quantified as F = ∫(ε²) dτ, where ε is the prediction error.\nEVIDENCE: This theory is supported by work in neuroscience and machine learning, particularly by Friston (2010), who formulated the free-energy principle as a framework for understanding brain function, including perception, using the equation ∂F/∂θ = -∇∫(ε²) dτ, where θ represents the model parameters.\nUNCERTAINTY: The application of the free-energy principle to specific perceptual tasks and its relationship to other theories of perception, such as Bayesian inference, are still areas of active research and debate, with some studies questioning the universality of the principle.\nOPEN: A direct experimental test of the free-energy principle in perceptual tasks, such as measuring the neural correlates of prediction error (ε) and its relation to perceptual accuracy, would provide strong evidence for or against the theory.\nCONFIDENCE: 0.80\nREFS: Friston-2010; Rao-Ballard-1999"
+    },
+    {
+      "question": "What is the demarcation problem in philosophy of science?",
+      "model_tag": "large",
+      "model_label": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "voice": "academic",
+      "ok": true,
+      "ms": 9107,
+      "chars": 1071,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.8,
+      "citations": 2,
+      "traditions_cited": 0,
+      "raw": "CLAIM: The demarcation problem is a fundamental challenge in philosophy of science, where no universally accepted criterion (C) can distinguish science (S) from non-science (NS), i.e., ∄ C: S ⇔ C ∧ NS ⇔ ¬C.\nEVIDENCE: Popper (1934) and Kuhn (1962) proposed falsifiability and paradigm shifts, respectively, as potential criteria, but both have limitations, e.g., the Duhem-Quine problem, which states that a falsified hypothesis (H) can always be rescued by modifying auxiliary assumptions (A), ∃ A: ¬(H ∧ A) → ¬H ∨ ¬A.\nUNCERTAINTY: The lack of a clear demarcation criterion remains a subject of ongoing debate, with some arguing that science is characterized by a complex interplay of factors, rather than a single defining feature.\nIMPLICATION: Resolving the demarcation problem has implications for understanding the nature of scientific inquiry and its relationship to other forms of knowledge.\nOPEN: A formal proof or empirical study demonstrating a universally applicable demarcation criterion would resolve the problem.\nCONFIDENCE: 0.80\nREFS: Popper-1934; Kuhn-1962"
+    },
+    {
+      "question": "Why do flood myths appear across geographically isolated cultures?",
+      "model_tag": "large",
+      "model_label": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "voice": "academic",
+      "ok": true,
+      "ms": 8115,
+      "chars": 1181,
+      "adherence": {
+        "count": 7,
+        "total": 7,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.8,
+      "citations": 5,
+      "traditions_cited": 0,
+      "raw": "CLAIM: Flood myths exhibit a universal pattern, with 70% of mythologies featuring a great flood, due to a shared psychological response to catastrophic events.\nEVIDENCE: The distribution of flood myths can be modeled using a cultural evolutionary framework, with the frequency of flood myths scaling as ∝ 1/λ, where λ is the rate of cultural transmission (Boyd-Richerson 1985). The mythopoeic model of Carlson (1992) provides a load-bearing equation: ∂M/∂t = αM(1 - M/K), where M is the frequency of flood myths and K is the carrying capacity of cultural memory.\nUNCERTAINTY: The universality of flood myths is contested, with some arguing that the pattern is due to diffusion rather than convergent cultural evolution (Dundes 1988).\nIMPLICATION: If the claim holds, it suggests that human cultures respond to catastrophic events in a predictable, psychologically-driven manner, with implications for the study of cultural evolution and disaster response.\nOPEN: A comparative study of flood myths in isolated cultures, controlling for diffusion and cultural exchange, would provide a critical test of the claim.\nCONFIDENCE: 0.80\nREFS: Boyd-Richerson 1985; Carlson 1992; Dundes 1988"
+    }
+  ]
+}

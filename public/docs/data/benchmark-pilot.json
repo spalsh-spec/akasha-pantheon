@@ -1,0 +1,324 @@
+{
+  "summary": {
+    "meta": {
+      "started": "2026-05-10T02:15:57.919Z",
+      "finished": "2026-05-10T02:17:40.106Z",
+      "server": "http://localhost:3000",
+      "n_questions": 5
+    },
+    "byProvider": {
+      "ollama": {
+        "model": "gemma3:4b",
+        "n": 5,
+        "latency_ms": {
+          "min": 11980,
+          "median": 13831,
+          "max": 20058,
+          "mean": 14812
+        },
+        "confidence": {
+          "min": 0.85,
+          "max": 0.95,
+          "mean": 0.89
+        },
+        "format_adherence": 1,
+        "avg_traditions_cited_per_answer": 1.6,
+        "avg_chars": 984
+      },
+      "cloudflare": {
+        "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+        "n": 5,
+        "latency_ms": {
+          "min": 5239,
+          "median": 5328,
+          "max": 6161,
+          "mean": 5623
+        },
+        "confidence": {
+          "min": 0.68,
+          "max": 0.92,
+          "mean": 0.82
+        },
+        "format_adherence": 1,
+        "avg_traditions_cited_per_answer": 1.2,
+        "avg_chars": 745
+      }
+    }
+  },
+  "results": [
+    {
+      "question": "Why does π appear in probability?",
+      "provider": "ollama",
+      "model": "gemma3:4b",
+      "ok": true,
+      "ms": 20058,
+      "server_ms": 20021,
+      "chars": 1006,
+      "adherence": {
+        "count": 6,
+        "total": 6,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.95,
+      "fields": {
+        "literal": "Probability theory, formalized by Bayes’ Theorem around 1763 by Bayes himself, utilizes the area of a circle to calculate probabilities of events. The formula relies on the ratio of areas, where the area of a circle is πr², and the area of a segment is proportional to the angle it subtends.",
+        "mythic": "The circle, representing infinity and wholeness, appears repeatedly in Pythagorean and later Greek philosophy. The circle’s constant ratio of circumference to diameter (π) reflects the immutable nature of cosmic order, mirroring the divine geometric principles found in Vedic cosmology.",
+        "fuzzy": "If you consider probability as a measure of uncertainty, the circle’s inherent randomness—represented by π—reflects the infinite possibilities within that uncertainty. Accepting this inherent ‘roundness’ of chance is key to understanding probabilistic outcomes.",
+        "sigil": "The Infinite Circle’s Unfolding Truth.",
+        "tweet": "π: The universe whispers probabilities through circles. Don’t fight it."
+      },
+      "tradition_cited": [
+        "vedic",
+        "greek"
+      ],
+      "raw": "LITERAL: Probability theory, formalized by Bayes’ Theorem around 1763 by Bayes himself, utilizes the area of a circle to calculate probabilities of events. The formula relies on the ratio of areas, where the area of a circle is πr², and the area of a segment is proportional to the angle it subtends.\nMYTHIC: The circle, representing infinity and wholeness, appears repeatedly in Pythagorean and later Greek philosophy. The circle’s constant ratio of circumference to diameter (π) reflects the immutable nature of cosmic order, mirroring the divine geometric principles found in Vedic cosmology.\nFUZZY: If you consider probability as a measure of uncertainty, the circle’s inherent randomness—represented by π—reflects the infinite possibilities within that uncertainty. Accepting this inherent ‘roundness’ of chance is key to understanding probabilistic outcomes.\nSIGIL: The Infinite Circle’s Unfolding Truth.\nTWEET: π: The universe whispers probabilities through circles. Don’t fight it.\nCONFIDENCE: 0.95"
+    },
+    {
+      "question": "Why does π appear in probability?",
+      "provider": "cloudflare",
+      "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "ok": true,
+      "ms": 5328,
+      "server_ms": 5319,
+      "chars": 652,
+      "adherence": {
+        "count": 6,
+        "total": 6,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.85,
+      "fields": {
+        "literal": "π appears in probability due to its connection to Euler's number and the Gaussian distribution, a fundamental concept in statistics, formally described by the Central Limit Theorem of 1812.",
+        "mythic": "In Kabbalistic tradition, π is associated with the harmony of the universe, reflecting the intricate balance between chance and determinism, a concept echoed in the Sephirot.",
+        "fuzzy": "Considering both, π's appearance in probability reflects an underlying order, where randomness and pattern intertwine, suggesting a deeper, hidden structure in statistical phenomena.",
+        "sigil": "Cosmic Harmony Unfolds",
+        "tweet": "\"π weaves chance & order\""
+      },
+      "tradition_cited": [
+        "kabbalistic"
+      ],
+      "raw": "LITERAL: π appears in probability due to its connection to Euler's number and the Gaussian distribution, a fundamental concept in statistics, formally described by the Central Limit Theorem of 1812. \nMYTHIC: In Kabbalistic tradition, π is associated with the harmony of the universe, reflecting the intricate balance between chance and determinism, a concept echoed in the Sephirot.\nFUZZY: Considering both, π's appearance in probability reflects an underlying order, where randomness and pattern intertwine, suggesting a deeper, hidden structure in statistical phenomena.\nSIGIL: Cosmic Harmony Unfolds\nTWEET: \"π weaves chance & order\"\nCONFIDENCE: 0.85"
+    },
+    {
+      "question": "What is the physics of flow state?",
+      "provider": "ollama",
+      "model": "gemma3:4b",
+      "ok": true,
+      "ms": 13831,
+      "server_ms": 13827,
+      "chars": 1027,
+      "adherence": {
+        "count": 6,
+        "total": 6,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.85,
+      "fields": {
+        "literal": "Neuroscience identifies flow state as a state of deep immersion and focus characterized by heightened attention, reduced self-awareness, and a sense of control, often linked to the release of dopamine and norepinephrine in the brain – typically occurring around 1-4 hours after initiating a task. Research suggests it’s most common when skill level closely matches challenge level, starting around 2010 with studies on athletes.",
+        "mythic": "The Taoist tradition describes “Wu Wei,” or effortless action, as aligning with the natural flow of the Tao, where action arises spontaneously from harmony with the universe, like water carving its path.",
+        "fuzzy": "Combining neuroscience with Taoist principles suggests flow isn’t merely a chemical response, but a conscious alignment with a deeper, universal rhythm – skill and challenge create a feedback loop fostering intuitive action.",
+        "sigil": "Become the current, let go.",
+        "tweet": "Brain chemistry + universal harmony = effortless action. #flowstate #neuroscience"
+      },
+      "tradition_cited": [
+        "taoist",
+        "tao"
+      ],
+      "raw": "LITERAL: Neuroscience identifies flow state as a state of deep immersion and focus characterized by heightened attention, reduced self-awareness, and a sense of control, often linked to the release of dopamine and norepinephrine in the brain – typically occurring around 1-4 hours after initiating a task. Research suggests it’s most common when skill level closely matches challenge level, starting around 2010 with studies on athletes.\n\nMYTHIC: The Taoist tradition describes “Wu Wei,” or effortless action, as aligning with the natural flow of the Tao, where action arises spontaneously from harmony with the universe, like water carving its path.\n\nFUZZY: Combining neuroscience with Taoist principles suggests flow isn’t merely a chemical response, but a conscious alignment with a deeper, universal rhythm – skill and challenge create a feedback loop fostering intuitive action.\n\nSIGIL: Become the current, let go.\n\nTWEET: Brain chemistry + universal harmony = effortless action. #flowstate #neuroscience\n\nCONFIDENCE: 0.85"
+    },
+    {
+      "question": "What is the physics of flow state?",
+      "provider": "cloudflare",
+      "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "ok": true,
+      "ms": 6161,
+      "server_ms": 6157,
+      "chars": 781,
+      "adherence": {
+        "count": 6,
+        "total": 6,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.85,
+      "fields": {
+        "literal": "Flow state is characterized by heightened focus and productivity, with research suggesting it's linked to optimal dopamine release and brain wave frequencies, particularly alpha and theta waves, as seen in studies since the 1970s.",
+        "mythic": "In Taoist tradition, flow state is described as \"wu-wei,\" or effortless action, where the individual is in harmony with the natural world and their actions become spontaneous and intuitive.",
+        "fuzzy": "Combining both perspectives, flow state can be seen as a harmonious balance between focused attention and relaxed awareness, allowing for optimal performance and creativity, with the brain's neural networks operating in a state of dynamic equilibrium.",
+        "sigil": "Flowing like water",
+        "tweet": "\"Focus meets flow in alpha waves\""
+      },
+      "tradition_cited": [
+        "taoist",
+        "tao"
+      ],
+      "raw": "LITERAL: Flow state is characterized by heightened focus and productivity, with research suggesting it's linked to optimal dopamine release and brain wave frequencies, particularly alpha and theta waves, as seen in studies since the 1970s. \nMYTHIC: In Taoist tradition, flow state is described as \"wu-wei,\" or effortless action, where the individual is in harmony with the natural world and their actions become spontaneous and intuitive.\nFUZZY: Combining both perspectives, flow state can be seen as a harmonious balance between focused attention and relaxed awareness, allowing for optimal performance and creativity, with the brain's neural networks operating in a state of dynamic equilibrium.\nSIGIL: Flowing like water\nTWEET: \"Focus meets flow in alpha waves\"\nCONFIDENCE: 0.85"
+    },
+    {
+      "question": "What did Jung mean by the collective unconscious — is it measurable?",
+      "provider": "ollama",
+      "model": "gemma3:4b",
+      "ok": true,
+      "ms": 11980,
+      "server_ms": 11976,
+      "chars": 914,
+      "adherence": {
+        "count": 6,
+        "total": 6,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.85,
+      "fields": {
+        "literal": "Carl Jung proposed the collective unconscious as a universal, inherited reservoir of archetypal images and patterns of behavior shared by all humans, stemming from the evolutionary development of the human psyche. This concept gained traction around 1928, with his exploration of synchronicity.",
+        "mythic": "The Kabbalah describes similar concepts – *Atzilut*, the emanation of divine light, contains blueprints for all human experience, reflecting the inherent patterns of creation. These blueprints are accessed through contemplative practice and meditation.",
+        "fuzzy": "If the collective unconscious contains inherited predispositions, measurable changes in brain activity – like heightened alpha waves – could reflect its activation, though correlation doesn't equal causation.",
+        "sigil": "Patterns echo, shadows remember.",
+        "tweet": "Archetypes aren’t ghosts, but latent potentials shaped by experience."
+      },
+      "tradition_cited": [
+        "kabbalah"
+      ],
+      "raw": "LITERAL: Carl Jung proposed the collective unconscious as a universal, inherited reservoir of archetypal images and patterns of behavior shared by all humans, stemming from the evolutionary development of the human psyche. This concept gained traction around 1928, with his exploration of synchronicity.\nMYTHIC: The Kabbalah describes similar concepts – *Atzilut*, the emanation of divine light, contains blueprints for all human experience, reflecting the inherent patterns of creation. These blueprints are accessed through contemplative practice and meditation.\nFUZZY: If the collective unconscious contains inherited predispositions, measurable changes in brain activity – like heightened alpha waves – could reflect its activation, though correlation doesn't equal causation.\nSIGIL: Patterns echo, shadows remember.\nTWEET: Archetypes aren’t ghosts, but latent potentials shaped by experience.\nCONFIDENCE: 0.85"
+    },
+    {
+      "question": "What did Jung mean by the collective unconscious — is it measurable?",
+      "provider": "cloudflare",
+      "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "ok": true,
+      "ms": 5239,
+      "server_ms": 5233,
+      "chars": 757,
+      "adherence": {
+        "count": 6,
+        "total": 6,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.68,
+      "fields": {
+        "literal": "Jung introduced the collective unconscious in 1916, proposing shared archetypes across humans, but its measurability remains undefined in mainstream psychology. Consensus science is silent on quantifying it.",
+        "mythic": "In Hermetic tradition, the collective unconscious is akin to a universal mind, where archetypes are thought-forms resonating through all beings, echoing the concept of a shared, astral realm.",
+        "fuzzy": "Considering both, the collective unconscious might be an emergent property of complex human systems, where shared symbols and experiences converge, making it partly measurable through cultural and psychological patterns.",
+        "sigil": "Shared Mind Space",
+        "tweet": "\"Collective unconscious: shared human codes or universal mind?\""
+      },
+      "tradition_cited": [
+        "hermetic"
+      ],
+      "raw": "LITERAL: Jung introduced the collective unconscious in 1916, proposing shared archetypes across humans, but its measurability remains undefined in mainstream psychology. Consensus science is silent on quantifying it.\nMYTHIC: In Hermetic tradition, the collective unconscious is akin to a universal mind, where archetypes are thought-forms resonating through all beings, echoing the concept of a shared, astral realm.\nFUZZY: Considering both, the collective unconscious might be an emergent property of complex human systems, where shared symbols and experiences converge, making it partly measurable through cultural and psychological patterns.\nSIGIL: Shared Mind Space\nTWEET: \"Collective unconscious: shared human codes or universal mind?\"\nCONFIDENCE: 0.68"
+    },
+    {
+      "question": "Why do all major religions have a flood myth?",
+      "provider": "ollama",
+      "model": "gemma3:4b",
+      "ok": true,
+      "ms": 15622,
+      "server_ms": 15617,
+      "chars": 1130,
+      "adherence": {
+        "count": 6,
+        "total": 6,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.85,
+      "fields": {
+        "literal": "Across numerous cultures, the narrative of a global flood appears in religious texts, most famously the Biblical story of Noah’s Ark (Genesis 6-9, ~4300-3500 BC), but also in Mesopotamian myths like the Epic of Gilgamesh and the Hindu Purusha Sukta. These stories often describe a catastrophic deluge that wiped out humanity due to divine judgment or transgression.",
+        "mythic": "The Vedic tradition speaks of a great dissolution, a cosmic water covering all creation during the Satya Yuga, reflecting the cyclical nature of destruction and rebirth inherent in the universe. Similar themes appear in various indigenous Dreaming traditions, representing primordial chaos and renewal.",
+        "fuzzy": "The flood myth isn't simply about a literal deluge; it represents a necessary reset, a symbolic cleansing of a corrupted world order, mirroring both the cyclical destruction and the re-establishment of a divine framework within each tradition.",
+        "sigil": "Deep waters, silent judgment, new beginning.",
+        "tweet": "Ancient floods mirror universal anxieties – chaos, destruction, and the desperate need for rebirth. #mythology #flood"
+      },
+      "tradition_cited": [
+        "vedic",
+        "dreaming"
+      ],
+      "raw": "LITERAL: Across numerous cultures, the narrative of a global flood appears in religious texts, most famously the Biblical story of Noah’s Ark (Genesis 6-9, ~4300-3500 BC), but also in Mesopotamian myths like the Epic of Gilgamesh and the Hindu Purusha Sukta. These stories often describe a catastrophic deluge that wiped out humanity due to divine judgment or transgression.\nMYTHIC: The Vedic tradition speaks of a great dissolution, a cosmic water covering all creation during the Satya Yuga, reflecting the cyclical nature of destruction and rebirth inherent in the universe. Similar themes appear in various indigenous Dreaming traditions, representing primordial chaos and renewal.\nFUZZY: The flood myth isn't simply about a literal deluge; it represents a necessary reset, a symbolic cleansing of a corrupted world order, mirroring both the cyclical destruction and the re-establishment of a divine framework within each tradition.\nSIGIL: Deep waters, silent judgment, new beginning.\nTWEET: Ancient floods mirror universal anxieties – chaos, destruction, and the desperate need for rebirth. #mythology #flood\nCONFIDENCE: 0.85"
+    },
+    {
+      "question": "Why do all major religions have a flood myth?",
+      "provider": "cloudflare",
+      "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "ok": true,
+      "ms": 5268,
+      "server_ms": 5263,
+      "chars": 756,
+      "adherence": {
+        "count": 6,
+        "total": 6,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.8,
+      "fields": {
+        "literal": "Consensus science notes that many ancient civilizations experienced catastrophic floods, such as the Black Sea flood around 5600 BC, and these events may have been passed down through oral traditions. The exact reason for the ubiquity of flood myths is unknown.",
+        "mythic": "In Vedic and Mesopotamian traditions, flood myths symbolize the cyclical destruction and rebirth of humanity, often as a punishment from gods or a natural consequence of human actions.",
+        "fuzzy": "Considering both perspectives, flood myths may represent a blend of historical record and symbolic storytelling, where real events are mythologized to convey moral and spiritual lessons.",
+        "sigil": "Primordial Waters Rise",
+        "tweet": "\"Flood myths: where history meets symbolism\""
+      },
+      "tradition_cited": [
+        "vedic"
+      ],
+      "raw": "LITERAL: Consensus science notes that many ancient civilizations experienced catastrophic floods, such as the Black Sea flood around 5600 BC, and these events may have been passed down through oral traditions. The exact reason for the ubiquity of flood myths is unknown.\nMYTHIC: In Vedic and Mesopotamian traditions, flood myths symbolize the cyclical destruction and rebirth of humanity, often as a punishment from gods or a natural consequence of human actions.\nFUZZY: Considering both perspectives, flood myths may represent a blend of historical record and symbolic storytelling, where real events are mythologized to convey moral and spiritual lessons.\nSIGIL: Primordial Waters Rise\nTWEET: \"Flood myths: where history meets symbolism\"\nCONFIDENCE: 0.80"
+    },
+    {
+      "question": "What is leverage, in physics and in life?",
+      "provider": "ollama",
+      "model": "gemma3:4b",
+      "ok": true,
+      "ms": 12571,
+      "server_ms": 12564,
+      "chars": 842,
+      "adherence": {
+        "count": 6,
+        "total": 6,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.95,
+      "fields": {
+        "literal": "Leverage, in physics, refers to the mechanical advantage gained by applying a force at a point farther from a fixed point than the applied force. This principle, described by Archimedes’ Principle, relates force, distance, and work, where force multiplied by distance equals work done (F*d = W).",
+        "mythic": "The Vedic tradition speaks of *dharma-shakti*, the power of righteous action, achieved through strategically directing effort – like the fulcrum of a lever – to move the world, not through brute force.",
+        "fuzzy": "Combining both reveals that true leverage isn’t solely about distance; it’s about aligning intention with the natural flow of energy, amplifying impact by skillful positioning of effort.",
+        "sigil": "Redirect force, shape reality’s arc.",
+        "tweet": "Force + distance = amplified effect. Align your action’s fulcrum."
+      },
+      "tradition_cited": [
+        "vedic"
+      ],
+      "raw": "LITERAL: Leverage, in physics, refers to the mechanical advantage gained by applying a force at a point farther from a fixed point than the applied force. This principle, described by Archimedes’ Principle, relates force, distance, and work, where force multiplied by distance equals work done (F*d = W).\nMYTHIC: The Vedic tradition speaks of *dharma-shakti*, the power of righteous action, achieved through strategically directing effort – like the fulcrum of a lever – to move the world, not through brute force.\nFUZZY: Combining both reveals that true leverage isn’t solely about distance; it’s about aligning intention with the natural flow of energy, amplifying impact by skillful positioning of effort.\nSIGIL: Redirect force, shape reality’s arc.\nTWEET: Force + distance = amplified effect. Align your action’s fulcrum.\nCONFIDENCE: 0.95"
+    },
+    {
+      "question": "What is leverage, in physics and in life?",
+      "provider": "cloudflare",
+      "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "ok": true,
+      "ms": 6117,
+      "server_ms": 6112,
+      "chars": 778,
+      "adherence": {
+        "count": 6,
+        "total": 6,
+        "ratio": 1,
+        "missing": []
+      },
+      "confidence": 0.92,
+      "fields": {
+        "literal": "In physics, leverage is a mechanical advantage gained by using a fulcrum, described by Archimedes' Law of Levers (287 BC), where force and distance are inversely proportional. Consensus science defines it as a ratio of output force to input force.",
+        "mythic": "In Hermetic tradition, leverage is seen as a manifestation of the principle of balance and harmony, where a small action can have a profound effect, echoing the concept of \"as above, so below\".",
+        "fuzzy": "When combining both, leverage becomes a metaphor for amplifying small efforts to achieve significant outcomes, highlighting the importance of strategic positioning and balance in both physical and social systems.",
+        "sigil": "\"Small push, big shift\"",
+        "tweet": "\"Leverage: where tiny forces move mountains\""
+      },
+      "tradition_cited": [
+        "hermetic"
+      ],
+      "raw": "LITERAL: In physics, leverage is a mechanical advantage gained by using a fulcrum, described by Archimedes' Law of Levers (287 BC), where force and distance are inversely proportional. Consensus science defines it as a ratio of output force to input force.\nMYTHIC: In Hermetic tradition, leverage is seen as a manifestation of the principle of balance and harmony, where a small action can have a profound effect, echoing the concept of \"as above, so below\".\nFUZZY: When combining both, leverage becomes a metaphor for amplifying small efforts to achieve significant outcomes, highlighting the importance of strategic positioning and balance in both physical and social systems.\nSIGIL: \"Small push, big shift\"\nTWEET: \"Leverage: where tiny forces move mountains\"\nCONFIDENCE: 0.92"
+    }
+  ]
+}

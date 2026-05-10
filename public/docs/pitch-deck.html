@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akasha · Pitch Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/docs/docs.css">
+<style>
+  body { background: #faf9f5; overflow: hidden; height: 100vh; margin: 0; }
+  .deck { position: relative; height: 100vh; width: 100vw; }
+  .slide {
+    position: absolute; inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 6vw 8vw;
+    flex-direction: column;
+    animation: fadeIn 0.4s ease;
+    background: #faf9f5;
+  }
+  .slide.active { display: flex; }
+  .slide.title-slide { background: linear-gradient(180deg, #faf9f5, #f4dfd2); }
+  .slide-num {
+    position: absolute; top: 28px; right: 32px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: #97948a;
+    letter-spacing: 0.05em;
+  }
+  .slide-brand {
+    position: absolute; top: 28px; left: 32px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    color: #141413;
+  }
+  .slide-brand .glyph { color: #d97757; margin-right: 8px; }
+  .slide h1 { font-size: clamp(36px, 6vw, 76px); font-weight: 600; letter-spacing: -0.02em; margin: 0 0 22px; max-width: 18ch; line-height: 1.05; }
+  .slide h2 { font-size: clamp(28px, 4vw, 52px); font-weight: 600; margin: 0 0 24px; max-width: 22ch; }
+  .slide h3 { font-size: 18px; font-weight: 500; margin: 0 0 12px; color: #d97757; letter-spacing: 0.04em; text-transform: uppercase; }
+  .slide p, .slide li { font-size: clamp(16px, 1.6vw, 22px); line-height: 1.55; max-width: 56ch; margin-bottom: 12px; color: #141413; }
+  .slide .sub { color: #6b6960; font-style: italic; font-size: clamp(15px, 1.5vw, 20px); }
+  .slide ul { padding-left: 24px; max-width: 56ch; }
+  .deck-nav {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: rgba(20,20,19,0.85);
+    color: #faf9f5;
+    padding: 9px 18px;
+    border-radius: 999px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    z-index: 50;
+  }
+  .deck-nav button {
+    background: transparent;
+    border: none;
+    color: #faf9f5;
+    cursor: pointer;
+    padding: 4px 8px;
+    font-family: inherit;
+    font-size: 14px;
+  }
+  .deck-nav button:hover { color: #d97757; }
+  .stat-row { display: flex; gap: 32px; flex-wrap: wrap; margin-top: 14px; }
+  .stat { background: #fff; border: 1px solid #e7e4d6; padding: 18px 22px; border-radius: 12px; min-width: 160px; }
+  .stat .num { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 36px; color: #d97757; line-height: 1; }
+  .stat .lbl { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #6b6960; letter-spacing: 0.04em; margin-top: 6px; }
+  blockquote { font-style: italic; border-left: 3px solid #d97757; padding-left: 18px; margin: 0 0 16px; max-width: 60ch; font-size: clamp(20px, 2vw, 26px); line-height: 1.45; }
+  blockquote cite { display: block; font-size: 14px; color: #6b6960; margin-top: 10px; font-style: normal; font-family: 'Poppins', sans-serif; letter-spacing: 0.04em; }
+  .pull { color: #d97757; font-weight: 600; }
+  pre { font-family: 'IBM Plex Mono', monospace; background: #f5f3ea; padding: 16px; border-radius: 8px; font-size: 13px; max-width: 60ch; }
+  @keyframes fadeIn { from {opacity: 0; transform: translateY(8px);} to {opacity:1; transform:none;} }
+  @media print {
+    body { background: #fff; height: auto; overflow: visible; }
+    .deck { height: auto; }
+    .slide { display: flex; position: relative; height: 100vh; min-height: 100vh; page-break-after: always; }
+    .deck-nav { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <section class="slide title-slide active">
+    <div class="slide-brand"><span class="glyph">⟁</span>AKASHA · PANTHEON</div>
+    <div class="slide-num">01 / 12</div>
+    <h1>The fuzzy-truth oracle.</h1>
+    <p class="sub">A local-first AI interface that holds three legitimate truths at once — without science-washing the myth or myth-washing the science.</p>
+    <p style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #97948a; letter-spacing: 0.06em; margin-top: 28px;">Sparsh Sharma · 10 May 2026 · v0.2.0</p>
+  </section>
+
+  <section class="slide">
+    <div class="slide-brand"><span class="glyph">⟁</span>AKASHA · PANTHEON</div>
+    <div class="slide-num">02 / 12</div>
+    <h3>The problem</h3>
+    <h2>One-answer AI is dishonest about most real questions.</h2>
+    <p>When the question is empirical (mass of an electron) — one answer is correct. When the question lives between empirical, mythic, and synthetic registers — most questions a human actually asks — collapsing it to one answer either picks an authority and pretends, or hedges into uselessness.</p>
+    <p class="sub">"Why does π appear in probability?" "What did the builders of Göbekli Tepe know?" "What is the physics of flow state?"  None of these collapse cleanly.</p>
+  </section>
+
+  <section class="slide">
+    <div class="slide-brand"><span class="glyph">⟁</span>AKASHA · PANTHEON</div>
+    <div class="slide-num">03 / 12</div>
+    <h3>The insight</h3>
+    <h2>Hold three truths at once.</h2>
+    <ul>
+      <li><span class="pull">Literal</span> — what consensus science says, with citations.</li>
+      <li><span class="pull">Mythic</span> — how a named tradition (Vedic / Hermetic / Yoruba / Hopi) framed it.</li>
+      <li><span class="pull">Fuzzy</span> — the synthesis when both are taken seriously.</li>
+      <li>Plus a <span class="pull">Sigil</span> (3–7 word symbol) and a <span class="pull">Tweet</span> (240-char compression).</li>
+      <li>Plus a self-reported <span class="pull">Confidence</span> 0.00–1.00 on every answer.</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <div class="slide-brand"><span class="glyph">⟁</span>AKASHA · PANTHEON</div>
+    <div class="slide-num">04 / 12</div>
+    <h3>How it works</h3>
+    <h2>Format-as-prior.</h2>
+    <p>The 5-section format is enforced by the system prompt and verified at parse time. Outputs that don't match the format are not rendered as answers. This is a <strong>structural intervention</strong> in the LLM's output distribution — it forces three parallel registers to be filled, simultaneously.</p>
+    <pre>LITERAL: Pi (π ≈ 3.14159) arises in probability through…
+MYTHIC:  In Kabbalah, this is Ein Sof, the boundless circle…
+FUZZY:   Geometry as a probabilistic ghost…
+SIGIL:   Circles within circles, infinite recursion.
+TWEET:   Pi's everywhere — geometry's a probabilistic ghost.
+CONFIDENCE: 0.85</pre>
+  </section>
+
+  <section class="slide">
+    <div class="slide-brand"><span class="glyph">⟁</span>AKASHA · PANTHEON</div>
+    <div class="slide-num">05 / 12</div>
+    <h3>Two modes, one toggle</h3>
+    <h2>FAST (local, private) ↔ DEEP (cloud, free).</h2>
+    <ul>
+      <li><strong>FAST</strong> · Ollama gemma3:4b · runs entirely on the user's M1 16GB · zero network egress · zero cost · ~13s/answer.</li>
+      <li><strong>DEEP</strong> · Cloudflare Workers AI Llama 3.3 70B FP8 Fast · free tier · ~5s/answer · larger model, better calibration.</li>
+      <li>User toggles per-question. Default DEEP, fall-through to FAST if cloud is unavailable.</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <div class="slide-brand"><span class="glyph">⟁</span>AKASHA · PANTHEON</div>
+    <div class="slide-num">06 / 12</div>
+    <h3>The numbers (measured, 10 May 2026)</h3>
+    <h2>Calibrated. Fast enough. Free.</h2>
+    <div class="stat-row">
+      <div class="stat"><div class="num">100%</div><div class="lbl">format adherence · n=10</div></div>
+      <div class="stat"><div class="num">5.3s</div><div class="lbl">DEEP median latency</div></div>
+      <div class="stat"><div class="num">13.8s</div><div class="lbl">FAST median latency</div></div>
+      <div class="stat"><div class="num">0.82</div><div class="lbl">DEEP mean confidence (calibrated)</div></div>
+      <div class="stat"><div class="num">$0</div><div class="lbl">cost per answer · either mode</div></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-brand"><span class="glyph">⟁</span>AKASHA · PANTHEON</div>
+    <div class="slide-num">07 / 12</div>
+    <h3>Architecture</h3>
+    <h2>Stateless server, multi-provider, archive-friendly.</h2>
+    <object data="/docs/charts/architecture.svg" type="image/svg+xml" style="width:100%; max-width:900px; max-height:60vh;"></object>
+    <p class="sub">Express (Node 20+) on localhost:3000 · vanilla HTML/CSS/JS frontend · Lora/Poppins typography · Anthropic colour palette.</p>
+  </section>
+
+  <section class="slide">
+    <div class="slide-brand"><span class="glyph">⟁</span>AKASHA · PANTHEON</div>
+    <div class="slide-num">08 / 12</div>
+    <h3>What's novel</h3>
+    <h2>Five claims, all defensible.</h2>
+    <ul>
+      <li><strong>Epistemic pluralism, operationalised.</strong> The 5-section format is a Bayesian-style structural prior on the output distribution.</li>
+      <li><strong>Compulsory tradition naming.</strong> The MYTHIC field rejects vague "ancient wisdom" — the model must name a specific tradition.</li>
+      <li><strong>Self-reported confidence as first-class output.</strong> Auditable across questions and across models.</li>
+      <li><strong>Local-first sovereignty.</strong> Default mode requires no key, no cloud, no telemetry.</li>
+      <li><strong>iCloud-archived as markdown.</strong> Every answer is a portable, searchable file.</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <div class="slide-brand"><span class="glyph">⟁</span>AKASHA · PANTHEON</div>
+    <div class="slide-num">09 / 12</div>
+    <h3>What it isn't</h3>
+    <h2>Stated upfront because honesty is the moat.</h2>
+    <ul>
+      <li><strong>Not a forecaster.</strong> Asked to predict the next 5 stages of a war on specific dates, both models <em>refused to fabricate</em> and dropped confidence to 20%. That is the right answer. No model has live intel.</li>
+      <li><strong>Not a chat assistant.</strong> Format-locked output is a poor fit for narrative or code generation. Use general LLMs for those.</li>
+      <li><strong>Not making metaphysical claims.</strong> The MYTHIC field is a <em>framing</em>, not an assertion that Kabbalah is empirically true.</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <div class="slide-brand"><span class="glyph">⟁</span>AKASHA · PANTHEON</div>
+    <div class="slide-num">10 / 12</div>
+    <h3>Use cases</h3>
+    <h2>Where the 5-section frame earns its keep.</h2>
+    <ul>
+      <li><strong>Comparative cosmology.</strong> 40 civilisations × 22 religions × 13 sacred languages, browsable as cards, queryable through the oracle.</li>
+      <li><strong>Mental-models reference.</strong> 12 Munger-Naval models with first-principles examples.</li>
+      <li><strong>Research scaffold.</strong> Strip-mine a topic across consensus + tradition + synthesis registers; export each as PDF for a literature review starter.</li>
+      <li><strong>Reflection prompts.</strong> A daily question through the oracle, archived to iCloud — a personal commonplace book.</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <div class="slide-brand"><span class="glyph">⟁</span>AKASHA · PANTHEON</div>
+    <div class="slide-num">11 / 12</div>
+    <h3>A real answer (Llama 3.3 70B · 7.9s)</h3>
+    <h2>"What is the physics of flow state?"</h2>
+    <blockquote>
+      Flow state is characterised by heightened focus and productivity, linked to optimal challenge-skill ratios as proposed by Csíkszentmihályi (1975), and involves neurochemicals like dopamine.
+      <cite>LITERAL · cited tradition: Csíkszentmihályi 1975</cite>
+    </blockquote>
+    <blockquote>
+      In Taoist tradition, flow state is akin to wu-wei — effortless action — where the individual is fully immersed, transcending conscious thought, as described in the Tao Te Ching.
+      <cite>MYTHIC · named tradition: Taoist</cite>
+    </blockquote>
+    <blockquote>
+      Optimal challenge sparks dopamine, igniting flow state.
+      <cite>TWEET · 240-char compression · confidence 0.85</cite>
+    </blockquote>
+  </section>
+
+  <section class="slide">
+    <div class="slide-brand"><span class="glyph">⟁</span>AKASHA · PANTHEON</div>
+    <div class="slide-num">12 / 12</div>
+    <h3>The ask</h3>
+    <h2>Two minutes of your attention.</h2>
+    <p>Try it once. Send a question only you can ask. If the system returns three honest registers + a confidence number, the framework is doing its job. If it doesn't, write me back with the failure mode — I want the bug.</p>
+    <p style="margin-top: 24px;"><strong>Demo</strong> · <code>http://localhost:3000</code><br><strong>Docs</strong> · <code>/docs/index.html</code><br><strong>Source</strong> · <code>~/akasha-pantheon</code><br><strong>Maintainer</strong> · Sparsh Sharma · sparshsharma219@gmail.com</p>
+  </section>
+
+</div>
+
+<div class="deck-nav">
+  <button id="prev">←</button>
+  <span id="counter">1 / 12</span>
+  <button id="next">→</button>
+</div>
+
+<script>
+const slides = [...document.querySelectorAll('.slide')];
+let idx = 0;
+function go(n) {
+  idx = Math.max(0, Math.min(slides.length - 1, n));
+  slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+  document.getElementById('counter').textContent = `${idx+1} / ${slides.length}`;
+  history.replaceState(null, '', `#${idx+1}`);
+}
+document.getElementById('next').addEventListener('click', () => go(idx + 1));
+document.getElementById('prev').addEventListener('click', () => go(idx - 1));
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(idx + 1); }
+  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(idx - 1); }
+  else if (e.key === 'Home') go(0);
+  else if (e.key === 'End') go(slides.length - 1);
+  else if (/^[0-9]$/.test(e.key)) go(parseInt(e.key, 10) - 1);
+});
+const m = location.hash.match(/^#(\d+)/);
+if (m) go(parseInt(m[1], 10) - 1);
+</script>
+</body>
+</html>

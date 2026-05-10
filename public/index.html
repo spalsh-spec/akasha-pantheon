@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#05030a" />
+<title>AKASHA · PANTHEON</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23faf9f5'/%3E%3Ctext x='32' y='44' font-size='38' text-anchor='middle' fill='%23d97757' font-family='serif'%3E%E2%9F%81%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Poppins:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<canvas id="bg"></canvas>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="glyph">⟁</span>
+    <span class="name">AKASHA · PANTHEON</span>
+  </div>
+  <nav id="nav" class="nav"></nav>
+  <div class="status" id="status">booting…</div>
+</header>
+
+<main id="stage">
+
+  <!-- 1. BOOT -->
+  <section class="screen active" data-screen="boot">
+    <div class="boot">
+      <pre id="boot-log" class="boot-log"></pre>
+      <button id="enter" class="enter hidden">ENTER THE PANTHEON</button>
+      <p class="kbd-hint">⌘/Ctrl + 1–9 · jump between screens · / · focus oracle</p>
+    </div>
+  </section>
+
+  <!-- 2. PANTHEON -->
+  <section class="screen" data-screen="pantheon">
+    <h1 class="screen-title">PANTHEON · 40 civilizations</h1>
+    <p class="screen-sub">Tap a culture to consult its gods.</p>
+    <div id="civ-grid" class="grid civ-grid"></div>
+    <div id="civ-detail" class="detail hidden"></div>
+  </section>
+
+  <!-- 3. RELIGIONS -->
+  <section class="screen" data-screen="religions">
+    <h1 class="screen-title">RELIGIONS · 22 lineages</h1>
+    <p class="screen-sub">Living, dormant, and reconstructed.</p>
+    <div id="rel-grid" class="grid rel-grid"></div>
+    <div id="rel-detail" class="detail hidden"></div>
+  </section>
+
+  <!-- 4. LANGUAGES -->
+  <section class="screen" data-screen="languages">
+    <h1 class="screen-title">LANGUAGES · 13 sacred tongues</h1>
+    <p class="screen-sub">Scripts that carried the cosmos.</p>
+    <div id="lang-grid" class="grid lang-grid"></div>
+    <div id="lang-detail" class="detail hidden"></div>
+  </section>
+
+  <!-- 5. MYSTERIES -->
+  <section class="screen" data-screen="mysteries">
+    <h1 class="screen-title">MYSTERIES · 11 anomalies</h1>
+    <p class="screen-sub">The kind Hancock argues about and Rogan won't shut up about.</p>
+    <div id="myst-grid" class="grid myst-grid"></div>
+    <div id="myst-detail" class="detail hidden"></div>
+  </section>
+
+  <!-- 6. CONSTANTS -->
+  <section class="screen" data-screen="constants">
+    <h1 class="screen-title">CONSTANTS · 9 numbers that hold reality</h1>
+    <p class="screen-sub">Tune any one of these and the universe stops.</p>
+    <div id="const-grid" class="grid const-grid"></div>
+  </section>
+
+  <!-- 7. FORCES -->
+  <section class="screen" data-screen="forces">
+    <h1 class="screen-title">FORCES</h1>
+    <p class="screen-sub">Four known. Older traditions counted differently.</p>
+    <div id="force-grid" class="grid force-grid"></div>
+  </section>
+
+  <!-- 8. LAWS -->
+  <section class="screen" data-screen="laws">
+    <h1 class="screen-title">LAWS · seven Hermetic + four physics</h1>
+    <p class="screen-sub">Where the Kybalion meets the Standard Model.</p>
+    <div id="law-list" class="law-list"></div>
+  </section>
+
+  <!-- 9. MODELS -->
+  <section class="screen" data-screen="models">
+    <h1 class="screen-title">MODELS · the latticework</h1>
+    <p class="screen-sub">A few big ideas from many disciplines beat 100 from one.</p>
+    <div id="model-grid" class="grid model-grid"></div>
+  </section>
+
+  <!-- 10. MINDSET -->
+  <section class="screen" data-screen="mindset">
+    <h1 class="screen-title">MINDSET · the inner edge</h1>
+    <p class="screen-sub">What Jordan, Kobe, Marcus, and Goggins all said in their own way.</p>
+    <div id="mindset-list" class="mindset-list"></div>
+    <h2 class="screen-sub" style="margin-top:36px; color:var(--gold-bright); font-size:18px; font-style:normal; letter-spacing:.2em; text-transform:uppercase;">Voices</h2>
+    <div id="voice-list" class="voice-list"></div>
+  </section>
+
+  <!-- 11. ORACLE -->
+  <section class="screen" data-screen="oracle">
+    <h1 class="screen-title">ORACLE · ask the fuzzy truth</h1>
+    <p class="screen-sub" id="oracle-meta">local · ollama · gemma3:4b</p>
+    <div class="oracle-wrap">
+      <div class="oracle-canvas-wrap">
+        <canvas id="fractal" width="520" height="520"></canvas>
+        <div class="fractal-tabs">
+          <button data-fractal="mandelbrot" class="active">mandelbrot</button>
+          <button data-fractal="julia">julia</button>
+          <button data-fractal="sierpinski">sierpinski</button>
+          <button data-fractal="flower">flower of life</button>
+          <button data-fractal="metatron">metatron</button>
+        </div>
+      </div>
+      <div class="oracle-io">
+        <div id="prompt-pills" class="pills"></div>
+        <textarea id="q" rows="3" placeholder="Ask. ‘What did the builders of Göbekli Tepe know that we forgot?’ ‘What is the physics of flow state?’ ‘Why does π appear in probability?’"></textarea>
+        <div class="mode-toggle">
+          <button data-mode="ollama"     class="mode-btn">FAST  <span class="hint">local · gemma3:4b · ~12s</span></button>
+          <button data-mode="cloudflare" class="mode-btn active">DEEP  <span class="hint">cloud · llama 3.3 70B · ~5s</span></button>
+        </div>
+        <div class="voice-toggle">
+          <button data-voice="poly"     class="voice-btn active">POLY  <span class="hint">5-section · for humans</span></button>
+          <button data-voice="academic" class="voice-btn">ACADEMIC  <span class="hint">claim · evidence · refs · for scientists</span></button>
+        </div>
+        <div class="oracle-actions">
+          <button id="ask">CONSULT THE AKASHA  <span class="kbd">⌘↵</span></button>
+          <button id="present" class="ghost hidden">PRESENT (PDF)</button>
+          <button id="copy-tweet" class="ghost hidden">copy tweet</button>
+          <button id="copy-md" class="ghost hidden">copy md</button>
+          <button id="save-icloud" class="ghost hidden">save to iCloud</button>
+        </div>
+        <div id="oracle-out" class="oracle-out"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="/js/data.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/fractals.js"></script>
+<script src="/js/oracle.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>

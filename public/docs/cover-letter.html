@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cover letter · template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/docs/docs.css">
+<style>
+  :root { --orange: #2a4a6c; --orange-soft: #eef3f8; }
+  body { background: #fbfaf5; }
+  .doc { max-width: 700px; padding: 56px; }
+  .letter { background: #fff; border: 1px solid #d6d2bf; border-radius: 12px; padding: 36px 40px; box-shadow: 0 1px 3px rgba(20,20,19,0.05); }
+  .letter p { margin: 0 0 12px; font-size: 15px; line-height: 1.65; }
+  .letter .salutation { margin-bottom: 18px; font-weight: 500; }
+  .letter .signoff { margin-top: 20px; }
+  .blank { color: #b08a1f; font-style: italic; background: #faf3e0; padding: 1px 6px; border-radius: 3px; }
+  .note { background: #eef3f8; border-left: 3px solid #2a4a6c; padding: 10px 16px; margin: 12px 0; font-size: 13px; line-height: 1.5; color: #6b6960; border-radius: 0 6px 6px 0; }
+  .note strong { color: #2a4a6c; }
+  .copy-btn { background: #141413; color: #eef3f8; border: none; padding: 10px 20px; font-family: 'Poppins'; font-size: 13px; cursor: pointer; border-radius: 8px; letter-spacing: 0.05em; }
+  .copy-btn:hover { background: #2a4a6c; }
+</style>
+</head>
+<body>
+<button class="print-btn" onclick="window.print()" style="background:#141413; color:#eef3f8;">⌘P · save as pdf</button>
+<div class="doc">
+
+  <header class="brand" style="border-bottom-color: #2a4a6c;">
+    <div class="name">Cover letter — template</div>
+    <div class="meta">edit angle-bracketed fields · plain text below</div>
+  </header>
+
+  <h1>Cover letter to Lewi Stone (template)</h1>
+  <p class="subtitle">A short, calibrated email that does the introduction, states the ask, and gets out of the way. Edit the angle-bracketed bits.</p>
+
+  <div class="note">
+    <strong>How to use:</strong> the email below is calibrated for a working academic. Three deliberate moves: (1) open with a specific reference to <em>their</em> work, not yours; (2) state in one sentence what you built and the empirical headline; (3) ask for one concrete thing. Length matters — under 200 words. Anything longer signals you don't respect their time.
+  </div>
+
+  <div class="letter">
+    <p class="salutation">Subject: <span class="blank">brief: structured-output prompting framework, N=90 across model scales — would value 30 min</span></p>
+
+    <p class="salutation">Dear Professor Stone,</p>
+
+    <p>I came across your <span class="blank">&lt;specific paper / talk / lab page&gt;</span>, and the structured uncertainty quantification you use in <span class="blank">&lt;e.g. the COVID-19 paper / network-resilience paper / etc.&gt;</span> is exactly the kind of discipline I have been trying to build into a small interface for non-specialist use of large language models.</p>
+
+    <p>Briefly: I am a 23-year-old undergraduate at <span class="blank">&lt;university&gt;</span>. Over the past two weeks I built a small open-source tool that wraps any LLM call in a 7-slot prompt schema (CLAIM · EVIDENCE · UNCERTAINTY · IMPLICATION · OPEN · REFS · CONFIDENCE). I ran a small benchmark — 30 questions across 4B, 8B, and 70B parameter Llama-family models — and observed 100% format adherence at all three scales, with monotonically improving confidence calibration as the model grows. The 95% binomial CI on adherence is <span class="blank">[X, Y]</span>; the prototype runs locally on a MacBook M1 with no API keys, and optionally calls a 70B model on Cloudflare's free tier.</p>
+
+    <p>Two reasons I am writing to you specifically:</p>
+    <ol>
+      <li>The compulsory uncertainty + compulsory citation slot pattern is methodologically close to what your group already does in network-resilience and epidemic modelling write-ups. I would value your read on whether the schema is too restrictive or not restrictive enough.</li>
+      <li>I would also like to share a one-page brief with Jacob Bock Axelsen, given his linguistic-diversity / biogeography work — but I understand the convention is to ask you first.</li>
+    </ol>
+
+    <p>The brief is at <span class="blank">&lt;link&gt;</span>; the source is at <span class="blank">&lt;repo link&gt;</span>; the raw benchmark JSON is one click in. If a 30-minute call (Zoom or in person at RMIT) is possible in the next two weeks, I would be grateful. If not, even a one-line "the methodology is / is not interesting" is useful.</p>
+
+    <p class="signoff">Kind regards,<br>
+    Sparsh Sharma<br>
+    sparshsharma219@gmail.com<br>
+    +61 <span class="blank">&lt;number&gt;</span></p>
+  </div>
+
+  <h2>Notes on each move</h2>
+  <ol>
+    <li><strong>Subject line</strong>: Specific, no buzzwords. The phrase "structured-output prompting framework" tells him what kind of object this is in the first 3 words. The phrase "N=90 across model scales" signals you have data, not vibes. Cap at ~80 chars.</li>
+    <li><strong>First paragraph</strong>: Open by referencing <em>his</em> work. Pick one specific paper or method he is known for. (For Lewi Stone: his COVID-Israel modelling paper, his conservation-network resilience papers, or his Lotka-Volterra–style applied work — pick the closest one to your tool's framing.) This proves you have done at least one hour of homework.</li>
+    <li><strong>Second paragraph</strong>: State the artefact + the empirical headline + the falsifiability hook. <em>Do not</em> oversell. The numbers should speak for themselves — and they do: 100% adherence at three scales is a real finding, but it is a small one, and you should signal that you know it is small.</li>
+    <li><strong>Two reasons for him specifically</strong>: One methodological (his expertise touches yours), one social (politely asking permission to forward to Jacob — Lewi is the gatekeeper, this acknowledges that without grovelling).</li>
+    <li><strong>The ask</strong>: One concrete, time-bounded request. 30 minutes. Within two weeks. Zoom or in person. <em>And</em> a graceful exit ("a one-line yes/no is useful") so he can decline without feeling rude. Both are respectful.</li>
+    <li><strong>Length</strong>: 180 words in the body. Anything longer signals nervousness; anything shorter signals carelessness. This length is calibrated.</li>
+    <li><strong>Tone</strong>: No exclamation marks. No "I would love" or "I'd be thrilled". Calm, substantive, calibrated. Match his register.</li>
+  </ol>
+
+  <h2>What to attach</h2>
+  <ul>
+    <li><strong>Single PDF</strong>: the Academic Brief (<code>/docs/academic-brief.html</code> → ⌘P → Save as PDF). One page. The numbers will be live by the time you send.</li>
+    <li><strong>One link in the email body</strong>: to the Stats Report (<code>/docs/stats.html</code>) so he can drill into raw data if he wants.</li>
+    <li><strong>Do not</strong> attach the pitch deck, the executive summary, or the README. Those are for a different audience and clutter the academic ask.</li>
+  </ul>
+
+  <h2>If he says yes</h2>
+  <ol>
+    <li>Confirm time + Zoom link / RMIT room within 24 hours.</li>
+    <li>Send a one-line agenda the day before: <em>"15 min: I demo the tool on a question of yours. 10 min: you push on the calibration claim. 5 min: I ask if it would be appropriate to share with Jacob."</em></li>
+    <li>Show up 5 min early. Have the tool already running on your laptop with the academic voice toggled on. Have one of his recent papers' open-question section already in the textarea.</li>
+    <li>Do not type during the call. Listen.</li>
+  </ol>
+
+  <h2>If he says no</h2>
+  <p>Reply with one line of thanks, no follow-up, no defensiveness. Then send the same email — adapted — directly to Jacob, opening with "Lewi Stone suggested I might write to you given your work on …" only if Lewi gave you that permission. Otherwise write to Jacob fresh, no name-drop.</p>
+
+  <footer class="doc-footer">
+    <div>cover letter template · v0.1</div>
+    <div>Sparsh Sharma · 10 may 2026</div>
+  </footer>
+</div>
+</body>
+</html>

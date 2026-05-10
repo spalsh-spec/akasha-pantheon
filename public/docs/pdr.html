@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akasha · PDR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/docs/docs.css">
+</head>
+<body>
+<button class="print-btn" onclick="window.print()">⌘P · save as pdf</button>
+<div class="doc">
+  <div class="doc-nav">
+    <a class="home" href="/docs/">⟁ index</a>
+    <a href="/docs/executive-summary.html">01 · summary</a>
+    <a href="/docs/white-paper.html">02 · white paper</a>
+    <a href="/docs/pitch-deck.html">03 · deck</a>
+    <a href="/docs/pdr.html" class="active">04 · pdr</a>
+    <a href="/docs/stats.html">05 · stats</a>
+  </div>
+
+  <header class="brand">
+    <div class="name"><span class="glyph">⟁</span>AKASHA · PANTHEON · preliminary design review</div>
+    <div class="meta">PDR-001 · 10 May 2026</div>
+  </header>
+
+  <h1>Preliminary Design Review</h1>
+  <p class="subtitle">Architecture · interfaces · requirements · test matrix · risks · sign-off.</p>
+
+  <div class="callout">
+    <span class="label">Purpose</span>
+    <p>This PDR establishes that the design is sound enough to invest further engineering hours in. It documents what exists today (v0.2.0), the specific test verdicts that closed each requirement, and the residual risks that remain. It is the document an external reviewer signs after a 30-minute walkthrough.</p>
+  </div>
+
+  <h2>1 · Scope</h2>
+  <p>Akasha Pantheon is a single-host web application for asking philosophy / physics / cosmology questions through a structured-output interface to a large language model. Out of scope: multi-user authentication, RBAC, billing, distributed deployment, mobile native apps.</p>
+
+  <h2>2 · Requirements</h2>
+  <table>
+    <thead><tr><th>ID</th><th>Requirement</th><th>Type</th><th>Verified</th></tr></thead>
+    <tbody>
+      <tr><td>R-01</td><td>Default oracle runs on consumer hardware (M1 16GB) with no API keys</td><td>Functional</td><td>✓ FAST mode · gemma3:4b · 3.3 GB RAM</td></tr>
+      <tr><td>R-02</td><td>Optional cloud mode is free-tier and key-managed locally</td><td>Functional</td><td>✓ DEEP mode · Cloudflare Workers AI · 0 USD</td></tr>
+      <tr><td>R-03</td><td>Every output conforms to the 5-key + confidence schema</td><td>Functional</td><td>✓ 100% over N=10 (see white paper §6.2)</td></tr>
+      <tr><td>R-04</td><td>Self-reported confidence is parsed and surfaced to user</td><td>Functional</td><td>✓ rendered in oracle-out .conf line</td></tr>
+      <tr><td>R-05</td><td>Every successful answer auto-archives to iCloud Drive as markdown</td><td>Functional</td><td>✓ verified via fs check during E2E (10/10 files written)</td></tr>
+      <tr><td>R-06</td><td>FAST median latency ≤ 20s</td><td>Performance</td><td>✓ measured 13.8s</td></tr>
+      <tr><td>R-07</td><td>DEEP median latency ≤ 10s</td><td>Performance</td><td>✓ measured 5.3s</td></tr>
+      <tr><td>R-08</td><td>UI passes WCAG-acceptable colour contrast on cream/orange palette</td><td>Quality</td><td>✓ Anthropic palette is brand-spec compliant</td></tr>
+      <tr><td>R-09</td><td>UI is mobile-responsive (≥360 px, no horizontal scroll)</td><td>Quality</td><td>✓ tested 360/375/390/720/1280</td></tr>
+      <tr><td>R-10</td><td>Empty / malformed JSON requests return JSON 4xx, not HTML</td><td>Robustness</td><td>✓ JSON error handler installed</td></tr>
+      <tr><td>R-11</td><td>Ollama-down failure path returns JSON 500 with diagnostic</td><td>Robustness</td><td>✓ tested via fake URL on port 9999</td></tr>
+      <tr><td>R-12</td><td>Background animation pauses on tab hidden (battery)</td><td>Quality</td><td>✓ visibilitychange listener wired in bg.js</td></tr>
+      <tr><td>R-13</td><td>Empty-string env vars do not mask .env values</td><td>Robustness</td><td>✓ stripped before dotenv.config()</td></tr>
+      <tr><td>R-14</td><td>One-click PDF export of any oracle answer</td><td>Functional</td><td>✓ PRESENT button → window.print() pipeline</td></tr>
+      <tr><td>R-15</td><td>Markdown clipboard export of any answer</td><td>Functional</td><td>✓ COPY MD button → navigator.clipboard.writeText</td></tr>
+      <tr><td>R-16</td><td>Keyboard navigation: ⌘+1..9 → screens, ⌘+0 → oracle, / → focus</td><td>Quality</td><td>✓ verified via Playwright key dispatch (white paper §6 of QA log)</td></tr>
+    </tbody>
+  </table>
+
+  <h2>3 · Architecture</h2>
+  <object data="/docs/charts/architecture.svg" type="image/svg+xml" style="width:100%; max-width:100%; display:block; margin:8px 0;"></object>
+
+  <h3>3.1 Component manifest</h3>
+  <table>
+    <thead><tr><th>Component</th><th>Path</th><th>LOC</th><th>Concern</th></tr></thead>
+    <tbody>
+      <tr><td>Express server</td><td><code>server.js</code></td><td>≈230</td><td>provider routing · format · iCloud export</td></tr>
+      <tr><td>Frontend index</td><td><code>public/index.html</code></td><td>≈110</td><td>11 screens · DOM scaffolding</td></tr>
+      <tr><td>Brand stylesheet</td><td><code>public/css/style.css</code></td><td>≈430</td><td>Anthropic palette · Lora/Poppins · responsive</td></tr>
+      <tr><td>Data layer</td><td><code>public/js/data.js</code></td><td>≈380</td><td>40 civs · 22 religions · 13 langs · 11 mysteries · etc.</td></tr>
+      <tr><td>Background</td><td><code>public/js/bg.js</code></td><td>≈140</td><td>canvas stars · matrix-rain · pause on hidden</td></tr>
+      <tr><td>Fractals</td><td><code>public/js/fractals.js</code></td><td>≈200</td><td>5 fractal generators · oracle background</td></tr>
+      <tr><td>Oracle wrapper</td><td><code>public/js/oracle.js</code></td><td>≈110</td><td>fetch · parse · render</td></tr>
+      <tr><td>App orchestrator</td><td><code>public/js/app.js</code></td><td>≈400</td><td>routing · keybinds · PRESENT/COPY/iCloud handlers</td></tr>
+      <tr><td>Benchmark harness</td><td><code>scripts/benchmark.mjs</code></td><td>≈110</td><td>5 questions × 2 providers · evidence file</td></tr>
+      <tr><td>Chart generator</td><td><code>scripts/charts.mjs</code></td><td>≈170</td><td>4 SVGs · pure SVG · no deps</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3.2 Data flow</h3>
+  <ol>
+    <li>User types question → submits via click or ⌘+Enter.</li>
+    <li>Frontend POSTs <code>{ question, provider }</code> to <code>/api/oracle</code>.</li>
+    <li>Server picks provider (FAST=Ollama, DEEP=Cloudflare), prepends system prompt, sends to backend.</li>
+    <li>Server receives raw text response, returns JSON <code>{ raw, provider, model, ms, exported }</code>.</li>
+    <li>Frontend parses raw via the tolerant 6-key regex, renders 5 panels + meta line.</li>
+    <li>Server writes the same <code>raw</code> as a markdown file to the iCloud directory (timestamped, slugged).</li>
+  </ol>
+
+  <h3>3.3 Configuration surface</h3>
+  <pre>ORACLE_PROVIDER     # default: cloudflare
+OLLAMA_URL          # default: http://localhost:11434
+OLLAMA_MODEL        # default: gemma3:4b
+CF_ACCOUNT_ID       # required for DEEP
+CF_API_TOKEN        # required for DEEP
+CF_MODEL            # default: @cf/meta/llama-3.3-70b-instruct-fp8-fast
+ICLOUD_EXPORT_DIR   # default: ~/iCloud Drive/Akasha
+EXPORT_ON_ASK       # default: true</pre>
+
+  <h2>4 · Interfaces</h2>
+  <h3>4.1 HTTP API</h3>
+  <table>
+    <thead><tr><th>Method</th><th>Path</th><th>Purpose</th><th>Status codes</th></tr></thead>
+    <tbody>
+      <tr><td>POST</td><td><code>/api/oracle</code></td><td>Run oracle on a question</td><td>200 / 400 (validation) / 500 (provider failure)</td></tr>
+      <tr><td>POST</td><td><code>/api/save</code></td><td>Manually persist an answer to iCloud</td><td>200 / 400</td></tr>
+      <tr><td>GET</td><td><code>/api/health</code></td><td>Provider availability + iCloud config</td><td>200</td></tr>
+      <tr><td>GET</td><td><code>/docs/*</code></td><td>Static docs (this set)</td><td>200 / 404</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4.2 Storage interface</h3>
+  <p>iCloud archive is opt-in via <code>ICLOUD_EXPORT_DIR</code>. Files are <code>YYYY-MM-DDTHH-MM-SS-slug.md</code>. Body is the question + metadata + raw response. No structured DB — flat markdown is the lingua franca of personal knowledge tools (Obsidian, Bear, Notion-import).</p>
+
+  <h2>5 · Test matrix</h2>
+  <p>Verified end-to-end via Playwright + curl + benchmark harness. Each row is a closed verdict.</p>
+  <table>
+    <thead><tr><th>#</th><th>Test</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td>T-01</td><td>Server boots, serves /, returns 200 on all static assets</td><td>✓</td></tr>
+      <tr><td>T-02</td><td>Boot animation reveals ENTER button after ~2s</td><td>✓</td></tr>
+      <tr><td>T-03</td><td>Each of the 10 nav screens activates correctly with right card counts</td><td>✓ 40/22/13/11/9/6/11/12/12/oracle</td></tr>
+      <tr><td>T-04</td><td>Detail panel opens + closes for civilizations, religions, languages, mysteries</td><td>✓ 4 / 4</td></tr>
+      <tr><td>T-05</td><td>All 5 fractals render (mandelbrot/julia/sierpinski/flower/metatron)</td><td>✓ pixel coverage verified</td></tr>
+      <tr><td>T-06</td><td>FAST oracle E2E returns 5 sections + tweet + auto iCloud save</td><td>✓ 12.8s on M1</td></tr>
+      <tr><td>T-07</td><td>DEEP oracle E2E returns 5 sections + tweet + auto iCloud save</td><td>✓ 5.5s</td></tr>
+      <tr><td>T-08</td><td>Prompt pills click → fill textarea</td><td>✓ 12 pills</td></tr>
+      <tr><td>T-09</td><td>Copy-tweet button → clipboard "copied ✓"</td><td>✓</td></tr>
+      <tr><td>T-10</td><td>Save-iCloud button → file written</td><td>✓</td></tr>
+      <tr><td>T-11</td><td>⌘+1..9 keyboard navigation hits expected screens</td><td>✓ all 9</td></tr>
+      <tr><td>T-12</td><td>⌘+0 → oracle</td><td>✓</td></tr>
+      <tr><td>T-13</td><td>/ keyboard → oracle + textarea focus</td><td>✓</td></tr>
+      <tr><td>T-14</td><td>⌘+Enter inside textarea triggers ask</td><td>✓</td></tr>
+      <tr><td>T-15</td><td>Mobile 360/375/390/720/1280 — no horizontal scroll, sensible columns</td><td>✓ 2/2/2/4/5 cols</td></tr>
+      <tr><td>T-16</td><td>Backend load: 3 sequential + 3 parallel — all 200, all 6 fields, all iCloud-saved</td><td>✓</td></tr>
+      <tr><td>T-17</td><td>Ollama-down failure: health reports ollama_up:false; oracle returns JSON 500</td><td>✓</td></tr>
+      <tr><td>T-18</td><td>DOM leak check: 60 cycles → +13 nodes (last detail content, bounded), 0 listener growth</td><td>✓</td></tr>
+      <tr><td>T-19</td><td>PRESENT generates 4434-char self-contained printable HTML doc</td><td>✓</td></tr>
+      <tr><td>T-20</td><td>Final smoke test: full flow boot → navigate → detail → oracle → tweet</td><td>✓</td></tr>
+    </tbody>
+  </table>
+
+  <h2>6 · Performance</h2>
+  <p>FAST mode latency on M1 16GB (no other heavy apps): mean 14.8s, median 13.8s, max 20.1s. DEEP mode latency to Cloudflare: mean 5.6s, median 5.3s, max 6.2s. Both well under 30s reflective-use threshold.</p>
+
+  <p>Memory footprint: gemma3:4b loaded ~3.3 GB RAM resident; node server ~80 MB; browser tab ~200 MB. Total budget for the application stack ≤ 4 GB on a 16 GB machine — comfortable headroom for Slack, VS Code, Chrome simultaneously.</p>
+
+  <h2>7 · Security</h2>
+  <ul>
+    <li><strong>Default mode is air-gapped.</strong> FAST runs entirely locally; no network calls. Question text never leaves the machine.</li>
+    <li><strong>DEEP mode</strong> sends question text to Cloudflare. Per Cloudflare's docs, request bodies are not retained for training. No PII is sent automatically; user-provided question content is the only payload.</li>
+    <li><strong>API keys</strong> are stored in <code>.env</code> (gitignored). Never logged, never sent to the frontend.</li>
+    <li><strong>Input validation</strong>: question is truncated to 1000 chars; JSON body capped at 64 KB.</li>
+    <li><strong>Output rendering</strong>: all model outputs HTML-escaped before insertion into the DOM. No <code>innerHTML</code> with raw strings.</li>
+  </ul>
+
+  <h2>8 · Risks</h2>
+  <table>
+    <thead><tr><th>Risk</th><th>Severity</th><th>Mitigation</th></tr></thead>
+    <tbody>
+      <tr><td>Cloudflare free-tier limits change</td><td>Medium</td><td>OpenRouter / OpenAI / Anthropic providers already wired in; switch via env</td></tr>
+      <tr><td>Ollama crashes on host</td><td>Low</td><td>Health endpoint surfaces it; UI shows "ollama down" with restart instruction</td></tr>
+      <tr><td>Smaller model regresses on format adherence</td><td>Low</td><td>Parser falls back to "raw" panel rather than rendering broken UI</td></tr>
+      <tr><td>iCloud directory unavailable</td><td>Low</td><td>Export warning logged, oracle still answers</td></tr>
+      <tr><td>Adversarial prompt injection</td><td>Low (single-user app)</td><td>System prompt is hardened; output structure is parsed not executed</td></tr>
+    </tbody>
+  </table>
+
+  <h2>9 · Open questions for next review</h2>
+  <ol>
+    <li>Should the format prior become user-editable (e.g. add a 6th section)? — Defer to v0.3.</li>
+    <li>Should there be a "compare" view that runs FAST and DEEP simultaneously and renders side-by-side answers? — Useful for calibration research.</li>
+    <li>Should answer corpus be searchable / RAG-able? — iCloud archive is already in markdown; obvious target.</li>
+    <li>Should N be increased to 100 with cross-question variance reported? — Yes, for v1.0 paper.</li>
+  </ol>
+
+  <h2>10 · Sign-off</h2>
+  <p>Reviewer signs below to confirm the design is buildable, the architecture is sound, and the test matrix is closed against requirements R-01 through R-16.</p>
+
+  <div style="margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+    <div>
+      <p style="border-bottom: 1px solid #d6d2bf; padding-bottom: 4px; min-height: 32px;">&nbsp;</p>
+      <p style="font-family: 'Poppins', sans-serif; font-size: 12px; color: #6b6960;">Reviewer signature</p>
+    </div>
+    <div>
+      <p style="border-bottom: 1px solid #d6d2bf; padding-bottom: 4px; min-height: 32px;">&nbsp;</p>
+      <p style="font-family: 'Poppins', sans-serif; font-size: 12px; color: #6b6960;">Date</p>
+    </div>
+  </div>
+
+  <footer class="doc-footer">
+    <div>akasha-pantheon · PDR-001 · sparsh sharma</div>
+    <div>10 may 2026 · Melbourne</div>
+  </footer>
+</div>
+</body>
+</html>

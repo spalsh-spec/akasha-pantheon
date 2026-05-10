@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akasha · Stats &amp; Graphs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/docs/docs.css">
+</head>
+<body>
+<button class="print-btn" onclick="window.print()">⌘P · save as pdf</button>
+<div class="doc">
+  <div class="doc-nav">
+    <a class="home" href="/docs/">⟁ index</a>
+    <a href="/docs/executive-summary.html">01 · summary</a>
+    <a href="/docs/white-paper.html">02 · white paper</a>
+    <a href="/docs/pitch-deck.html">03 · deck</a>
+    <a href="/docs/pdr.html">04 · pdr</a>
+    <a href="/docs/stats.html" class="active">05 · stats</a>
+  </div>
+
+  <header class="brand">
+    <div class="name"><span class="glyph">⟁</span>AKASHA · PANTHEON · stats &amp; graphs</div>
+    <div class="meta">benchmark run · 10 May 2026 02:15 UTC</div>
+  </header>
+
+  <h1>Stats &amp; Graphs Report</h1>
+  <p class="subtitle">Raw benchmark evidence. Every chart traces back to <code>data/benchmark.json</code>. Re-execute via <code>node scripts/benchmark.mjs</code>.</p>
+
+  <h2>Method</h2>
+  <p>Five questions selected for breadth (mathematical, neurochemical, psychological, comparative-religious, mechanical) were sent through both oracle providers via the same <code>/api/oracle</code> endpoint. Each response was parsed for the six required keys (<code>LITERAL · MYTHIC · FUZZY · SIGIL · TWEET · CONFIDENCE</code>) and scored on adherence, tradition citation, latency, character length, and self-reported confidence.</p>
+
+  <div class="callout">
+    <span class="label">N = 10</span>
+    <p>5 questions × 2 providers (Ollama gemma3:4b on M1; Cloudflare Workers AI Llama 3.3 70B FP8 Fast). All runs completed without error. Raw response payloads captured in <code>benchmark.json</code>.</p>
+  </div>
+
+  <h2>The five questions</h2>
+  <ol>
+    <li>Why does π appear in probability?</li>
+    <li>What is the physics of flow state?</li>
+    <li>What did Jung mean by the collective unconscious — is it measurable?</li>
+    <li>Why do all major religions have a flood myth?</li>
+    <li>What is leverage, in physics and in life?</li>
+  </ol>
+
+  <h2>Headline KPIs</h2>
+  <div class="kpi-grid">
+    <div class="kpi accent"><div class="label">Format adherence</div><div class="value">100%</div><div class="sub">10 / 10 runs · 6 / 6 keys</div></div>
+    <div class="kpi"><div class="label">FAST median latency</div><div class="value">13.8s</div><div class="sub">gemma3:4b · local M1 16GB</div></div>
+    <div class="kpi"><div class="label">DEEP median latency</div><div class="value">5.3s</div><div class="sub">Llama 3.3 70B · CF free tier</div></div>
+    <div class="kpi"><div class="label">FAST mean confidence</div><div class="value">0.89</div><div class="sub">range 0.85–0.95</div></div>
+    <div class="kpi"><div class="label">DEEP mean confidence</div><div class="value">0.82</div><div class="sub">range 0.68–0.92 · better calibration</div></div>
+    <div class="kpi"><div class="label">Cost</div><div class="value">$0</div><div class="sub">both modes</div></div>
+  </div>
+
+  <h2>1 · Latency comparison</h2>
+  <div class="chart">
+    <div class="title">Latency per response, by provider · ms</div>
+    <object data="/docs/charts/latency.svg" type="image/svg+xml" style="width:100%;display:block;"></object>
+    <div class="caption">DEEP is 2.6× faster than FAST despite running a model ~16× larger by parameter count. Cloud GPU inference dominates local M1 CPU inference. Both well within reflective-use budget.</div>
+  </div>
+
+  <h2>2 · Confidence calibration per question</h2>
+  <div class="chart">
+    <div class="title">Self-reported confidence · 0.00–1.00</div>
+    <object data="/docs/charts/confidence.svg" type="image/svg+xml" style="width:100%;display:block;"></object>
+    <div class="caption">DEEP self-reports lower confidence on harder/more-novel framings — that is the calibration signal. FAST clusters near the ceiling, suggesting smaller models are <em>over</em>-confident.</div>
+  </div>
+
+  <h2>3 · Coverage &amp; rigor metrics</h2>
+  <div class="chart">
+    <div class="title">FAST (blue, leftward) vs DEEP (orange, rightward)</div>
+    <object data="/docs/charts/coverage.svg" type="image/svg+xml" style="width:100%;display:block;"></object>
+    <div class="caption">Bars span outward from the centre line. FAST leads on tradition density and answer length; DEEP leads on calibration realism. Format adherence is identical at 100%.</div>
+  </div>
+
+  <h2>4 · Per-run table</h2>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Question</th><th>Provider</th><th>Latency</th><th>Conf.</th><th>Adh.</th><th>Traditions</th></tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+
+  <h2>5 · Findings</h2>
+  <ol>
+    <li><strong>Format adherence is reliable across model scales.</strong> Both a 4B and a 70B model produced 6/6 keys on every run. The structural prior is robust.</li>
+    <li><strong>Latency is acceptable for both modes.</strong> FAST stays under 21s on the worst case; DEEP stays under 7s. Both well under the 30s threshold for reflective use.</li>
+    <li><strong>The smaller model overshoots on confidence.</strong> Mean confidence 0.89 for FAST vs 0.82 for DEEP. A larger model is more willing to say "I don't know with full certainty." This is a feature.</li>
+    <li><strong>Tradition naming is honoured.</strong> Mean traditions cited per answer is 1.6 (FAST) and 1.2 (DEEP). Vague "ancient wisdom" responses did not occur.</li>
+    <li><strong>Compactness emerges from the larger model.</strong> DEEP averages 745 chars per answer vs FAST's 984. The 70B is more concise and quote-able.</li>
+  </ol>
+
+  <h2>6 · Reproducibility</h2>
+  <pre>cd ~/akasha-pantheon
+node scripts/benchmark.mjs        # writes public/docs/data/benchmark.json
+node scripts/charts.mjs           # writes public/docs/charts/*.svg
+open http://localhost:3000/docs/stats.html</pre>
+
+  <p>Raw evidence: <a href="/docs/data/benchmark.json">benchmark.json</a> · <a href="/docs/charts/latency.svg">latency.svg</a> · <a href="/docs/charts/confidence.svg">confidence.svg</a> · <a href="/docs/charts/coverage.svg">coverage.svg</a></p>
+
+  <footer class="doc-footer">
+    <div>akasha-pantheon · stats report · sparsh sharma</div>
+    <div>data captured 10 may 2026 02:15 UTC · M1 16GB · macOS 14</div>
+  </footer>
+</div>
+
+<script>
+fetch('/docs/data/benchmark.json').then(r => r.json()).then(j => {
+  const isExpanded = !!j.summary?.byModel;
+  const rows = j.results.filter(r => r.ok).map((r, i) => {
+    const tag = isExpanded
+      ? (r.model_tag === 'small' ? '4B' : r.model_tag === 'medium' ? '8B' : '70B')
+      : (r.provider === 'ollama' ? 'FAST' : 'DEEP');
+    const trads = (r.tradition_cited && r.tradition_cited.length)
+      ? (Array.isArray(r.tradition_cited) ? r.tradition_cited.join(', ') : '—')
+      : '—';
+    return `<tr>
+      <td class="num">${i+1}</td>
+      <td>${r.question.length > 38 ? r.question.slice(0,36)+'…' : r.question}</td>
+      <td>${tag}</td>
+      <td class="num">${(r.ms/1000).toFixed(1)}s</td>
+      <td class="num">${r.confidence != null ? (r.confidence*100).toFixed(0)+'%' : '—'}</td>
+      <td class="num">${r.adherence?.count}/${r.adherence?.total}</td>
+      <td>${typeof trads === 'string' ? trads : '—'}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('rows').innerHTML = rows;
+  if (isExpanded) {
+    const headline = document.querySelector('.callout p');
+    if (headline) headline.innerHTML = `Expanded benchmark: <strong>${j.results.length} runs</strong> · 3 model scales (4B / 8B / 70B) × ${j.summary.meta.n_questions} questions · voice=${j.summary.meta.voice} · captured ${j.summary.meta.started.slice(0, 19)} → ${j.summary.meta.finished.slice(0, 19)} UTC.`;
+  }
+});
+</script>
+</body>
+</html>

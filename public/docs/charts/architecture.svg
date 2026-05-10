@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" width="100%" height="auto" font-family="'IBM Plex Mono', ui-monospace, monospace" style="display:block;">
+    <defs>
+      <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#141413"/>
+      </marker>
+    </defs>
+    
+    <rect x="40" y="30" width="200" height="60" rx="8" fill="#fbf8ef" stroke="#d6d2bf" stroke-width="1.5"/>
+    <text x="140" y="52" text-anchor="middle" font-size="13" font-weight="600" fill="#141413" font-family="Poppins,sans-serif">User</text>
+    <text x="140" y="80" text-anchor="middle" font-size="10" fill="#6b6960">browser · keyboard · / shortcut</text>
+  
+    
+    <rect x="40" y="130" width="200" height="60" rx="8" fill="#fbf8ef" stroke="#d6d2bf" stroke-width="1.5"/>
+    <text x="140" y="152" text-anchor="middle" font-size="13" font-weight="600" fill="#141413" font-family="Poppins,sans-serif">Akasha UI</text>
+    <text x="140" y="180" text-anchor="middle" font-size="10" fill="#6b6960">Lora/Poppins · Anthropic palette</text>
+  
+    
+    <rect x="40" y="240" width="200" height="60" rx="8" fill="#f4dfd2" stroke="#d6d2bf" stroke-width="1.5"/>
+    <text x="140" y="262" text-anchor="middle" font-size="13" font-weight="600" fill="#141413" font-family="Poppins,sans-serif">iCloud archive</text>
+    <text x="140" y="290" text-anchor="middle" font-size="10" fill="#6b6960">~/iCloud Drive/Akasha/*.md</text>
+  
+    
+    <rect x="290" y="130" width="160" height="60" rx="8" fill="#fbf8ef" stroke="#d6d2bf" stroke-width="1.5"/>
+    <text x="370" y="152" text-anchor="middle" font-size="13" font-weight="600" fill="#141413" font-family="Poppins,sans-serif">Express server</text>
+    <text x="370" y="180" text-anchor="middle" font-size="10" fill="#6b6960">localhost:3000</text>
+  
+    
+    <rect x="490" y="70" width="200" height="60" rx="8" fill="#fbf8ef" stroke="#d6d2bf" stroke-width="1.5"/>
+    <text x="590" y="92" text-anchor="middle" font-size="13" font-weight="600" fill="#141413" font-family="Poppins,sans-serif">FAST</text>
+    <text x="590" y="120" text-anchor="middle" font-size="10" fill="#6b6960">Ollama gemma3:4b · local M1</text>
+  
+    
+    <rect x="490" y="170" width="200" height="60" rx="8" fill="#fbf8ef" stroke="#d6d2bf" stroke-width="1.5"/>
+    <text x="590" y="192" text-anchor="middle" font-size="13" font-weight="600" fill="#141413" font-family="Poppins,sans-serif">DEEP</text>
+    <text x="590" y="220" text-anchor="middle" font-size="10" fill="#6b6960">Cloudflare Llama 3.3 70B</text>
+  
+    
+    <rect x="490" y="270" width="200" height="60" rx="8" fill="#f4dfd2" stroke="#d6d2bf" stroke-width="1.5"/>
+    <text x="590" y="292" text-anchor="middle" font-size="13" font-weight="600" fill="#141413" font-family="Poppins,sans-serif">5-section format prior</text>
+    <text x="590" y="320" text-anchor="middle" font-size="10" fill="#6b6960">Literal · Mythic · Fuzzy · Sigil · Tweet</text>
+  
+    
+    <line x1="140" y1="90" x2="140" y2="130" stroke="#141413" stroke-width="1.4" marker-end="url(#arr)" />
+    <text x="140" y="104" text-anchor="middle" font-size="10" fill="#6b6960" font-style="italic">question</text>
+  
+    
+    <line x1="140" y1="190" x2="140" y2="240" stroke="#141413" stroke-width="1.4" marker-end="url(#arr)" />
+    <text x="140" y="209" text-anchor="middle" font-size="10" fill="#6b6960" font-style="italic">auto-save</text>
+  
+    
+    <line x1="240" y1="160" x2="290" y2="160" stroke="#141413" stroke-width="1.4" marker-end="url(#arr)" />
+    <text x="265" y="154" text-anchor="middle" font-size="10" fill="#6b6960" font-style="italic">/api/oracle</text>
+  
+    
+    <line x1="450" y1="160" x2="490" y2="110" stroke="#141413" stroke-width="1.4" marker-end="url(#arr)" />
+    <text x="470" y="129" text-anchor="middle" font-size="10" fill="#6b6960" font-style="italic">fast</text>
+  
+    
+    <line x1="450" y1="160" x2="490" y2="200" stroke="#141413" stroke-width="1.4" marker-end="url(#arr)" />
+    <text x="470" y="174" text-anchor="middle" font-size="10" fill="#6b6960" font-style="italic">deep</text>
+  
+    
+    <line x1="370" y1="190" x2="510" y2="270" stroke="#141413" stroke-width="1.4" marker-end="url(#arr)" />
+    <text x="440" y="224" text-anchor="middle" font-size="10" fill="#6b6960" font-style="italic">enforced</text>
+  
+  </svg>

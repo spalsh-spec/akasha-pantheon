@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akasha · Documentation</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23faf9f5'/%3E%3Ctext x='32' y='44' font-size='38' text-anchor='middle' fill='%23d97757' font-family='serif'%3E%E2%9F%81%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/docs/docs.css">
+</head>
+<body>
+<div class="doc">
+  <header class="brand">
+    <div class="name"><span class="glyph">⟁</span>AKASHA · PANTHEON</div>
+    <div class="meta">documentation set · 10 May 2026</div>
+  </header>
+
+  <h1>Documentation set</h1>
+  <p class="subtitle">A small empirical study of structural priors in LLM output, plus a working prototype. Every document is print-ready (⌘+P → Save as PDF).</p>
+
+  <div class="callout">
+    <span class="label">Read in order</span>
+    <p>If you only read one thing, read the <strong>Academic Brief</strong> — one page, no metaphors, all numbers. The <strong>Stats Report</strong> shows the data behind the brief. The <strong>White Paper</strong> is the longer methodological version. The <strong>Pitch Deck</strong>, <strong>Executive Summary</strong>, and <strong>PDR</strong> are presentation artefacts in the same shared design system.</p>
+  </div>
+
+  <div class="kpi-grid">
+    <a class="kpi accent" href="/docs/academic-brief.html" style="text-decoration:none;border:1px solid #2a4a6c;border-radius:12px;display:block; background:#eef3f8;">
+      <div class="label">★ academic</div>
+      <div class="value" style="font-size:22px; color:#2a4a6c;">Brief</div>
+      <div class="sub">1-page · numbers-only · for Lewi/Jacob</div>
+    </a>
+    <a class="kpi accent" href="/docs/cover-letter.html" style="text-decoration:none;border:1px solid #2a4a6c;border-radius:12px;display:block; background:#eef3f8;">
+      <div class="label">★ outreach</div>
+      <div class="value" style="font-size:22px; color:#2a4a6c;">Cover Letter</div>
+      <div class="sub">template · 180 words · subject + body</div>
+    </a>
+    <a class="kpi accent" href="/docs/jacob-demo.html" style="text-decoration:none;border:1px solid #2a4a6c;border-radius:12px;display:block; background:#eef3f8;">
+      <div class="label">★ for jacob</div>
+      <div class="value" style="font-size:22px; color:#2a4a6c;">Demo Answers</div>
+      <div class="sub">3 questions · maps to his 2014/2015 RSB papers</div>
+    </a>
+  </div>
+
+  <div class="kpi-grid">
+    <a class="kpi accent" href="/docs/executive-summary.html" style="text-decoration:none;border:1px solid #e7e4d6;border-radius:12px;display:block;">
+      <div class="label">01</div>
+      <div class="value" style="font-size:22px;">Executive Summary</div>
+      <div class="sub">600 words · 1-page PDF · general audience</div>
+    </a>
+    <a class="kpi accent" href="/docs/white-paper.html" style="text-decoration:none;border:1px solid #e7e4d6;border-radius:12px;display:block;">
+      <div class="label">02</div>
+      <div class="value" style="font-size:22px;">White Paper</div>
+      <div class="sub">methodology + N=10 pilot · ~12 pp</div>
+    </a>
+    <a class="kpi accent" href="/docs/pitch-deck.html" style="text-decoration:none;border:1px solid #e7e4d6;border-radius:12px;display:block;">
+      <div class="label">03</div>
+      <div class="value" style="font-size:22px;">Pitch Deck</div>
+      <div class="sub">12 slides · arrow-key navigation</div>
+    </a>
+    <a class="kpi accent" href="/docs/pdr.html" style="text-decoration:none;border:1px solid #e7e4d6;border-radius:12px;display:block;">
+      <div class="label">04</div>
+      <div class="value" style="font-size:22px;">PDR</div>
+      <div class="sub">Preliminary Design Review · architecture · tests</div>
+    </a>
+    <a class="kpi accent" href="/docs/stats.html" style="text-decoration:none;border:1px solid #e7e4d6;border-radius:12px;display:block;">
+      <div class="label">05</div>
+      <div class="value" style="font-size:22px;">Stats &amp; Graphs</div>
+      <div class="sub">N=10 benchmark · 4 SVG charts · raw JSON</div>
+    </a>
+    <a class="kpi accent" href="/docs/README.md" style="text-decoration:none;border:1px solid #e7e4d6;border-radius:12px;display:block;">
+      <div class="label">06</div>
+      <div class="value" style="font-size:22px;">README</div>
+      <div class="sub">Plain-English · zero jargon · 5-min read</div>
+    </a>
+  </div>
+
+  <h2>What it is</h2>
+  <p class="lede">A structured-output prompting framework wrapped in a small web UI. Every model response is forced into a fixed schema — either a 5-slot pluralistic schema (LITERAL · MYTHIC · FUZZY · SIGIL · TWEET) for general use, or a 7-slot academic schema (CLAIM · EVIDENCE · UNCERTAINTY · IMPLICATION · OPEN · REFS · CONFIDENCE) for technical use — plus a self-reported confidence in [0, 1]. Format adherence is verified at parse time; non-conformant outputs fall back to a "raw" panel rather than being rendered as answers. The same UI runs against a local 4B model (Ollama gemma3:4b) and Cloudflare's free-tier 8B and 70B Llama models, allowing a small N-per-model study of format adherence and confidence calibration across a 17.5× parameter-count gap.</p>
+
+  <h2>Numbers (N=36 expanded run, 10 May 2026)</h2>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="label">4B adherence</div><div class="value">12/12</div><div class="sub">100% · CI95 [0.76, 1.00]</div></div>
+    <div class="kpi"><div class="label">8B adherence</div><div class="value">12/12</div><div class="sub">100% · CI95 [0.76, 1.00]</div></div>
+    <div class="kpi"><div class="label">70B adherence</div><div class="value">8/12</div><div class="sub">67% · CI95 [0.39, 0.86]</div></div>
+    <div class="kpi"><div class="label">Failure mode</div><div class="value" style="font-size:18px;">IMPLICATION</div><div class="sub">all 4 omissions are the same slot</div></div>
+  </div>
+
+  <h2>How to read this set</h2>
+  <ol>
+    <li><strong>Start at the Academic Brief</strong> if you are a working scientist — one page, no metaphors.</li>
+    <li><strong>Stats Report</strong> for the actual numbers and chart files.</li>
+    <li><strong>White Paper</strong> for the longer methodological version with appendices.</li>
+    <li><strong>Pitch Deck / Executive Summary / PDR</strong> are presentation artefacts.</li>
+    <li>Re-run the benchmark yourself via <code>node scripts/benchmark2.mjs</code> — every claim traces back to <a href="/docs/data/benchmark.json"><code>benchmark.json</code></a>.</li>
+  </ol>
+
+  <h2>What is the finding — calibrated</h2>
+  <p>Structured-output prompting is not new (Wei et al. 2022; OpenAI JSON-mode 2024; Anthropic tool-use schemas). The narrower observation here is <em>counter-intuitive</em>: format adherence on this 7-slot schema is <strong>non-monotonic</strong> in model scale. The smallest model (4B) and a mid-sized model (8B) both hit 12/12. The 70B drops to 8/12, with every failure attributable to omission of the same slot (IMPLICATION). This is consistent with the hypothesis that larger models carry stronger learned priors about answer structure that resist explicit format constraints. The prototype is open-source and the benchmark is one command to reproduce.</p>
+
+  <h2>Honest limits</h2>
+  <ul>
+    <li>The pilot reported here is N=10 (5 questions × 2 providers). The expanded N=90 study (3 models × 30 questions) is included once the run completes — see the Stats Report. CIs and IQRs are reported there.</li>
+    <li>Self-reported confidence is not validated against ground-truth correctness. A calibration study against a labelled set is the obvious next step.</li>
+    <li>Smaller models occasionally violate the "do not fabricate citations" constraint. Inspection of REFS is the user's responsibility; the prompt is hardened but not infallible.</li>
+    <li>The interface cannot forecast events — neither model has post-cutoff knowledge or live web access. When asked for predictions, models say "consensus is silent" and lower confidence.</li>
+    <li>The schema is restrictive by design. It is a poor fit for narrative, code generation, or open-ended chat. Use general LLMs for those.</li>
+  </ul>
+
+  <footer class="doc-footer">
+    <div>akasha-pantheon · sparsh sharma · 10 may 2026</div>
+    <div>v0.2.0 · localhost:3000/docs/</div>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 240" width="100%" height="auto" font-family="'IBM Plex Mono', ui-monospace, monospace" style="display:block;">
+    
+        <text x="88" y="54.75" text-anchor="end" fill="#3d3a32" font-size="12">Format adherence (6/6 keys)</text>
+        <rect x="114" y="39.75" width="271" height="9" fill="#6a9bcc" />
+        <rect x="385" y="52.75" width="271" height="9" fill="#d97757" />
+        <text x="108" y="46.75" text-anchor="end" fill="#6b6960" font-size="11">100%</text>
+        <text x="662" y="59.75" fill="#6b6960" font-size="11">100%</text>
+      
+        <text x="88" y="100.25" text-anchor="end" fill="#3d3a32" font-size="12">Tradition cited per answer</text>
+        <rect x="240.46666666666667" y="85.25" width="144.53333333333333" height="9" fill="#6a9bcc" />
+        <rect x="385" y="98.25" width="108.39999999999999" height="9" fill="#d97757" />
+        <text x="234.46666666666667" y="92.25" text-anchor="end" fill="#6b6960" font-size="11">1.6</text>
+        <text x="499.4" y="105.25" fill="#6b6960" font-size="11">1.2</text>
+      
+        <text x="88" y="145.75" text-anchor="end" fill="#3d3a32" font-size="12">Mean confidence (calibration)</text>
+        <rect x="143.81" y="130.75" width="241.19" height="9" fill="#6a9bcc" />
+        <rect x="385" y="143.75" width="222.22" height="9" fill="#d97757" />
+        <text x="137.81" y="137.75" text-anchor="end" fill="#6b6960" font-size="11">0.89</text>
+        <text x="613.22" y="150.75" fill="#6b6960" font-size="11">0.82</text>
+      
+        <text x="88" y="191.25" text-anchor="end" fill="#3d3a32" font-size="12">Avg chars (compactness)</text>
+        <rect x="291.776" y="176.25" width="93.22399999999999" height="9" fill="#6a9bcc" />
+        <rect x="385" y="189.25" width="136.40333333333336" height="9" fill="#d97757" />
+        <text x="285.776" y="183.25" text-anchor="end" fill="#6b6960" font-size="11">984c</text>
+        <text x="527.4033333333334" y="196.25" fill="#6b6960" font-size="11">745c</text>
+      
+    <line x1="385" x2="385" y1="28" y2="210" stroke="#141413" />
+  </svg>
