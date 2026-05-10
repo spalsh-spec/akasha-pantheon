@@ -294,6 +294,7 @@
       if (name === 'mandelbrot') F.mandelbrot(fractalCanvas);
       else if (name === 'julia') F.julia(fractalCanvas);
       else if (name === 'sierpinski') F.sierpinski(fractalCanvas);
+      else if (name === 'chaos-game') F.chaosGame(fractalCanvas);
       else if (name === 'flower') F.flower(fractalCanvas);
       else if (name === 'metatron') F.metatron(fractalCanvas);
       fractalDrawn = true;

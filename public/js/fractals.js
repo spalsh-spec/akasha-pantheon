@@ -12,6 +12,12 @@ window.AKASHA_FRACTALS = (function () {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 
+  // Cancel any in-flight animation when switching fractals
+  let activeRAF = null;
+  function cancelActive() {
+    if (activeRAF != null) { cancelAnimationFrame(activeRAF); activeRAF = null; }
+  }
+
   // Palette: dark indigo → crimson → gold → cream
   function palette(t) {
     if (t >= 1) return [5, 3, 10];
@@ -38,6 +44,7 @@ window.AKASHA_FRACTALS = (function () {
 
   // ---------- MANDELBROT ----------
   function mandelbrot(canvas) {
+    cancelActive();
     const ctx = ctxOf(canvas);
     const W = canvas.width, H = canvas.height;
     const img = ctx.createImageData(W, H);
@@ -69,6 +76,7 @@ window.AKASHA_FRACTALS = (function () {
 
   // ---------- JULIA ----------
   function julia(canvas, cre = -0.8, cim = 0.156) {
+    cancelActive();
     const ctx = ctxOf(canvas);
     const W = canvas.width, H = canvas.height;
     const img = ctx.createImageData(W, H);
@@ -100,6 +108,7 @@ window.AKASHA_FRACTALS = (function () {
 
   // ---------- SIERPINSKI ----------
   function sierpinski(canvas) {
+    cancelActive();
     clear(canvas, '#05030a');
     const ctx = ctxOf(canvas);
     const W = canvas.width, H = canvas.height;
@@ -128,6 +137,7 @@ window.AKASHA_FRACTALS = (function () {
 
   // ---------- FLOWER OF LIFE ----------
   function flower(canvas) {
+    cancelActive();
     clear(canvas, '#05030a');
     const ctx = ctxOf(canvas);
     const W = canvas.width, H = canvas.height;
@@ -163,6 +173,7 @@ window.AKASHA_FRACTALS = (function () {
 
   // ---------- METATRON'S CUBE ----------
   function metatron(canvas) {
+    cancelActive();
     clear(canvas, '#05030a');
     const ctx = ctxOf(canvas);
     const W = canvas.width, H = canvas.height;
@@ -203,5 +214,64 @@ window.AKASHA_FRACTALS = (function () {
     }
   }
 
-  return { mandelbrot, julia, sierpinski, flower, metatron };
+  // ---------- CHAOS GAME (animated Sierpinski) ----------
+  // Same algorithm as sierpinski() but watchable: ~90 dots per animation
+  // frame so you see the fractal emerge from random midpoint jumps.
+  function chaosGame(canvas) {
+    cancelActive();
+    clear(canvas, '#05030a');
+    const ctx = ctxOf(canvas);
+    const W = canvas.width, H = canvas.height;
+    const margin = 36;
+    const verts = [
+      { x: W / 2,      y: margin,     label: 'A' },
+      { x: margin,     y: H - margin, label: 'B' },
+      { x: W - margin, y: H - margin, label: 'C' },
+    ];
+
+    // Draw the three vertices as gold dots with labels
+    ctx.font = "bold 16px 'IBM Plex Mono', ui-monospace, monospace";
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    for (const v of verts) {
+      ctx.fillStyle = 'rgba(247,217,107,0.95)';
+      ctx.beginPath();
+      ctx.arc(v.x, v.y, 5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = 'rgba(247,217,107,0.85)';
+      const lx = v.x === W / 2 ? v.x : (v.x < W / 2 ? v.x - 18 : v.x + 18);
+      const ly = v.y < H / 2 ? v.y - 18 : v.y + 18;
+      ctx.fillText(v.label, lx, ly);
+    }
+
+    let p = { x: W / 2, y: H / 2 };
+    const N_TOTAL = 22000;
+    const PER_FRAME = 110;
+    let i = 0;
+
+    function step() {
+      for (let k = 0; k < PER_FRAME && i < N_TOTAL; k++, i++) {
+        const v = verts[(Math.random() * 3) | 0];
+        p = { x: (p.x + v.x) / 2, y: (p.y + v.y) / 2 };
+        const t = i / N_TOTAL;
+        const [r, g, b] = palette(t);
+        ctx.fillStyle = `rgba(${r},${g},${b},0.85)`;
+        ctx.fillRect(p.x | 0, p.y | 0, 2, 2);
+      }
+      // Footer counter
+      ctx.fillStyle = 'rgba(5,3,10,0.85)';
+      ctx.fillRect(W - 130, H - 28, 122, 22);
+      ctx.fillStyle = 'rgba(247,217,107,0.9)';
+      ctx.font = "11px 'IBM Plex Mono', ui-monospace, monospace";
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(`n = ${i.toLocaleString()}`, W - 14, H - 17);
+
+      if (i < N_TOTAL) activeRAF = requestAnimationFrame(step);
+      else activeRAF = null;
+    }
+    step();
+  }
+
+  return { mandelbrot, julia, sierpinski, flower, metatron, chaosGame };
 })();
