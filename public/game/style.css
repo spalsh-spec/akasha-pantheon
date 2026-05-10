@@ -1,0 +1,270 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; }
+body {
+  background: #05030a;
+  color: #faf9f5;
+  font-family: 'Lora', Georgia, serif;
+  cursor: default;
+  -webkit-font-smoothing: antialiased;
+}
+canvas { display: block; }
+
+/* ---------- Start overlay ---------- */
+#overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(184, 138, 90, 0.18), transparent 70%),
+    rgba(5, 3, 10, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 10;
+  padding: 16px;
+}
+.overlay-card {
+  max-width: 540px;
+  width: 100%;
+  padding: 36px 40px;
+  background: #faf9f5;
+  color: #141413;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 24px 80px rgba(5, 3, 10, 0.6);
+}
+.brand {
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  font-size: 11px;
+  color: #d97757;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+.overlay-card h1 {
+  font-family: 'Lora', serif;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.15;
+  margin-bottom: 18px;
+  color: #141413;
+}
+.lede {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 26px;
+  color: #4b4a44;
+  font-style: italic;
+}
+.controls-help {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 18px;
+  margin-bottom: 26px;
+  font-size: 12px;
+  color: #6b6a64;
+  text-align: left;
+}
+.controls-help > div { display: flex; align-items: center; }
+.key {
+  display: inline-block;
+  padding: 3px 9px;
+  background: #e7e6df;
+  border-radius: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: #141413;
+  margin-right: 10px;
+  min-width: 56px;
+  text-align: center;
+}
+#start-btn {
+  background: #d97757;
+  color: #faf9f5;
+  border: none;
+  padding: 14px 36px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.18s, transform 0.06s;
+}
+#start-btn:hover { background: #c46544; }
+#start-btn:active { transform: translateY(1px); }
+.phase-note {
+  margin-top: 18px;
+  font-size: 11px;
+  color: #8a8980;
+  letter-spacing: 0.04em;
+}
+.phase-note a { color: #d97757; text-decoration: none; }
+.phase-note a:hover { text-decoration: underline; }
+
+/* ---------- Reticle ---------- */
+#reticle {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 22px;
+  color: rgba(250, 249, 245, 0.45);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  z-index: 5;
+  user-select: none;
+  pointer-events: none;
+  transition: color 0.18s, font-size 0.18s, text-shadow 0.18s;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+}
+#reticle.hot {
+  color: #f5c14a;
+  font-size: 30px;
+  text-shadow: 0 0 14px rgba(245, 193, 74, 0.6);
+}
+
+/* ---------- HUD ---------- */
+#album {
+  position: fixed;
+  top: 16px; right: 16px;
+  background: rgba(5, 3, 10, 0.55);
+  color: #f5c14a;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  padding: 8px 14px;
+  border-radius: 4px;
+  z-index: 5;
+  pointer-events: none;
+  border: 1px solid rgba(245, 193, 74, 0.2);
+}
+
+#prompt-hint {
+  position: fixed;
+  bottom: 64px; left: 50%;
+  transform: translateX(-50%);
+  background: rgba(5, 3, 10, 0.7);
+  color: #faf9f5;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  padding: 10px 18px;
+  border-radius: 4px;
+  z-index: 5;
+  pointer-events: none;
+  border: 1px solid rgba(245, 193, 74, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#prompt-hint .key { background: rgba(245, 193, 74, 0.18); color: #f5c14a; min-width: auto; padding: 2px 8px; }
+.hidden { display: none !important; }
+
+/* ---------- Lore panel ---------- */
+#lore-panel {
+  display: none;
+  position: fixed;
+  bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  max-width: 600px;
+  width: calc(100% - 32px);
+  padding: 28px 32px;
+  background: #faf9f5;
+  color: #141413;
+  border-radius: 8px;
+  z-index: 8;
+  box-shadow: 0 16px 60px rgba(5, 3, 10, 0.7);
+}
+#lore-panel h2 {
+  font-family: 'Lora', serif;
+  font-weight: 500;
+  font-size: 22px;
+  margin-bottom: 14px;
+  color: #2a4a6c;
+}
+#lore-panel p {
+  font-size: 14.5px;
+  line-height: 1.65;
+  margin-bottom: 12px;
+}
+#lore-panel em { color: #4b4a44; }
+#lore-panel .source {
+  font-size: 12px;
+  font-style: italic;
+  color: #6b6a64;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #e7e6df;
+}
+#lore-panel button {
+  background: #2a4a6c;
+  color: #faf9f5;
+  border: none;
+  padding: 9px 24px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+#lore-panel button:hover { background: #1f3a58; }
+
+/* ---------- Mobile touch controls ---------- */
+#touch-controls {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+#touch-stick {
+  position: absolute;
+  bottom: 28px;
+  left: 28px;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: rgba(250, 249, 245, 0.08);
+  border: 1.5px solid rgba(245, 193, 74, 0.35);
+  pointer-events: auto;
+  touch-action: none;
+}
+#touch-knob {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(245, 193, 74, 0.5);
+  pointer-events: none;
+}
+#touch-photo {
+  position: absolute;
+  bottom: 36px;
+  right: 28px;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(217, 119, 87, 0.85);
+  border: 2px solid rgba(245, 193, 74, 0.6);
+  color: #faf9f5;
+  font-size: 28px;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: none;
+}
+#touch-photo:active { background: #c46544; }
+
+@media (max-width: 600px) {
+  .overlay-card { padding: 28px 22px; }
+  .controls-help { grid-template-columns: 1fr; gap: 8px; }
+  .overlay-card h1 { font-size: 24px; }
+  .lede { font-size: 14px; }
+  #lore-panel { padding: 22px 22px; }
+  #lore-panel h2 { font-size: 19px; }
+  #lore-panel p { font-size: 14px; }
+}
