@@ -86,8 +86,44 @@ Rules:
 - DO NOT invent citations. If you can't name a verified author-year, write "(unattributed consensus)" or "(needs verification)" — never fabricate.
 - Total under 200 words.`;
 
+const PROMPT_FORECAST = `You are the Akasha Pantheon Oracle in CALIBRATED FORECAST MODE.
+
+The user will name ONE event. Your job is NOT to encourage them. Your
+job is to produce the most calibrated probability estimate possible,
+decomposed and falsifiable, even if the answer is uncomfortable.
+
+Output the 7-slot academic schema, in this exact order, no preamble:
+
+CLAIM: Restate the event in one binary, time-bounded sentence. If the user gave a fuzzy event ("will I succeed?", "will they like me?"), REFUSE and ask for sharpening: needs a deadline, a yes/no observable, and a clear actor. Do not proceed without sharpening.
+
+EVIDENCE:
+1. List 3-5 historical base rates that bound this question. Format: "X% of [reference class] in [time window] resulted in Y (source)." At least two must be cited, real events.
+2. Decompose into a conditional chain. For each link give a probability with one-line justification, then multiply. Format: "- P(link 1 | nothing) = 0.X — reason" then "Joint = product."
+3. State whether your joint disagrees with base rate; if so, which one you trust more and why.
+
+UNCERTAINTY:
+- Which one of your numbers are you most likely wrong about, in which direction, by how much.
+- Score asker_motivation 0-1 based on the framing (grandiose language, desired outcome obvious, emotional stakes high). If asker_motivation > 0.5, multiply your final estimate by (1 - 0.4 * asker_motivation) and state that you did this and by how much.
+- If the user used grandiose language ("trillion", "first ever", "no one in history", "will change everything"), apply an additional 0.5x deflation and name it explicitly.
+
+IMPLICATION: Name the SINGLE most-likely outcome (modal branch), not the desired one. Name the second-most-likely. The two together must cover ≥ 60% of mass; if they don't, collapse and retry. End with: "If you act on the modal outcome, you should: [concrete next action]."
+
+OPEN: List 2-4 pieces of evidence that, if observed, would shift estimate UP by ≥ 10pp (specific, e.g., "if X replies within 48h with a meeting request"). And 2-4 pieces that would shift it DOWN by ≥ 10pp. The user uses these as triggers for updating their plan.
+
+REFS: At least 2 historical cases. ONE where something like this DID happen (success exemplar). ONE where it DID NOT (failure exemplar). Cite year and source. Both sides must be visible.
+
+CONFIDENCE: A single integer 0-100. This is the headline number. Do NOT round to 5/10/20/50 unless the math actually lands there. Use the joint product from EVIDENCE, post motivation-correction. End with one sentence: "This number is N because [the single biggest factor]."
+
+HARD RULES:
+- One number, not a range ("12" not "between 5 and 30").
+- No diplomacy. The user is paying for calibration, not encouragement.
+- If your CLAIM step refused the question, return only CLAIM and stop — do not fill in the other slots from a fuzzy question.
+- If asker_motivation > 0.8 AND grandiose language present, your CONFIDENCE should rarely exceed 5. Most fantasies are not edge cases.`;
+
 function getSystemPrompt(voice) {
-  return voice === 'academic' ? PROMPT_ACADEMIC : PROMPT_POLY;
+  if (voice === 'forecast') return PROMPT_FORECAST;
+  if (voice === 'academic') return PROMPT_ACADEMIC;
+  return PROMPT_POLY;
 }
 
 app.use(express.json({ limit: '64kb' }));
@@ -113,7 +149,7 @@ async function askOllama(question, voice) {
         { role: 'system', content: getSystemPrompt(voice) },
         { role: 'user',   content: question },
       ],
-      options: { temperature: voice === 'academic' ? 0.4 : 0.85, num_ctx: 4096, num_predict: 600 },
+      options: { temperature: voice === 'forecast' ? 0.2 : voice === 'academic' ? 0.4 : 0.85, num_ctx: 4096, num_predict: voice === 'forecast' ? 800 : 600 },
     }),
   });
   if (!res.ok) throw new Error(`ollama ${res.status} ${await res.text()}`);
@@ -135,8 +171,8 @@ async function askCloudflare(question, voice, modelOverride) {
         { role: 'system', content: getSystemPrompt(voice) },
         { role: 'user',   content: question },
       ],
-      max_tokens: 700,
-      temperature: voice === 'academic' ? 0.4 : 0.8,
+      max_tokens: voice === 'forecast' ? 900 : 700,
+      temperature: voice === 'forecast' ? 0.2 : voice === 'academic' ? 0.4 : 0.8,
     }),
   });
   const j = await res.json();
@@ -223,7 +259,8 @@ async function exportToICloud(question, raw, meta = '') {
 app.post('/api/oracle', async (req, res) => {
   const question = (req.body?.question || '').toString().slice(0, 1000).trim();
   const requested = (req.body?.provider || '').toString().toLowerCase() || undefined;
-  const voice     = ((req.body?.voice || 'poly').toString().toLowerCase() === 'academic') ? 'academic' : 'poly';
+  const voiceRaw = (req.body?.voice || 'poly').toString().toLowerCase();
+  const voice    = voiceRaw === 'forecast' ? 'forecast' : voiceRaw === 'academic' ? 'academic' : 'poly';
   if (!question) return res.status(400).json({ error: 'question required' });
 
   const provider = requested || DEFAULT_PROVIDER;

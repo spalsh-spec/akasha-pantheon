@@ -34,7 +34,9 @@ window.AKASHA_ORACLE = (function () {
         const key = m[1].toLowerCase();
         if (key === 'confidence') {
           const v = parseFloat(m[2]);
-          out.confidence = isNaN(v) ? null : Math.max(0, Math.min(1, v));
+          // Forecast mode emits 0-100 integer; academic/poly emit 0.00-1.00.
+          // Auto-detect: any value > 1 is treated as a percentage.
+          out.confidence = isNaN(v) ? null : Math.max(0, Math.min(1, v > 1 ? v / 100 : v));
           cur = null;
         } else {
           cur = key;
@@ -73,13 +75,14 @@ window.AKASHA_ORACLE = (function () {
   function render(parsed, container) {
     container.innerHTML = '';
     const voice = parsed.voice || parsed._voice || 'poly';
-    const order = voice === 'academic' ? [
-      ['claim',        'Claim'],
-      ['evidence',     'Evidence'],
-      ['uncertainty',  'Uncertainty'],
-      ['implication',  'Implication'],
-      ['open',         'Open question'],
-      ['refs',         'References'],
+    const usesAcademicKeys = voice === 'academic' || voice === 'forecast';
+    const order = usesAcademicKeys ? [
+      ['claim',        voice === 'forecast' ? 'Claim · sharpened event'    : 'Claim'],
+      ['evidence',     voice === 'forecast' ? 'Evidence · base rates + chain' : 'Evidence'],
+      ['uncertainty',  voice === 'forecast' ? 'Uncertainty · motivation correction' : 'Uncertainty'],
+      ['implication',  voice === 'forecast' ? 'Implication · modal outcome' : 'Implication'],
+      ['open',         voice === 'forecast' ? 'Open · update triggers'      : 'Open question'],
+      ['refs',         voice === 'forecast' ? 'Refs · success + failure exemplars' : 'References'],
     ] : [
       ['literal', 'Literal'],
       ['mythic',  'Mythic'],
@@ -114,8 +117,8 @@ window.AKASHA_ORACLE = (function () {
       container.appendChild(row);
     }
 
-    // Citation verification — academic voice only
-    if (voice === 'academic' && parsed.refs) {
+    // Citation verification — academic + forecast (both cite real papers)
+    if ((voice === 'academic' || voice === 'forecast') && parsed.refs) {
       verifyAndAnnotate(parsed.refs, container).catch(() => {});
     }
   }

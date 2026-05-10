@@ -351,7 +351,9 @@
   function updatePlaceholder() {
     const q = document.getElementById('q');
     if (!q) return;
-    if (oracleVoice === 'academic') {
+    if (oracleVoice === 'forecast') {
+      q.placeholder = "Ask a binary, time-bounded forecast. ‘Will Jacob reply within 7 days with a substantive question?’ ‘Will akasha-pantheon get its first external GitHub fork within 30 days?’ ‘Will my application to X be accepted by [date]?’";
+    } else if (oracleVoice === 'academic') {
       q.placeholder = "Pose a falsifiable question. ‘What is the Lyapunov exponent regime where flow-state EEG signatures emerge?’ ‘Does the Hartman-Grobman theorem extend to discrete-event social dynamics?’";
     } else {
       q.placeholder = "Ask. ‘What did the builders of Göbekli Tepe know that we forgot?’ ‘What is the physics of flow state?’ ‘Why does π appear in probability?’";
