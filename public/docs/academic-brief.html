@@ -91,12 +91,12 @@
     <li>N=12 per model is small. The binomial CI on a 100%-adherence point estimate at N=12 is [73.5%, 100%] (Wilson score interval, 95%). Larger N is needed to tighten the bound; the methodology and harness are in place to scale it.</li>
     <li>The benchmark was run on the same machine, in the same network conditions, in a single ~12-minute window. Latency numbers are point estimates, not steady-state load characterisation.</li>
     <li>Self-reported confidence is not validated against ground-truth accuracy. A calibration study against a labelled answer set is the obvious next step.</li>
-    <li>Citation verification is the user's responsibility. The prompt forbids fabrication, but smaller models violate this constraint occasionally — sample inspection is required.</li>
+    <li>Citation verification is now <em>automated</em>: every academic-mode response automatically queries Crossref and renders a ✓ verified / ⚠ partial-match / ✗ unverified badge next to each REF entry, with the matched paper's title, authors, year, and DOI. The prompt forbids fabrication; the verifier is the safety net. Manual inspection is still recommended for partial matches.</li>
     <li>The 70B model occasionally skipped IMPLICATION (5/6 keys instead of 6/6) on the pilot. The expanded run will report this rate explicitly.</li>
   </ul>
 
   <h2>What I think this is useful for</h2>
-  <p>Less as a generative tool, more as a <em>thinking discipline</em>: forcing a working scientist to produce CLAIM, EVIDENCE, UNCERTAINTY, OPEN before publishing or peer-reviewing is exactly the structure most readers want anyway. The interface enforces the structure; the model fills it; the human verifies citations. That last step is non-negotiable.</p>
+  <p>Less as a generative tool, more as a <em>thinking discipline</em>: forcing a working scientist to produce CLAIM, EVIDENCE, UNCERTAINTY, OPEN before publishing or peer-reviewing is exactly the structure most readers want anyway. The interface enforces the structure; the model fills it; the Crossref verifier flags every citation as verified, partial, or unverified at render time so the human can audit what was machine-generated vs what was hallucinated.</p>
 
   <h2>Why I'm sending this to you</h2>
   <blockquote>I am a 23-year-old undergraduate at a Melbourne university with a working prototype, real benchmark data, and one specific request: a 30-minute conversation with someone who has actually published in calibrated forecasting and complex-systems methodology. Lewi — your conservation-network and COVID-modelling work uses exactly the kind of structured uncertainty quantification I am trying to build into a UI. Jacob — your linguistic-diversity / biogeography work is the closest existing literature I know to "applying mathematical-biology priors to cultural data". I would value your read on the calibration claims and the limits.</blockquote>

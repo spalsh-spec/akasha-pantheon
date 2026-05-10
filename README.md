@@ -36,12 +36,30 @@ npm run dev                      # → http://localhost:3000
 ## Reproduce the benchmark
 
 ```bash
-node scripts/benchmark2.mjs      # 12 questions × 3 models, ~17 min
-node scripts/charts2.mjs         # regenerate SVG charts
+node scripts/benchmark2.mjs           # 12 questions × 3 models, ~17 min
+node scripts/benchmark3-variance.mjs  # 12 × 3 models × 3 runs, ~50 min
+node scripts/charts2.mjs              # regenerate SVG charts
 open http://localhost:3000/docs/stats.html
 ```
 
-Output lands in `public/docs/data/benchmark.json`.
+Output lands in `public/docs/data/benchmark.json` (and `benchmark-variance.json` for the stochastic-variance run).
+
+## Verify any model's citations
+
+The academic mode automatically verifies every REF in every response against the public Crossref database. Each cite gets a colour-coded badge:
+
+| | |
+|---|---|
+| **✓ verified** | exact author + year match (e.g., Bock Axelsen & Manrubia 2014 → DOI 10.1098/rspb.2014.1179) |
+| **⚠ partial** | author group is real but the year is off — model may have misdated |
+| **✗ unverified** | no Crossref match — likely a fabricated citation |
+| **? unparseable** | couldn't extract author/year from the cite string |
+
+You can also use the verifier as a CLI tool against any author-year string:
+
+```bash
+node scripts/verify-cite.mjs "Bock Axelsen and Manrubia 2014; Abrams Strogatz 2003"
+```
 
 ---
 

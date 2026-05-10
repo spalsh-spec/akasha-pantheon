@@ -96,23 +96,38 @@ honest limits, upfront:
 
 ---
 
-## 7/ REPRODUCE
+## 7/ THE SAFETY NET
 
 ```
-everything is open-source MIT.
-benchmark JSON, harness, prompt, parser, and a working web UI.
+small models occasionally invent citations. the system prompt forbids
+fabrication but doesn't prevent it.
 
-git clone github.com/spalsh-spec/akasha-pantheon
-node scripts/benchmark2.mjs
-node scripts/charts2.mjs
+so every academic-mode answer now auto-queries Crossref at render time
+and tags every REF as ✓ verified / ⚠ year-mismatch / ✗ unverified,
+with the matched paper's title and DOI link.
 
-run it on a model i can't afford (claude opus, gpt-4o, gemini).
-tell me what you find. the v1.0 writeup needs a third dataset.
+caught a real case in testing: a 2014 RSB paper got dated as 2001
+by the 70B. flagged. the human catches what the prompt can't.
 ```
 
 ---
 
-## 8/ THE ASK
+## 8/ REPRODUCE
+
+```
+open source MIT. benchmark JSON, harness, prompt, parser, citation
+verifier, and a working web UI.
+
+git clone github.com/spalsh-spec/akasha-pantheon
+./scripts/run-full-evaluation.sh
+
+run it on a model i can't afford (claude opus, gpt-4o, gemini).
+tell me what you find. v1.0 writeup needs a third dataset.
+```
+
+---
+
+## 9/ THE ASK
 
 ```
 working with two complex-systems researchers on the writeup.

@@ -99,6 +99,11 @@
   <h2>What is the finding — calibrated</h2>
   <p>Structured-output prompting is not new (Wei et al. 2022; OpenAI JSON-mode 2024; Anthropic tool-use schemas). The narrower observation here is <em>counter-intuitive</em>: format adherence on this 7-slot schema is <strong>non-monotonic</strong> in model scale. The smallest model (4B) and a mid-sized model (8B) both hit 12/12. The 70B drops to 8/12, with every failure attributable to omission of the same slot (IMPLICATION). This is consistent with the hypothesis that larger models carry stronger learned priors about answer structure that resist explicit format constraints. The prototype is open-source and the benchmark is one command to reproduce.</p>
 
+  <div class="callout">
+    <span class="label">New: live citation verification</span>
+    <p>Every academic-mode response now auto-queries <strong>Crossref</strong> for each REF and renders a colour-coded badge (✓ verified / ⚠ year-mismatch / ✗ unverified) with the matched paper's title and DOI link. Caught a misdated Bock Axelsen paper in the prototype demo before it shipped. Try it on the live oracle in the running app.</p>
+  </div>
+
   <h2>Honest limits</h2>
   <ul>
     <li>The pilot reported here is N=10 (5 questions × 2 providers). The expanded N=90 study (3 models × 30 questions) is included once the run completes — see the Stats Report. CIs and IQRs are reported there.</li>
