@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <!-- AKASHA · IG STORY · 1080×1920 · cinematic vertical -->
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="60%" r="80%">
+      <stop offset="0%"   stop-color="#1c1133"/>
+      <stop offset="40%"  stop-color="#0e0820"/>
+      <stop offset="100%" stop-color="#05030a"/>
+    </radialGradient>
+    <radialGradient id="emberGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#d97757" stop-opacity="0.85"/>
+      <stop offset="40%"  stop-color="#d97757" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#d97757" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="bloom" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="bigBloom" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="40" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+
+  <g fill="#faf9f5" opacity="0.5">
+    <circle cx="120" cy="200" r="1.2"/>
+    <circle cx="380" cy="160" r="0.9"/>
+    <circle cx="640" cy="100" r="1.4"/>
+    <circle cx="900" cy="220" r="1.1"/>
+    <circle cx="200" cy="1700" r="1.0"/>
+    <circle cx="500" cy="1820" r="0.9"/>
+    <circle cx="800" cy="1740" r="1.3"/>
+    <circle cx="100" cy="700"  r="0.9"/>
+    <circle cx="980" cy="800"  r="1.0"/>
+    <circle cx="60"  cy="1300" r="0.8"/>
+    <circle cx="1020" cy="1280" r="1.1"/>
+  </g>
+
+  <g transform="translate(540 1020)" stroke="#d97757" fill="none" opacity="0.16" stroke-width="1.2">
+    <circle r="170"/>
+    <circle r="170" cx="170" cy="0"/>
+    <circle r="170" cx="-170" cy="0"/>
+    <circle r="170" cx="85"  cy="147.2"/>
+    <circle r="170" cx="-85" cy="147.2"/>
+    <circle r="170" cx="85"  cy="-147.2"/>
+    <circle r="170" cx="-85" cy="-147.2"/>
+  </g>
+  <g transform="translate(540 1020)" stroke="#d97757" fill="none" opacity="0.5" stroke-width="2">
+    <circle r="300"/>
+  </g>
+  <ellipse cx="540" cy="1020" rx="340" ry="340" fill="url(#emberGlow)" filter="url(#bigBloom)"/>
+
+  <g transform="translate(540 1020)">
+    <polygon points="0,-150 150,104 -150,104" fill="none" stroke="#f7d96b" stroke-width="6" filter="url(#bloom)"/>
+    <polygon points="0,-66 66,46 -66,46"     fill="none" stroke="#f7d96b" stroke-width="4" filter="url(#bloom)"/>
+    <polygon points="0,-150 150,104 -150,104" fill="#d97757" opacity="0.10"/>
+  </g>
+
+  <text x="540" y="220"
+        text-anchor="middle"
+        font-family="'Poppins', 'Helvetica Neue', sans-serif"
+        font-weight="600" font-size="26"
+        letter-spacing="0.34em" fill="#d97757" opacity="0.92">A K A S H A · P A N T H E O N</text>
+
+  <text x="540" y="380"
+        text-anchor="middle"
+        font-family="'Poppins', 'Helvetica Neue', sans-serif"
+        font-weight="700" font-size="76"
+        letter-spacing="0.02em" fill="#faf9f5">THE END OF</text>
+  <text x="540" y="470"
+        text-anchor="middle"
+        font-family="'Poppins', 'Helvetica Neue', sans-serif"
+        font-weight="700" font-size="76"
+        letter-spacing="0.02em" fill="#faf9f5">THE ONE-ANSWER</text>
+  <text x="540" y="560"
+        text-anchor="middle"
+        font-family="'Poppins', 'Helvetica Neue', sans-serif"
+        font-weight="700" font-size="76"
+        letter-spacing="0.02em" fill="#faf9f5">AGE.</text>
+
+  <text x="540" y="1430"
+        text-anchor="middle"
+        font-family="'Lora', Georgia, serif" font-style="italic"
+        font-size="44" fill="#f4dfd2" opacity="0.9">hold three truths at once.</text>
+
+  <g font-family="'IBM Plex Mono', ui-monospace, monospace"
+     fill="#f4dfd2" letter-spacing="0.1em" text-anchor="middle">
+    <text x="540" y="1560" font-size="22" opacity="0.78">4B · 12/12     8B · 12/12     70B · 8/12</text>
+    <text x="540" y="1600" font-size="14" opacity="0.5">N=36 · academic schema · MIT licensed · open source</text>
+  </g>
+
+  <text x="540" y="1780"
+        text-anchor="middle"
+        font-family="'IBM Plex Mono', ui-monospace, monospace"
+        font-size="22" fill="#d97757" letter-spacing="0.06em">github.com/spalsh-spec/akasha-pantheon</text>
+
+  <text x="540" y="1850"
+        text-anchor="middle"
+        font-family="'IBM Plex Mono', ui-monospace, monospace"
+        font-size="13" fill="#97948a" letter-spacing="0.18em" opacity="0.6">SPARSH SHARMA · MELBOURNE · 2026</text>
+</svg>

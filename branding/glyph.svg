@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <!-- AKASHA · standalone glyph mark · 256×256 -->
+  <defs>
+    <radialGradient id="g" cx="50%" cy="50%" r="55%">
+      <stop offset="0%"   stop-color="#f7d96b" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#d97757" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="bloom" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="256" height="256" fill="#0a0716" rx="24"/>
+  <ellipse cx="128" cy="128" rx="100" ry="100" fill="url(#g)"/>
+  <g transform="translate(128 128)">
+    <polygon points="0,-72 72,50 -72,50" fill="none" stroke="#f7d96b" stroke-width="3.5" filter="url(#bloom)"/>
+    <polygon points="0,-32 32,22 -32,22" fill="none" stroke="#f7d96b" stroke-width="2.5" filter="url(#bloom)"/>
+    <polygon points="0,-72 72,50 -72,50" fill="#d97757" opacity="0.12"/>
+  </g>
+</svg>
