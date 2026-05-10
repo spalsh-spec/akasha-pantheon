@@ -2,9 +2,9 @@
 
 A structured-output prompting framework for large language models, with a working open-source prototype and a small empirical observation about format adherence across model scales.
 
-> *"A 7-slot prompt schema (CLAIM · EVIDENCE · UNCERTAINTY · IMPLICATION · OPEN · REFS · CONFIDENCE) honoured 100% of the time on 4B and 8B models — but only 67% on a 70B model. All four 70B failures are the same omitted slot. Larger models override schemas with their own learned answer structure."*
+> *"Two opposing axes of model honesty across scale.*  *Format adherence on a 7-slot academic schema: 100% at 4B and 8B (zero variance, N=36 each); 94.4% at 70B (SEM 0.012, perfect-rate 22/36).*  *Citation accuracy via Crossref auto-verification: 7.5% / 11.4% / 36.4% across 4B / 8B / 70B.*  *The smaller model is the more obedient liar; the larger model is the more rebellious truth-teller."*
 
-— from the N=36 benchmark, May 2026.
+— from the N=108 variance run + N=211 cite-verification run, May 2026.
 
 ---
 
@@ -63,9 +63,9 @@ node scripts/verify-cite.mjs "Bock Axelsen and Manrubia 2014; Abrams Strogatz 20
 
 ---
 
-## The empirical claim, in one paragraph
+## The two empirical claims, in one paragraph
 
-We force every LLM response into a fixed seven-slot academic schema enforced via system prompt and verified at parse time. Across N=36 runs (3 models × 12 questions), format adherence is **non-monotonic in model scale**: 4B and 8B both honour the schema 12/12, while a 70B model drops to 8/12. Every 70B failure is the same omitted slot (IMPLICATION). The 95% Wilson CI on the 70B adherence is [0.39, 0.86]; the smaller-model CI is [0.76, 1.00]; the intervals do not overlap. The pattern is consistent with the hypothesis that larger models carry stronger learned priors about answer structure that resist explicit format constraints — a structured failure mode invisible to binary JSON-mode adherence benchmarks.
+We force every LLM response into a fixed seven-slot academic schema enforced via system prompt, verified at parse time, with every REFS line auto-verified against Crossref. Across **N=108 variance runs** (3 models × 12 questions × 3 repeated runs each) the **format-adherence axis** is non-monotonic in model scale: 4B and 8B both honour the schema 100% with zero stochastic variance, while the 70B drops to 94.4% (SEM 0.012, perfect-rate 22/36, 5 of 12 questions giving inconsistent adherence across their 3 repeated runs). An earlier single-run benchmark reported 67% for the 70B — that was a downward outlier driven by stochastic prompt-following variance, and **single-run benchmarks of structured-output adherence over-state failure rates**. Across the same 211 cite verifications against Crossref, the **citation-accuracy axis** runs in the *opposite* direction: combined verified-plus-partial-match rates of 7.5% / 11.4% / 36.4% across 4B / 8B / 70B. Larger models break the schema slightly more often *and* cite real papers far more often. Smaller models follow the schema more uniformly *and* hallucinate the citations inside it. The smaller model is the more obedient liar; the larger model is the more rebellious truth-teller.
 
 ---
 

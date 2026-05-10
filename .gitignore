@@ -3,3 +3,8 @@ node_modules/
 .env.local
 .DS_Store
 *.log
+
+# Local-only strategy notes — synthesised public info but kept private
+# until the user explicitly decides to publish them.
+public/docs/intel-brief.html
+

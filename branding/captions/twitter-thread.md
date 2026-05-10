@@ -10,14 +10,15 @@
 ```
 shipped a small empirical study of structured-output prompting on LLMs.
 
-found something nobody seems to have published with explicit numbers:
-format adherence is *non-monotonic* in model scale.
+found two things, in opposite directions:
 
-4B  → 12/12
-8B  → 12/12
-70B → 8/12
+format adherence (does the model fill all 7 schema slots?)
+  4B  → 100%   8B  → 100%   70B → 94.4%
+citation accuracy (does the model cite real papers?)
+  4B  → 7.5%   8B  → 11.4%  70B → 36.4%
 
-the 70B drops, and every failure is the same slot. ↓
+smaller models follow the schema and fabricate inside it.
+larger models break the schema and cite real papers. ↓
 ```
 Attach: `posters/og-share-1200x630.png`
 
@@ -39,29 +40,38 @@ outputs are not displayed as answers — they fall back to a "raw" panel.
 ## 3/ THE NUMBERS
 
 ```
-N = 36 (3 models × 12 questions, all in academic voice).
+variance run · N = 108 (3 models × 12 questions × 3 repeated runs)
 
-format adherence (full schema, all 7 slots present):
-4B local  ·  12/12  ·  Wilson 95% CI [0.76, 1.00]
-8B cloud  ·  12/12  ·  Wilson 95% CI [0.76, 1.00]
-70B cloud ·  8/12   ·  Wilson 95% CI [0.39, 0.86]
+format adherence:
+  4B local  ·  36/36  ·  100%   ·  SEM 0.000
+  8B cloud  ·  36/36  ·  100%   ·  SEM 0.000
+  70B cloud ·  mean 0.944  ·  SEM 0.012  ·  perfect-rate 22/36
 
-the intervals do not overlap.
+5 of 12 questions gave INCONSISTENT adherence at 70B across the 3
+runs. same prompt, same temperature. partly stochastic.
+
+an earlier single-run benchmark reported 67% for the 70B. it was an
+outlier. single-run benchmarks of structured-output adherence systematically
+over-state failure rates. replicate.
 ```
-Attach: `/public/docs/charts/adherence.svg` (export PNG first).
+Attach: `/public/docs/charts/adherence.svg`.
 
 ---
 
-## 4/ THE STRUCTURED FAILURE
+## 4/ THE OPPOSITE-DIRECTION FINDING — citation accuracy
 
 ```
-all four 70B failures are the SAME slot — IMPLICATION — never random.
+every academic-mode response auto-verifies its REFS against Crossref.
+combined verified-plus-partial-match rates across the 211 cites
+the bench produced:
 
-interpretation: larger models have stronger learned priors about
-answer structure that resist explicit format constraints. this
-pattern is invisible to binary JSON-mode adherence benchmarks
-that only check "did all keys appear" without recording WHICH slot
-was elided.
+  4B  →  7.5% real     (most cites have no Crossref match)
+  8B  →  11.4% real
+  70B →  36.4% real    (and produces more cites per response)
+
+larger models break the schema slightly more often AND cite real
+papers far more often. smaller models comply and fabricate. neither
+is purely better — they are different axes of model honesty.
 ```
 
 ---

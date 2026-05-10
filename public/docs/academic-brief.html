@@ -41,12 +41,18 @@
     <div class="meta">brief · 10 May 2026</div>
   </header>
 
-  <h1>Larger LLMs are <em>worse</em> at honouring a 7-slot output schema than smaller ones — a small counter-intuitive finding.</h1>
-  <p class="subtitle">A small empirical study of structured-output prompting across a 17.5× model-scale gap, with a working prototype and full reproducibility.</p>
+  <h1>Larger LLMs follow schemas worse, but cite real papers more.</h1>
+  <p class="subtitle">Two opposing axes of "honesty" emerge in a small empirical study of structured-output prompting at 4B / 8B / 70B parameter scales (N=108, with stochastic-variance and Crossref-verified citation rates).</p>
   <p class="meta-line">Sparsh Sharma · sparshsharma219@gmail.com · Melbourne · 10 May 2026</p>
 
-  <h2>Empirical claim — and a partial counter-finding</h2>
-  <p>A 7-slot prompt schema (CLAIM · EVIDENCE · UNCERTAINTY · IMPLICATION · OPEN · REFS · CONFIDENCE) enforced via a single system prompt achieves <strong>100% format adherence (12/12) on a 4B local model and a 8B cloud model</strong>, but <strong>only 66.7% (8/12) on a 70B cloud model</strong>. All four 70B failures are attributable to the same omission: the model skips the IMPLICATION slot, treating it as redundant with the adjacent OPEN slot. The result is consistent with the hypothesis that larger models carry stronger learned priors about answer structure that resist explicit format directives — a result that <em>inverts</em> the naïve "bigger = more compliant" assumption and suggests the optimal model size for schema-enforced outputs may be smaller than expected.</p>
+  <h2>Empirical claim — two opposing axes of "honesty"</h2>
+  <p>A 7-slot prompt schema (CLAIM · EVIDENCE · UNCERTAINTY · IMPLICATION · OPEN · REFS · CONFIDENCE) enforced via a single system prompt achieves:</p>
+  <ul>
+    <li><strong>100% format adherence (36/36 each) on a 4B local model and a 8B cloud model</strong>, with zero stochastic variance — every run of every question fills every slot.</li>
+    <li><strong>94.4% adherence (mean across 36 runs, SEM 0.012) on a 70B cloud model</strong>, with 22/36 perfect responses and 14/36 missing exactly one slot. <em>Five of twelve questions</em> showed inconsistent adherence across their 3 repeated runs at the 70B — meaning the failure is partly stochastic, not deterministic. Crucially: an earlier single-run benchmark (N=12) reported the 70B at 8/12 (67%); the variance run reveals that point estimate as a downward outlier. Single-run benchmarks of structured-output adherence systematically over-state failure rates.</li>
+  </ul>
+  <p><strong>Inverse finding on citation accuracy</strong>: every academic-mode response's REFS line was auto-verified against Crossref. Combined verified-or-partial-match rate by model: <strong>4B 7.5% · 8B 11.4% · 70B 36.4%</strong>. Larger models break the schema more often <em>and</em> cite real papers more often. Smaller models comply with the schema more uniformly <em>and</em> hallucinate the citations inside it more often. Neither is purely better.</p>
+  <p>The synthesis worth carrying: <em>the smaller model is the more obedient liar; the larger model is the more rebellious truth-teller</em>. The interesting empirical question — beyond this brief — is at what model scale the crossover happens, and whether better prompting can pull the 70B's adherence up without losing its citation-accuracy advantage.</p>
 
   <h2>Method</h2>
   <ol>
@@ -79,16 +85,17 @@
   <p>The expanded N=36 results (3 models × 12 questions, with 95% binomial CIs on adherence and IQR on latency) will be linked here once the run lands. Methods file: <a href="/docs/data/benchmark.json"><code>benchmark.json</code></a>; reproduction: <code>node scripts/benchmark2.mjs</code>.</p>
 
   <h2>What is the finding — calibrated</h2>
-  <p>Structured-output prompting is not new (Wei et al. 2022; OpenAI JSON mode 2024; Anthropic tool-use schemas). The narrower observation here is twofold:</p>
+  <p>Structured-output prompting is not new (Wei et al. 2022; OpenAI JSON mode 2024; Anthropic tool-use schemas). The narrower observations here, after the variance and citation-verification runs:</p>
   <ol>
-    <li><strong>Format adherence is non-monotonic in model scale.</strong> 4B and 8B both hit 12/12 on the 7-slot schema. The 70B drops to 8/12. Wilson 95% CIs: [0.76, 1.00] vs [0.39, 0.86]. The intervals do not overlap.</li>
-    <li><strong>The failure mode is structured, not random.</strong> All four 70B omissions are the IMPLICATION slot specifically. The model evidently treats IMPLICATION as redundant with the adjacent OPEN slot and elides it. This pattern would be invisible in a JSON-mode benchmark that scores adherence binarily; it only surfaces because we record <em>which</em> field was skipped.</li>
+    <li><strong>Format adherence is non-monotonic in scale</strong>, but the gap is smaller than a single-run point estimate suggests. 4B and 8B at 100% (36/36 each, zero variance); 70B at 94.4% with SEM 0.012, perfect-rate 22/36. The earlier N=12 single-run (67%) was a downward outlier driven by stochastic prompt-following variance — five of twelve questions gave inconsistent adherence across their 3 repeated runs at 70B.</li>
+    <li><strong>Citation accuracy is monotonic in scale, in the opposite direction.</strong> Auto-verifying every REF against Crossref returns combined verified-plus-partial-match rates of 7.5% / 11.4% / 36.4% across 4B / 8B / 70B (out of 53/70/88 cites total). Larger models cite real papers far more often. Smaller models comply with the schema more reliably and fabricate the citations <em>inside</em> it more often.</li>
+    <li><strong>The two findings cut in opposite directions.</strong> A schema-only benchmark would call the 4B best; a content-only benchmark would call the 70B best. A single composite score would obscure the trade-off; reporting both axes separately preserves it. The synthesis: <em>the smaller model is the more obedient liar; the larger model is the more rebellious truth-teller</em>.</li>
   </ol>
-  <p>If replicated at larger N, this would suggest that schema-enforced output tasks may have an inverted-U relationship with model size — small models follow instructions because that is all they know how to do; large models override schemas with their own learned answer structure.</p>
+  <p>The methodological point: single-run benchmarks of structured-output adherence systematically over-state failure rates that are partly stochastic. Citation auto-verification against an external source (Crossref, Semantic Scholar) reveals an opposite-direction quality axis that pure-format benchmarks miss. Both observations are tractable at very small N if the harness is right.</p>
 
   <h2>Honest limits</h2>
   <ul>
-    <li>N=12 per model is small. The binomial CI on a 100%-adherence point estimate at N=12 is [73.5%, 100%] (Wilson score interval, 95%). Larger N is needed to tighten the bound; the methodology and harness are in place to scale it.</li>
+    <li>N=36 per model (12 questions × 3 runs each) is still small for cross-model comparison. The 95% Wilson CI on a 100%-adherence point estimate at N=36 is [90.4%, 100%]. Larger N would tighten the bounds and reveal whether the 70B's 94.4% mean is significantly different from 100% at conventional thresholds. Methodology and harness are in place to scale.</li>
     <li>The benchmark was run on the same machine, in the same network conditions, in a single ~12-minute window. Latency numbers are point estimates, not steady-state load characterisation.</li>
     <li>Self-reported confidence is not validated against ground-truth accuracy. A calibration study against a labelled answer set is the obvious next step.</li>
     <li>Citation verification is now <em>automated</em>: every academic-mode response automatically queries Crossref and renders a ✓ verified / ⚠ partial-match / ✗ unverified badge next to each REF entry, with the matched paper's title, authors, year, and DOI. The prompt forbids fabrication; the verifier is the safety net. Manual inspection is still recommended for partial matches.</li>

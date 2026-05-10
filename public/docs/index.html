@@ -79,12 +79,12 @@
   <h2>What it is</h2>
   <p class="lede">A structured-output prompting framework wrapped in a small web UI. Every model response is forced into a fixed schema — either a 5-slot pluralistic schema (LITERAL · MYTHIC · FUZZY · SIGIL · TWEET) for general use, or a 7-slot academic schema (CLAIM · EVIDENCE · UNCERTAINTY · IMPLICATION · OPEN · REFS · CONFIDENCE) for technical use — plus a self-reported confidence in [0, 1]. Format adherence is verified at parse time; non-conformant outputs fall back to a "raw" panel rather than being rendered as answers. The same UI runs against a local 4B model (Ollama gemma3:4b) and Cloudflare's free-tier 8B and 70B Llama models, allowing a small N-per-model study of format adherence and confidence calibration across a 17.5× parameter-count gap.</p>
 
-  <h2>Numbers (N=36 expanded run, 10 May 2026)</h2>
+  <h2>Numbers (N=108 variance run, 10 May 2026)</h2>
   <div class="kpi-grid">
-    <div class="kpi"><div class="label">4B adherence</div><div class="value">12/12</div><div class="sub">100% · CI95 [0.76, 1.00]</div></div>
-    <div class="kpi"><div class="label">8B adherence</div><div class="value">12/12</div><div class="sub">100% · CI95 [0.76, 1.00]</div></div>
-    <div class="kpi"><div class="label">70B adherence</div><div class="value">8/12</div><div class="sub">67% · CI95 [0.39, 0.86]</div></div>
-    <div class="kpi"><div class="label">Failure mode</div><div class="value" style="font-size:18px;">IMPLICATION</div><div class="sub">all 4 omissions are the same slot</div></div>
+    <div class="kpi"><div class="label">4B adherence</div><div class="value">36/36</div><div class="sub">100% · SEM 0.000 · 12/12 questions consistent</div></div>
+    <div class="kpi"><div class="label">8B adherence</div><div class="value">36/36</div><div class="sub">100% · SEM 0.000 · 12/12 questions consistent</div></div>
+    <div class="kpi"><div class="label">70B adherence</div><div class="value">94.4%</div><div class="sub">SEM 0.012 · 22/36 perfect · 5/12 stochastic</div></div>
+    <div class="kpi"><div class="label">70B cite-verifiable</div><div class="value">36%</div><div class="sub">vs 8% (4B) and 11% (8B) · Crossref backend</div></div>
   </div>
 
   <h2>How to read this set</h2>
@@ -96,8 +96,13 @@
     <li>Re-run the benchmark yourself via <code>node scripts/benchmark2.mjs</code> — every claim traces back to <a href="/docs/data/benchmark.json"><code>benchmark.json</code></a>.</li>
   </ol>
 
-  <h2>What is the finding — calibrated</h2>
-  <p>Structured-output prompting is not new (Wei et al. 2022; OpenAI JSON-mode 2024; Anthropic tool-use schemas). The narrower observation here is <em>counter-intuitive</em>: format adherence on this 7-slot schema is <strong>non-monotonic</strong> in model scale. The smallest model (4B) and a mid-sized model (8B) both hit 12/12. The 70B drops to 8/12, with every failure attributable to omission of the same slot (IMPLICATION). This is consistent with the hypothesis that larger models carry stronger learned priors about answer structure that resist explicit format constraints. The prototype is open-source and the benchmark is one command to reproduce.</p>
+  <h2>What are the findings — calibrated, after the variance run</h2>
+  <p>Two findings, in opposite directions:</p>
+  <ol>
+    <li><strong>Format adherence is non-monotonic in model scale.</strong> 4B and 8B models hit 100% on the 7-slot academic schema across all 36 runs each (zero stochastic variance). The 70B drops to 94.4% with SEM 0.012 — and crucially, the failure is <em>partly stochastic</em>: 5 of 12 questions gave inconsistent adherence across the 3 repeated runs. The previous single-run claim (8/12 = 67%) overstated the gap.</li>
+    <li><strong>Citation accuracy is <em>monotonic</em> in model scale, in the opposite direction.</strong> When citations are auto-verified against Crossref, the 70B's combined verified+partial-match rate is 36% vs 11% (8B) vs 7.5% (4B). Smaller models follow the schema more reliably and fabricate the citations <em>inside</em> it more often. Larger models break the schema more and cite real papers more.</li>
+  </ol>
+  <p>Together: the smaller model is the more obedient liar, the larger model is the more rebellious truth-teller. Neither is purely better. The interesting question is whether you can get both — schema-perfect <em>and</em> cite-real — and at what model scale that crossover happens.</p>
 
   <div class="callout">
     <span class="label">New: live citation verification</span>
