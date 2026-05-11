@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#1a0e08">
+<title>AKASHA · Realm 2 · Eridu</title>
+<meta property="og:title" content="AKASHA · Realm 2 · Eridu">
+<meta property="og:description" content="Eridu, c. 5400 BCE. The ziggurat of Enki, god of fresh water and craft. Five Atrahasis tablets to find.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23faf9f5'/%3E%3Ctext x='32' y='44' font-size='38' text-anchor='middle' fill='%23d97757' font-family='serif'%3E%E2%9F%81%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../style.css">
+<style>
+  /* Eridu-specific overrides: cooler dusk palette */
+  #overlay {
+    background:
+      radial-gradient(ellipse at 50% 30%, rgba(106, 90, 60, 0.22), transparent 70%),
+      rgba(10, 8, 14, 0.94);
+  }
+  .brand { color: #c9986a !important; }
+  #start-btn { background: #6a9bcc; }
+  #start-btn:hover { background: #5587b8; }
+  #reticle.hot { color: #b8e0ff; text-shadow: 0 0 14px rgba(184, 224, 255, 0.6); }
+  #album { color: #b8e0ff; border-color: rgba(184, 224, 255, 0.2); }
+  #prompt-hint { border-color: rgba(184, 224, 255, 0.3); }
+  #prompt-hint .key { background: rgba(184, 224, 255, 0.18); color: #b8e0ff; }
+  #lore-panel h2 { color: #6a9bcc; }
+  #lore-panel button { background: #6a9bcc; }
+  #lore-panel button:hover { background: #5587b8; }
+  /* Enki dialogue panel */
+  #enki-panel {
+    display: none;
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 620px;
+    width: calc(100% - 32px);
+    padding: 32px 36px;
+    background: rgba(8, 6, 12, 0.94);
+    color: #faf9f5;
+    border: 1px solid rgba(184, 224, 255, 0.35);
+    border-radius: 8px;
+    z-index: 9;
+    box-shadow: 0 16px 60px rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+  }
+  #enki-panel .who {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    color: #b8e0ff;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  #enki-panel .sumerian {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: #c9986a;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeIn 1.6s ease forwards;
+  }
+  #enki-panel .english {
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #faf9f5;
+    margin-bottom: 14px;
+    opacity: 0;
+    animation: fadeIn 2.8s ease 0.8s forwards;
+  }
+  #enki-panel .source {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: #8a8980;
+    border-top: 1px solid rgba(184, 224, 255, 0.15);
+    padding-top: 12px;
+    margin-top: 14px;
+    opacity: 0;
+    animation: fadeIn 1.6s ease 1.8s forwards;
+  }
+  #enki-panel button {
+    background: transparent;
+    border: 1px solid #b8e0ff;
+    color: #b8e0ff;
+    padding: 8px 22px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 14px;
+    transition: background 0.15s, color 0.15s;
+  }
+  #enki-panel button:hover { background: #b8e0ff; color: #0a0810; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+<div id="overlay">
+  <div class="overlay-card">
+    <div class="brand">⟁ AKASHA · realm 2</div>
+    <h1>Eridu · c. 5400 BCE</h1>
+    <p class="lede">The first city in the Sumerian King List. The ziggurat of <em>Enki</em>, god of fresh water and craft. Five clay tablets bearing fragments of the <em>Atrahasis</em> — the Mesopotamian flood myth that predates Genesis by 1,500 years.</p>
+    <div class="controls-help">
+      <div><span class="key">W A S D</span> walk</div>
+      <div><span class="key">mouse</span> look</div>
+      <div><span class="key">E</span> read tablet / speak with Enki</div>
+      <div><span class="key">esc</span> release pointer</div>
+    </div>
+    <button id="start-btn">ENTER ERIDU</button>
+    <p class="phase-note">Phase 2 · <a href="../realms/">← realms</a> · <a href="../">⟁ Göbekli</a> · <a href="https://github.com/spalsh-spec/akasha-pantheon" target="_blank" rel="noopener">source</a></p>
+  </div>
+</div>
+
+<div id="touch-controls" class="hidden">
+  <div id="touch-stick"><div id="touch-knob"></div></div>
+  <button id="touch-photo">📷</button>
+</div>
+
+<div id="reticle">+</div>
+<div id="album">tablets: 0 / 5</div>
+<div id="prompt-hint" class="hidden">press <span class="key">E</span> to read</div>
+<div id="lore-panel"></div>
+<div id="enki-panel"></div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.162.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.162.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module" src="eridu.js"></script>
+</body>
+</html>

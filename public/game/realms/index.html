@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#05030a">
+<title>AKASHA · the Akashic Gate</title>
+<meta property="og:title" content="AKASHA · the Akashic Gate">
+<meta property="og:description" content="The hub of realms. Choose a civilization to walk.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23faf9f5'/%3E%3Ctext x='32' y='44' font-size='38' text-anchor='middle' fill='%23d97757' font-family='serif'%3E%E2%9F%81%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(217, 119, 87, 0.10), transparent 70%),
+    radial-gradient(ellipse at 50% 80%, rgba(106, 155, 204, 0.06), transparent 60%),
+    #05030a;
+  color: #faf9f5;
+  font-family: 'Lora', Georgia, serif;
+  min-height: 100vh;
+  padding: 48px 24px;
+  -webkit-font-smoothing: antialiased;
+}
+.gate {
+  max-width: 920px;
+  margin: 0 auto;
+}
+.brand-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.brand-line .glyph { font-size: 22px; color: #d97757; }
+.brand-line .brand {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: #d97757;
+  text-transform: uppercase;
+}
+h1 {
+  font-family: 'Lora', serif;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 1.1;
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+.lede {
+  font-size: 17px;
+  font-style: italic;
+  color: #b0aea5;
+  line-height: 1.6;
+  margin-bottom: 36px;
+  max-width: 620px;
+}
+.lede em { color: #f5c14a; font-style: normal; }
+.meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: #8a8980;
+  letter-spacing: 0.04em;
+  margin-bottom: 56px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.meta a { color: #d97757; text-decoration: none; }
+.meta a:hover { text-decoration: underline; }
+
+.realms {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+.realm {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 28px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  border: 1px solid rgba(245, 193, 74, 0.15);
+  background:
+    linear-gradient(180deg, rgba(20, 14, 8, 0.5), rgba(20, 14, 8, 0.2));
+  overflow: hidden;
+}
+.realm:hover {
+  transform: translateY(-3px);
+  border-color: rgba(245, 193, 74, 0.45);
+  box-shadow: 0 12px 40px rgba(245, 193, 74, 0.08);
+}
+.realm .num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: #f5c14a;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.realm h2 {
+  font-family: 'Lora', serif;
+  font-weight: 500;
+  font-size: 26px;
+  margin-bottom: 6px;
+  color: #faf9f5;
+  letter-spacing: -0.01em;
+}
+.realm .where {
+  font-size: 13px;
+  color: #b0aea5;
+  font-style: italic;
+  margin-bottom: 14px;
+}
+.realm p {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #d4d2c9;
+  margin-bottom: 18px;
+}
+.realm .play {
+  display: inline-block;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: #d97757;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgba(217, 119, 87, 0.25);
+}
+.realm.locked {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.realm.locked .play { color: #8a8980; }
+
+.footer-note {
+  font-size: 13px;
+  color: #8a8980;
+  text-align: center;
+  font-style: italic;
+  margin-top: 36px;
+  line-height: 1.6;
+}
+.footer-note a { color: #d97757; text-decoration: none; }
+.footer-note a:hover { text-decoration: underline; }
+
+@media (max-width: 560px) {
+  body { padding: 28px 16px; }
+  h1 { font-size: 32px; }
+  .lede { font-size: 15.5px; }
+  .realms { grid-template-columns: 1fr; gap: 16px; }
+  .realm { padding: 22px 22px 20px; }
+}
+</style>
+</head>
+<body>
+<div class="gate">
+  <div class="brand-line">
+    <span class="glyph">⟁</span>
+    <span class="brand">AKASHA · the world game</span>
+  </div>
+  <h1>The Akashic Gate</h1>
+  <p class="lede">Forty realms will exist here. Two are walkable today. Choose where to walk. <em>The order does not matter.</em></p>
+  <p class="meta">
+    <span>v0.2.0</span> <span>·</span>
+    <a href="../">← back to pantheon</a> <span>·</span>
+    <a href="https://github.com/spalsh-spec/companion-akasha-pantheon" target="_blank" rel="noopener">source</a>
+  </p>
+
+  <div class="realms">
+
+    <a href="../" class="realm">
+      <div class="num">Realm i</div>
+      <h2>Göbekli Tepe</h2>
+      <div class="where">Şanlıurfa, Turkey · c. 9600 BCE</div>
+      <p>The oldest temple humans built. Twelve T-pillars in a circle. Three carvings to photograph. The makers buried it themselves around 8000 BCE — we do not know why.</p>
+      <span class="play">⟁ ENTER →</span>
+    </a>
+
+    <a href="../eridu/" class="realm">
+      <div class="num">Realm ii</div>
+      <h2>Eridu</h2>
+      <div class="where">Southern Mesopotamia · c. 5400 BCE</div>
+      <p>The first city in the Sumerian King List. The ziggurat of Enki, god of fresh water and craft. Five Atrahasis flood-myth tablets to find — the version that predates Genesis by 1,500 years.</p>
+      <span class="play">⟁ ENTER →</span>
+    </a>
+
+    <a href="#" class="realm locked" aria-disabled="true">
+      <div class="num">Realm iii</div>
+      <h2>Mohenjo-daro</h2>
+      <div class="where">Indus Valley · c. 2600 BCE</div>
+      <p>Grid-planned city. No palaces visible. No clear kings. Possibly the most egalitarian ancient civilization ever recorded. The script remains undeciphered.</p>
+      <span class="play">⟁ COMING SOON</span>
+    </a>
+
+    <a href="#" class="realm locked" aria-disabled="true">
+      <div class="num">Realm iv</div>
+      <h2>Teotihuacan</h2>
+      <div class="where">Central Mexico · c. 100 BCE – 550 CE</div>
+      <p>The place where gods were born. Avenue of the Dead aligned 15.5° east of north. The Aztecs found it abandoned and named it for what it had been.</p>
+      <span class="play">⟁ COMING SOON</span>
+    </a>
+
+    <a href="#" class="realm locked" aria-disabled="true">
+      <div class="num">Realm v</div>
+      <h2>Yggdrasil</h2>
+      <div class="where">Norse cosmology · the world tree</div>
+      <p>The only realm that is explicitly mythological, not archaeological. Nine worlds threaded along trunk and root. The Norns will write you one prophecy.</p>
+      <span class="play">⟁ COMING SOON</span>
+    </a>
+
+  </div>
+
+  <p class="footer-note">
+    Every claim in every realm traces back to a real archaeological source. None of the realms judge the order you walk them.<br>
+    Built solo by <a href="https://github.com/spalsh-spec" target="_blank" rel="noopener">Sparsh Sharma</a> in Melbourne. MIT licensed.
+  </p>
+</div>
+</body>
+</html>
