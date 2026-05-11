@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1a3a5a">
+<title>VACIS-helper · paramedic scratchpad</title>
+<meta name="description" content="A scratchpad for paramedics: one set of vitals at start, one at end, free-text changes only when pertinent. Drug lookup. No patient identifiers stored.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23faf9f5'/%3E%3Ctext x='32' y='44' font-size='30' text-anchor='middle' fill='%23c4453d' font-family='Arial'%3E%2B%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600&family=Poppins:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="cross">+</span>
+    <span class="name">VACIS-helper</span>
+    <span class="badge">v0.1 · ALS metro</span>
+  </div>
+  <div class="actions">
+    <button class="scope-btn" id="scope-toggle" title="Toggle MICA scope">ALS</button>
+    <button class="clear-btn" id="clear-btn" title="Clear all (end of shift)">⟲ clear</button>
+    <button class="export-btn" id="export-btn">📋 copy</button>
+  </div>
+</header>
+
+<div class="banner">
+  <strong>Scratchpad only.</strong> Not a replacement for VACIS. No patient identifiers stored — <em>localStorage on this device, clears with one tap.</em>
+</div>
+
+<main class="app">
+
+  <!-- ===== PRESENTATION ===== -->
+  <section class="card">
+    <div class="card-head">
+      <h2>Presentation</h2>
+      <div class="template-row">
+        <span class="label">Template:</span>
+        <button class="tpl" data-tpl="chest">chest pain</button>
+        <button class="tpl" data-tpl="sob">SOB</button>
+        <button class="tpl" data-tpl="stroke">?stroke</button>
+        <button class="tpl" data-tpl="fall">fall</button>
+        <button class="tpl" data-tpl="seizure">seizure</button>
+        <button class="tpl" data-tpl="mh">mental health</button>
+      </div>
+    </div>
+    <input type="text" id="pc" placeholder="presenting complaint (e.g. central chest pain, 1hr, rad L arm)">
+    <div class="row two">
+      <input type="text" id="age" placeholder="age (no name / no DOB)" inputmode="numeric">
+      <select id="sex">
+        <option value="">sex</option>
+        <option>M</option>
+        <option>F</option>
+        <option>X</option>
+      </select>
+    </div>
+    <textarea id="hx" rows="3" placeholder="history of presenting complaint (SOCRATES / OPQRST)"></textarea>
+  </section>
+
+  <!-- ===== VITALS START ===== -->
+  <section class="card vss">
+    <div class="card-head">
+      <h2>VSS · scene <span class="time-stamp" id="vss-a-time">—</span></h2>
+      <button class="stamp-btn" data-stamp="a">stamp now</button>
+    </div>
+    <div class="vitals-grid" id="vss-a"></div>
+  </section>
+
+  <!-- ===== EVENT LOG ===== -->
+  <section class="card events">
+    <div class="card-head">
+      <h2>Pertinent changes / interventions</h2>
+      <button class="add-evt" id="add-evt">+ event</button>
+    </div>
+    <p class="hint">Empty = "no clinically significant change unless noted." Add a row only when something changes.</p>
+    <div class="event-list" id="event-list"></div>
+  </section>
+
+  <!-- ===== MEDICATIONS GIVEN ===== -->
+  <section class="card meds-given">
+    <div class="card-head">
+      <h2>Drugs administered</h2>
+      <button class="add-evt" id="add-given">+ drug</button>
+    </div>
+    <div class="given-list" id="given-list"></div>
+  </section>
+
+  <!-- ===== PATIENT'S HOME MEDS ===== -->
+  <section class="card home-meds">
+    <div class="card-head">
+      <h2>Patient's regular meds</h2>
+    </div>
+    <div class="med-search">
+      <input type="text" id="med-search" placeholder="search by brand or generic — e.g. lipitor, panadol, ventolin" autocomplete="off">
+      <div class="med-results" id="med-results"></div>
+    </div>
+    <div class="home-list" id="home-list"></div>
+  </section>
+
+  <!-- ===== VITALS END ===== -->
+  <section class="card vss">
+    <div class="card-head">
+      <h2>VSS · handoff <span class="time-stamp" id="vss-b-time">—</span></h2>
+      <div>
+        <button class="copy-prev" id="copy-prev" title="Copy scene VSS into handoff (then edit deltas)">↺ copy from scene</button>
+        <button class="stamp-btn" data-stamp="b">stamp now</button>
+      </div>
+    </div>
+    <div class="vitals-grid" id="vss-b"></div>
+  </section>
+
+  <!-- ===== NOTES ===== -->
+  <section class="card">
+    <div class="card-head">
+      <h2>Free-text notes</h2>
+    </div>
+    <textarea id="notes" rows="4" placeholder="anything else — relevant negatives, family witnessed, social, mech of injury, ECG findings, etc."></textarea>
+  </section>
+
+  <!-- ===== OUTPUT PREVIEW ===== -->
+  <section class="card output">
+    <div class="card-head">
+      <h2>Formatted output <span class="hint-inline">tap copy ↑ to grab it</span></h2>
+    </div>
+    <pre id="output">—</pre>
+  </section>
+
+</main>
+
+<footer class="page-footer">
+  <p>
+    <strong>+ VACIS-helper</strong> · v0.1 ·
+    <a href="../">⟁ akasha pantheon</a> ·
+    <a href="https://github.com/spalsh-spec/akasha-pantheon" target="_blank" rel="noopener">source</a>
+  </p>
+  <p class="disclaimer">
+    Tool is a personal scratchpad — <strong>not</strong> a clinical record system, <strong>not</strong> a replacement for VACIS, <strong>not</strong> a drug reference of last resort. Confirm all doses, contraindications, and indications against current AV CPGs at the point of care. Drug data v0.1 cross-referenced against TGA ARTG &amp; PBS, last reviewed <span id="meds-date"></span>. Clinical review pending before public distribution.
+  </p>
+</footer>
+
+<script src="meds.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
